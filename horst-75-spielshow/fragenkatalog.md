@@ -206,22 +206,39 @@ gern kleine Anspielungen auf Familiengeschichten sein – das gibt die besten La
 
 ### Fertige Horst-Frage: Die Konzertkarten-Legende 🎸
 
-**★ Horst wollte einst Konzertkarten für die Red Hot Chili Peppers bestellen.
-Karten für wen lagen am Ende im Briefkasten?**
+**★ Horst wollte einst für Simon und sich Konzertkarten für die Red Hot Chili
+Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?**
 - A) Red Hot Chili Pipers – die schottische Dudelsack-Rockband ✅
 - B) Red Not Chili Peppers – die offizielle Tribute-Band
 - C) Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland
 
 > Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete
-> eines Morgens stolz am Frühstückstisch, er habe Konzertkarten bestellt! Der Jubel
-> war groß … bis die Karten ankamen: Red Hot Chili **PIPERS** – Dudelsack statt
-> Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten
-> Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der
-> Gedanke, der zählt – und eine Familienlegende war geboren.
+> eines Morgens stolz am Frühstückstisch, er habe Konzertkarten für sie beide
+> bestellt! Der Jubel war groß … bis die Karten ankamen: Red Hot Chili **PIPERS** –
+> Dudelsack statt Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am
+> Rande: Die echten Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist
+> bekanntlich der Gedanke, der zählt – und eine Familienlegende war geboren.
 
 Fun Fact für die Moderation: Die Red Hot Chili Pipers gibt es wirklich – eine
 schottische „Bagrock“-Band, die mit Dudelsäcken Rocksongs covert. Der Fehlkauf
 war also immerhin ein Fehlkauf mit Qualität.
+
+### Fertige Horst-Frage: Der Camping-Urlaub in Italien 🏕️
+
+> ⚠️ Jahr und Ort sind noch Platzhalter – bitte ergänzen (auch in
+> `spielbrett.html`), ebenso die Auflösung im Erklärtext. Diese Frage hat als
+> einzige **vier** Antworten – dafür liegt im Kartensatz eine D-Karte bereit.
+
+**★ Sommer [AUSFÜLLEN: Jahr]: Camping-Urlaub in [AUSFÜLLEN: Ort], Italien – mit
+Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis
+zwischen Horst und Lena?**
+- A) Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren ✅
+- B) Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert
+- C) Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten
+- D) Bestens – Horst durfte sogar Lenas Musik im Auto aussuchen
+
+> [AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung im
+> Urlaub entwickelt hat und wie die beiden heute darüber lachen können.]
 
 ### Weitere Vorlagen zum Ausfüllen
 

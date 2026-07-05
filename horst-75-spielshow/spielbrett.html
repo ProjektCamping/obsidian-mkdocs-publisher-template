@@ -286,8 +286,9 @@
 <script>
 /* ============================================================================
    FRAGEN-DATEN – hier dürft ihr nach Herzenslust ändern!
-   Pro Frage: q = Fragetext, a = [Antwort1, Antwort2, Antwort3],
-   correct = Index der richtigen Antwort (0, 1 oder 2), info = Erklärung.
+   Pro Frage: q = Fragetext, a = [Antwort1, Antwort2, Antwort3] (3 oder 4
+   Antworten möglich), correct = Index der richtigen Antwort (0 = die erste),
+   info = Erklärung.
    Die Anzeige-Reihenfolge A/B/C wird automatisch gemischt.
    ==========================================================================*/
 const CATEGORIES = [
@@ -423,12 +424,19 @@ const CATEGORIES = [
             "[AUSFÜLLEN: lustig falsche Antwort]"],
         correct: 0,
         info: "[AUSFÜLLEN: Erklärung/Anekdote]" },
-      { q: "Horst wollte einst Konzertkarten für die Red Hot Chili Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?",
+      { q: "Horst wollte einst für Simon und sich Konzertkarten für die Red Hot Chili Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?",
         a: ["Red Hot Chili Pipers – die schottische Dudelsack-Rockband",
             "Red Not Chili Peppers – die offizielle Tribute-Band",
             "Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland"],
         correct: 0,
-        info: "Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete eines Morgens stolz am Frühstückstisch, er habe Konzertkarten bestellt! Der Jubel war groß … bis die Karten ankamen: Red Hot Chili PIPERS – Dudelsack statt Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der Gedanke, der zählt – und eine Familienlegende war geboren." }
+        info: "Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete eines Morgens stolz am Frühstückstisch, er habe Konzertkarten für sie beide bestellt! Der Jubel war groß … bis die Karten ankamen: Red Hot Chili PIPERS – Dudelsack statt Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der Gedanke, der zählt – und eine Familienlegende war geboren." },
+      { q: "Sommer [AUSFÜLLEN: Jahr]: Camping-Urlaub in [AUSFÜLLEN: Ort], Italien – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?",
+        a: ["Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren",
+            "Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert",
+            "Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten",
+            "Bestens – Horst durfte sogar Lenas Musik im Auto aussuchen"],
+        correct: 0,
+        info: "[AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung im Urlaub entwickelt hat und wie die beiden heute darüber lachen können.]" }
     ]
   }
 ];
@@ -496,14 +504,14 @@ function openQuestion(cat, tile) {
   document.getElementById("qcat").textContent = `${cat.emoji} ${cat.name}`;
   document.getElementById("qtext").textContent = q.q;
 
-  const order = shuffle([0, 1, 2]);
+  const order = shuffle(q.a.map((_, i) => i));
   const box = document.getElementById("answers");
   box.innerHTML = "";
   order.forEach((origIdx, pos) => {
     const el = document.createElement("button");
     el.className = "answer";
     el.dataset.correct = (origIdx === q.correct) ? "1" : "0";
-    el.innerHTML = `<span class="letter">${"ABC"[pos]}</span><span>${q.a[origIdx]}</span>`;
+    el.innerHTML = `<span class="letter">${"ABCD"[pos]}</span><span>${q.a[origIdx]}</span>`;
     el.onclick = () => { if (revealed) return; el.style.borderColor = "#ffd23f"; };
     box.appendChild(el);
   });
