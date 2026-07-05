@@ -1,0 +1,276 @@
+# Fragenkatalog – „Wer weiß denn sowas, Horst?"
+
+Alle Fragen im Stil der Sendung: eine kuriose Frage, drei Antworten (eine richtig ✅,
+zwei falsch, davon gern eine augenzwinkernd), plus eine kurze Erklärung zum Vorlesen.
+
+Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
+(`spielbrett.html`) hinterlegt. Die übrigen sind **Reservefragen**.
+
+---
+
+## Kategorie 1: Tierisch gut 🐾
+
+**★ Warum stehen Flamingos meist auf einem Bein?**
+- A) Weil sie so weniger Körperwärme verlieren ✅
+- B) Weil sie im Schlaf abwechselnd die Beine trainieren
+- C) Weil das zweite Bein als Köder für Fische dient
+
+> Flamingos stehen viel im kalten Wasser und verlieren über die dünnen Beine Wärme.
+> Ein Bein wird deshalb ins warme Gefieder gezogen – reine Energiesparmaßnahme.
+
+**★ Was passiert, wenn man eine Kuh von ihrer „besten Freundin" trennt?**
+- A) Ihr Herzschlag steigt messbar – sie ist gestresst ✅
+- B) Sie gibt aus Trotz mehr Milch
+- C) Nichts – Kühe erkennen einander gar nicht
+
+> Kühe schließen echte Freundschaften. Forscherinnen haben gemessen: Getrennt von der
+> Lieblingskuh steigen Herzfrequenz und Stresshormone deutlich an.
+
+**Reserve: Warum drehen sich Hunde oft im Kreis, bevor sie sich hinlegen?**
+- A) Ein Erbe der Wildnis: So trampelten ihre Vorfahren das Gras platt ✅
+- B) Sie prüfen, ob der Boden waagerecht ist
+- C) Sie wollen ihrem Schwanz eine letzte Chance geben
+
+> Verhaltensforscher sehen darin ein altes Instinktprogramm: Wildhunde traten sich so
+> eine Schlafmulde zurecht und verscheuchten dabei Ungeziefer.
+
+## Kategorie 2: Anno 1951 – Horsts Geburtsjahr 📅
+
+> ⚠️ Geht von Geburtsjahr **1951** aus – bitte prüfen und ggf. anpassen!
+
+**★ Wer war 1951, in Horsts Geburtsjahr, deutscher Bundeskanzler?**
+- A) Konrad Adenauer ✅
+- B) Ludwig Erhard
+- C) Willy Brandt
+
+> Adenauer regierte von 1949 bis 1963 – Horst und die Bundesrepublik sind also
+> quasi zusammen groß geworden.
+
+**★ Welches berühmte Festival feierte 1951 seine allererste Ausgabe?**
+- A) Die Berlinale ✅
+- B) Das Oktoberfest
+- C) Der Eurovision Song Contest
+
+> Die ersten Internationalen Filmfestspiele Berlin fanden im Juni 1951 statt –
+> eröffnet mit Hitchcocks „Rebecca". Ein guter Jahrgang für Premieren!
+
+**Reserve: Was kostete Anfang der 1950er-Jahre ein Brötchen beim Bäcker ungefähr?**
+- A) 4 bis 5 Pfennig ✅
+- B) 25 Pfennig
+- C) 1 Mark
+
+> Für eine Mark bekam man damals gut 20 Brötchen – dafür musste man sie aber auch
+> selbst zu Fuß holen.
+
+## Kategorie 3: Küche & Keller 🍳
+
+**★ Warum hat der Emmentaler Löcher?**
+- A) Winzige Heupartikel in der Milch lösen die Blasenbildung aus ✅
+- B) Die Löcher werden maschinell hineingestanzt – für die Optik
+- C) Käsemilben fressen sich durch den Laib
+
+> Schweizer Forscher haben 2015 das Rätsel gelöst: Mikroskopisch kleine Heustäubchen
+> in der Milch wirken als Keime, an denen sich bei der Reifung Kohlensäure-Bläschen
+> bilden. Je sauberer gemolken wird, desto weniger Löcher!
+
+**★ Warum weinen wir beim Zwiebelschneiden?**
+- A) Beim Schneiden entsteht ein schwefelhaltiges Reizgas ✅
+- B) Der Zwiebelsaft trocknet die Augen aus
+- C) Das ist reine Einbildung – Köche weinen nie
+
+> Beim Zerschneiden der Zellen reagieren Schwefelverbindungen zu einem Reizgas, das
+> in den Augen zu Schwefelsäure in Spuren wird. Die Tränen sind das Spülprogramm.
+
+**Reserve: Warum knallt der Sektkorken so laut?**
+- A) Der Druck in der Flasche entspricht etwa dem eines Lkw-Reifens ✅
+- B) Der Korken durchbricht die Schallmauer
+- C) In den Korken ist eine kleine Knallkapsel eingearbeitet
+
+> In der Sektflasche herrschen rund 5–6 bar – etwa das Dreifache eines Autoreifens.
+> Der Korken kann bis zu 40 km/h schnell werden. Also: nie auf die Gäste zielen!
+
+## Kategorie 4: Körper & Co. 🧠
+
+**★ Warum schrumpelt die Haut an den Fingern beim langen Baden?**
+- A) Das Nervensystem steuert das aktiv – für besseren Halt bei Nässe ✅
+- B) Die Haut saugt sich mit Wasser voll und wirft Falten
+- C) Das Badewasser wäscht das Unterhautfett heraus
+
+> Lange dachte man, die Haut quelle einfach auf. Tatsächlich verengt das Nervensystem
+> gezielt die Blutgefäße – die Rillen wirken wie Reifenprofil und verbessern den
+> Griff auf nassen Oberflächen.
+
+**★ Warum können wir uns nicht selbst kitzeln?**
+- A) Das Gehirn sagt die eigene Berührung voraus und blendet sie ab ✅
+- B) Die eigenen Finger sind schlicht zu langsam
+- C) Man kann es – die meisten trauen sich nur nicht
+
+> Das Kleinhirn weiß immer, was die eigenen Hände gerade vorhaben, und meldet:
+> „Keine Gefahr, ignorieren." Beim Kitzeln durch andere fehlt diese Vorwarnung.
+
+**Reserve: Werden Nase und Ohren im Alter wirklich größer?**
+- A) Sie wirken größer, weil das Knorpelgewebe erschlafft und sich dehnt ✅
+- B) Ja, sie wachsen bis zum letzten Tag munter weiter
+- C) Nein, das ist eine optische Täuschung durch das schrumpfende Gesicht
+
+> Knorpel wächst zwar kaum noch, verliert aber an Spannkraft und gibt der Schwerkraft
+> nach – Nase und Ohrläppchen ziehen sich mit den Jahren in die Länge.
+
+## Kategorie 5: Sport & Spiel ⚽
+
+**★ Warum sind Tennisbälle heute leuchtend gelb?**
+- A) Damit man sie im Farbfernsehen besser erkennen kann ✅
+- B) Gelber Filz ist in der Herstellung am billigsten
+- C) Gelb schreckt Vögel von den Plätzen ab
+
+> Bis in die 1970er waren Tennisbälle weiß. Mit dem Farbfernsehen führte man 1972
+> das grelle Gelb ein – auf dem Bildschirm einfach besser zu verfolgen.
+
+**★ Warum haben Golfbälle Dellen?**
+- A) Sie fliegen dadurch fast doppelt so weit ✅
+- B) Das sind Gebrauchsspuren von den Schlägern
+- C) Damit sie auf dem Grün nicht so leicht wegrollen
+
+> Die „Dimples" verwirbeln die Luft günstig und verringern den Luftwiderstand –
+> ein glatter Ball käme nicht einmal halb so weit.
+
+**Reserve: Warum trugen Fußball-Schiedsrichter jahrzehntelang nur Schwarz?**
+- A) Schwarz galt als Farbe neutraler Autorität – wie bei Richtern ✅
+- B) Damit man Rasenflecken nicht sieht
+- C) Weil die Trikothersteller Farbstoffe sparen wollten
+
+> Der Schiedsrichter sollte wie ein Richter wirken: neutral, seriös, unbestechlich.
+> Erst in den 1990ern wurde es bunt – auch damit sich Schiris von den Teams abheben.
+
+## Kategorie 6: Technik von damals 📻
+
+**★ Warum sind die Buchstaben auf der Tastatur so merkwürdig angeordnet (QWERTZ)?**
+- A) Damit sich die Typenhebel der Schreibmaschine nicht verhaken ✅
+- B) Die alphabetische Reihenfolge war patentrechtlich geschützt
+- C) Der Erfinder hat die Buchstaben blind gewürfelt
+
+> Bei den ersten Schreibmaschinen verklemmten sich häufig benachbarte Typenhebel.
+> Also legte man häufige Buchstabenpaare bewusst auseinander – und dabei ist es
+> bis heute geblieben, auch ohne Hebel.
+
+**★ Wozu diente früher das Testbild im Fernsehen?**
+- A) Techniker und Zuschauer konnten damit Bild und Antenne einstellen ✅
+- B) Es sollte Einbrecher glauben lassen, jemand sei zu Hause
+- C) Es war Kunst – das erste Bildschirmschoner-Programm
+
+> Mit den Kreisen, Linien und Graustufen ließen sich Schärfe, Geometrie und Kontrast
+> des Röhrenfernsehers justieren. Dazu lief meist ein 1000-Hertz-Pfeifton –
+> unvergessen für alle, die vor dem Sendeschluss eingeschlafen sind.
+
+**Reserve: Warum heißt es beim Telefon eigentlich „auflegen"?**
+- A) Weil der Hörer früher auf eine Gabel gelegt wurde, die die Leitung trennte ✅
+- B) Weil das Fräulein vom Amt die Kabel auflegen musste
+- C) Weil man früher eine Münze auflegen musste
+
+> Beim klassischen Telefon drückte der aufgelegte Hörer die Gabel herunter und
+> unterbrach so die Verbindung. Der Begriff hat alle Smartphones überlebt.
+
+## Kategorie 7: Redensarten 💬
+
+**★ Woher kommt der Ausdruck „blaumachen"?**
+- A) Vom Färberhandwerk: Beim Blaufärben hieß es warten statt arbeiten ✅
+- B) Von Beamten, die montags blau ins Büro kamen
+- C) Vom blauen Brief, den Schulschwänzer bekamen
+
+> Beim Färben mit Färberwaid mussten die Stoffe lange an der Luft oxidieren, um blau
+> zu werden. Während der Wartezeit gab es nichts zu tun – man „machte blau".
+
+**★ Woher kommt „einen Zahn zulegen"?**
+- A) Vom Kochkessel über dem Feuer, der an einer Zahnstange hing ✅
+- B) Vom ersten Gang im Automobil-Getriebe
+- C) Vom Pferdehandel: mehr Zähne, mehr Tempo
+
+> In alten Küchen hing der Kessel an einer gezahnten Stange über dem Feuer.
+> Ein Zahn tiefer = näher an der Flamme = es ging schneller voran.
+
+**Reserve: Warum ist jemand „auf dem Holzweg"?**
+- A) Holzwege führten nur zu Fällstellen im Wald – und dann nicht weiter ✅
+- B) Holzbrücken galten als unzuverlässig
+- C) Wer Holz stahl, wurde auf diesem Weg abgeführt
+
+> Ein Holzweg diente nur dem Abtransport gefällter Bäume und endete mitten im Wald.
+> Wer ihm folgte, um irgendwohin zu kommen, hatte sich gründlich vertan.
+
+---
+
+## Kategorie 8: Horst persönlich ⭐ – Vorlagen zum Ausfüllen
+
+So baut ihr gute persönliche Fragen im Show-Stil: **eine wahre Antwort, eine
+plausible falsche, eine lustig-überzogene falsche.** Die falschen Antworten dürfen
+gern kleine Anspielungen auf Familiengeschichten sein – das gibt die besten Lacher.
+
+**1. Was war Horsts erstes Auto?**
+- A) [RICHTIGE ANTWORT, z. B. „Ein VW Käfer in Ocker"]
+- B) [plausibel falsch, z. B. „Ein Opel Kadett"]
+- C) [lustig falsch, z. B. „Ein Trecker – Hauptsache es fuhr"]
+
+**2. Welchen Beruf wollte Horst als Kind unbedingt ergreifen?**
+- A) [RICHTIG]
+- B) [plausibel falsch]
+- C) [lustig falsch, z. B. „Quizshow-Kandidat"]
+
+**3. Wie/wo haben sich Horst und [Name der Mutter] kennengelernt?**
+- A) [RICHTIG]
+- B) [plausibel falsch]
+- C) [lustig falsch]
+
+**4. Was ist Horsts absolutes Leibgericht?**
+- A) [RICHTIG]
+- B) [plausibel falsch]
+- C) [lustig falsch, z. B. „Alles, solange er nicht selbst kochen muss"]
+
+**5. Was macht Horst jeden Morgen als Allererstes?**
+- A) [RICHTIG, z. B. „Zeitung holen, noch vor dem Kaffee"]
+- B) [plausibel falsch]
+- C) [lustig falsch]
+
+**6. Bei welchem Lied singt Horst IMMER mit – ob er will oder nicht?**
+- A) [RICHTIG]
+- B) [plausibel falsch]
+- C) [lustig falsch]
+
+**7. Was war Horsts legendärstes Missgeschick im Urlaub?**
+- A) [RICHTIG – die Familiengeschichte, die jeder kennt]
+- B) [plausibel falsch]
+- C) [lustig falsch]
+
+**8. Worüber kann sich Horst so richtig aufregen?**
+- A) [RICHTIG, z. B. „Falschparker / das Wetter / den Schiedsrichter"]
+- B) [plausibel falsch]
+- C) [lustig falsch]
+
+**9. Welche Antwort gibt Horst, wenn man ihn fragt, wie es ihm geht?**
+- A) [RICHTIG – sein Standardspruch]
+- B) [plausibel falsch]
+- C) [lustig falsch]
+
+**10. Schätzfrage als Zusatz: Wie viele Jahre sind Horst und [Name] schon zusammen/verheiratet?**
+- (ohne A/B/C – beide Teams schätzen, das nähere Team gewinnt)
+
+Weitere Ideen für Fragen, falls ihr tauschen wollt: Lieblingsverein und dessen
+größter Erfolg, das erste gemeinsame Urlaubsziel, Horsts Spitzname in der Jugend,
+sein längstes gepflegtes Kleidungsstück, was er heimlich am besten kann, wie viele
+Enkel-Geburtstage er auswendig weiß, sein meistgesagter Satz beim Fernsehen.
+
+---
+
+## Finale 🏆 – Schätzfrage mit Punkte-Einsatz
+
+Beide Teams setzen verdeckt einen Teil ihrer Punkte. Das Team, das näher an der
+richtigen Zahl liegt, gewinnt seinen Einsatz dazu; das andere verliert ihn.
+
+**★ Wie viele Tage alt ist Horst an seinem 75. Geburtstag?**
+
+> Antwort: ca. **27.394 Tage** (75 Jahre × 365,25). Den exakten Wert vorher mit
+> Horsts Geburtsdatum nachrechnen (Online-Tagesrechner) und in `spielbrett.html`
+> eintragen – Abweichung je nach Schaltjahren ±1 Tag.
+
+**Reserve-Finalfragen:**
+- Wie viele Folgen von „Wer weiß denn sowas?" wurden bis heute ausgestrahlt? (vorher nachschlagen)
+- Wie viele Kerzen stecken auf allen bisherigen Geburtstagskuchen von Horst zusammen? (1+2+…+75 = **2.850**)
+- Wie viele Kilometer ist der Geburtsort von Horst vom Festort entfernt – auf 100 m genau?
