@@ -226,8 +226,7 @@ war also immerhin ein Fehlkauf mit Qualität.
 ### Fertige Horst-Frage: Der Camping-Urlaub in Italien 🏕️
 
 > ⚠️ Jahr und Ort sind noch Platzhalter – bitte ergänzen (auch in
-> `spielbrett.html`), ebenso die Auflösung im Erklärtext. Diese Frage hat als
-> einzige **vier** Antworten – dafür liegt im Kartensatz eine D-Karte bereit.
+> `spielbrett.html`), ebenso die Auflösung im Erklärtext.
 
 **★ Sommer [AUSFÜLLEN: Jahr]: Camping-Urlaub in [AUSFÜLLEN: Ort], Italien – mit
 Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis
@@ -235,7 +234,6 @@ zwischen Horst und Lena?**
 - A) Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren ✅
 - B) Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert
 - C) Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten
-- D) Bestens – Horst durfte sogar Lenas Musik im Auto aussuchen
 
 > [AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung im
 > Urlaub entwickelt hat und wie die beiden heute darüber lachen können.]
