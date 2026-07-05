@@ -204,6 +204,27 @@ So baut ihr gute persönliche Fragen im Show-Stil: **eine wahre Antwort, eine
 plausible falsche, eine lustig-überzogene falsche.** Die falschen Antworten dürfen
 gern kleine Anspielungen auf Familiengeschichten sein – das gibt die besten Lacher.
 
+### Fertige Horst-Frage: Die Konzertkarten-Legende 🎸
+
+**★ Horst wollte einst Konzertkarten für die Red Hot Chili Peppers bestellen.
+Karten für wen lagen am Ende im Briefkasten?**
+- A) Red Hot Chili Pipers – die schottische Dudelsack-Rockband ✅
+- B) Red Not Chili Peppers – die offizielle Tribute-Band
+- C) Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland
+
+> Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete
+> eines Morgens stolz am Frühstückstisch, er habe Konzertkarten bestellt! Der Jubel
+> war groß … bis die Karten ankamen: Red Hot Chili **PIPERS** – Dudelsack statt
+> Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten
+> Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der
+> Gedanke, der zählt – und eine Familienlegende war geboren.
+
+Fun Fact für die Moderation: Die Red Hot Chili Pipers gibt es wirklich – eine
+schottische „Bagrock“-Band, die mit Dudelsäcken Rocksongs covert. Der Fehlkauf
+war also immerhin ein Fehlkauf mit Qualität.
+
+### Weitere Vorlagen zum Ausfüllen
+
 **1. Was war Horsts erstes Auto?**
 - A) [RICHTIGE ANTWORT, z. B. „Ein VW Käfer in Ocker"]
 - B) [plausibel falsch, z. B. „Ein Opel Kadett"]
