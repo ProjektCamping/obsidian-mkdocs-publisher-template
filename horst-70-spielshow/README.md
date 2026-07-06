@@ -1,4 +1,4 @@
-# 🎉 „Wer weiß denn sowas, Horst?" – Spielshow zum 75. Geburtstag
+# 🎉 „Wer weiß denn sowas, Horst?" – Spielshow zum 70. Geburtstag
 
 Komplettpaket für eine kurze „Wer weiß denn sowas?"-Show auf der Geburtstagsfeier.
 

@@ -34,27 +34,28 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Verhaltensforscher sehen darin ein altes Instinktprogramm: Wildhunde traten sich so
 > eine Schlafmulde zurecht und verscheuchten dabei Ungeziefer.
 
-## Kategorie 2: Anno 1951 – Horsts Geburtsjahr 📅
+## Kategorie 2: Anno 1956 – Horsts Geburtsjahr 📅
 
-> ⚠️ Geht von Geburtsjahr **1951** aus – bitte prüfen und ggf. anpassen!
+> ⚠️ Geht von Geburtsjahr **1956** aus – bitte prüfen und ggf. anpassen!
 
-**★ Wer war 1951, in Horsts Geburtsjahr, deutscher Bundeskanzler?**
+**★ Wer war 1956, in Horsts Geburtsjahr, deutscher Bundeskanzler?**
 - A) Konrad Adenauer ✅
 - B) Ludwig Erhard
 - C) Willy Brandt
 
-> Adenauer regierte von 1949 bis 1963 – Horst und die Bundesrepublik sind also
-> quasi zusammen groß geworden.
+> Adenauer regierte von 1949 bis 1963 – Horst ist also mitten in die
+> Wirtschaftswunderjahre hineingeboren.
 
-**★ Welches berühmte Festival feierte 1951 seine allererste Ausgabe?**
-- A) Die Berlinale ✅
-- B) Das Oktoberfest
-- C) Der Eurovision Song Contest
+**★ Welcher berühmte Wettbewerb feierte 1956 seine allererste Ausgabe?**
+- A) Der Eurovision Song Contest ✅
+- B) Die Berlinale
+- C) Das Oktoberfest
 
-> Die ersten Internationalen Filmfestspiele Berlin fanden im Juni 1951 statt –
-> eröffnet mit Hitchcocks „Rebecca". Ein guter Jahrgang für Premieren!
+> Der erste „Grand Prix Eurovision de la Chanson" fand im Mai 1956 im
+> schweizerischen Lugano statt – es gewann die Gastgeberin Lys Assia mit
+> „Refrain". Ein guter Jahrgang für Premieren!
 
-**Reserve: Was kostete Anfang der 1950er-Jahre ein Brötchen beim Bäcker ungefähr?**
+**Reserve: Was kostete Mitte der 1950er-Jahre ein Brötchen beim Bäcker ungefähr?**
 - A) 4 bis 5 Pfennig ✅
 - B) 25 Pfennig
 - C) 1 Mark
@@ -300,13 +301,13 @@ Enkel-Geburtstage er auswendig weiß, sein meistgesagter Satz beim Fernsehen.
 Beide Teams setzen verdeckt einen Teil ihrer Punkte. Das Team, das näher an der
 richtigen Zahl liegt, gewinnt seinen Einsatz dazu; das andere verliert ihn.
 
-**★ Wie viele Tage alt ist Horst an seinem 75. Geburtstag?**
+**★ Wie viele Tage alt ist Horst an seinem 70. Geburtstag?**
 
-> Antwort: ca. **27.394 Tage** (75 Jahre × 365,25). Den exakten Wert vorher mit
+> Antwort: ca. **25.568 Tage** (70 Jahre × 365,25). Den exakten Wert vorher mit
 > Horsts Geburtsdatum nachrechnen (Online-Tagesrechner) und in `spielbrett.html`
 > eintragen – Abweichung je nach Schaltjahren ±1 Tag.
 
 **Reserve-Finalfragen:**
 - Wie viele Folgen von „Wer weiß denn sowas?" wurden bis heute ausgestrahlt? (vorher nachschlagen)
-- Wie viele Kerzen stecken auf allen bisherigen Geburtstagskuchen von Horst zusammen? (1+2+…+75 = **2.850**)
+- Wie viele Kerzen stecken auf allen bisherigen Geburtstagskuchen von Horst zusammen? (1+2+…+70 = **2.485**)
 - Wie viele Kilometer ist der Geburtsort von Horst vom Festort entfernt – auf 100 m genau?

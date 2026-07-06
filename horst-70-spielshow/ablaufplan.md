@@ -1,6 +1,6 @@
 # „Wer weiß denn sowas, Horst?" – Ablaufplan & Checkliste
 
-Spielshow zum 75. Geburtstag von Horst, angelehnt an „Wer weiß denn sowas?" (ARD).
+Spielshow zum 70. Geburtstag von Horst, angelehnt an „Wer weiß denn sowas?" (ARD).
 Kurzformat für eine Geburtstagsfeier: **ca. 30–45 Minuten**.
 
 ---
@@ -57,8 +57,8 @@ stehen im `fragenkatalog.md`, falls die Stimmung nach mehr verlangt.
 ### Inhaltliche Vorbereitung
 - [ ] **Persönliche Horst-Fragen ausfüllen**: Im `fragenkatalog.md` (Abschnitt „Horst persönlich") stehen Vorlagen mit Lücken – mit Mama und ggf. Geschwistern ausfüllen, ohne dass Horst es mitbekommt
 - [ ] Die ausgefüllten Fragen in `spielbrett.html` eintragen (im Datei-Kopf ist markiert, wo – einfach mit einem Texteditor öffnen, die `[AUSFÜLLEN]`-Stellen ersetzen)
-- [ ] Geburtsjahr prüfen: Die Kategorie „Anno 1951" geht davon aus, dass Horst 1951 geboren ist – falls das Geburtsjahr abweicht, Fragen anpassen
-- [ ] Finale-Schätzfrage ausrechnen: „Wie viele Tage alt ist Horst an seinem 75. Geburtstag?" – exakt geht das z. B. mit einem Online-Tagesrechner (grob: 75 Jahre ≈ 27.394 Tage)
+- [ ] Geburtsjahr prüfen: Die Kategorie „Anno 1956" geht davon aus, dass Horst 1956 geboren ist – falls das Geburtsjahr abweicht, Fragen anpassen
+- [ ] Finale-Schätzfrage ausrechnen: „Wie viele Tage alt ist Horst an seinem 70. Geburtstag?" – exakt geht das z. B. mit einem Online-Tagesrechner (grob: 70 Jahre ≈ 25.568 Tage)
 - [ ] Moderator bestimmen und einmal alle Fragen + Erklärungen durchlesen
 
 ### Personen & Rollen
@@ -71,7 +71,7 @@ stehen im `fragenkatalog.md`, falls die Stimmung nach mehr verlangt.
 
 - Anmoderation z. B.: *„Meine Damen und Herren, herzlich willkommen zu einer
   Spezialausgabe von ‚Wer weiß denn sowas?' – heute live aus [Ort], mit unserem
-  Stargast, der seit 75 Jahren einfach alles weiß: HORST!"*
+  Stargast, der seit 70 Jahren einfach alles weiß: HORST!"*
 - Bei jeder Frage: erst die Frage vorlesen, dann alle drei Antworten, dann den Teams
   ~20 Sekunden zum Beraten geben („Karten hoch!"), dann auflösen und die Erklärung
   vorlesen.
