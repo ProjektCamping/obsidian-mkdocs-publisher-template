@@ -461,6 +461,7 @@ function addPts(team, d) {
 
 function buildGrid() {
   CATEGORIES.forEach(cat => {
+    shuffle(cat.questions);   // Fragen je Rubrik in zufälliger Reihenfolge
     cat.used = 0;
     const t = document.createElement("button");
     t.className = "tile";
