@@ -8,13 +8,16 @@
   ============================================================================
   WER WEISS DENN SOWAS, HORST? – interaktive Spieltafel
   ============================================================================
+  Spielmodus: ALLE Gäste spielen einzeln mit A/B/C-Karten. Horst spielt nicht
+  mit – er verkündet nach dem "Karten hoch!" die richtige Antwort.
+
   Bedienung:
     • Datei einfach im Browser öffnen (Doppelklick), F11 für Vollbild.
-    • Teamnamen anklicken, um sie zu ändern. Punkte über die +/− Knöpfe.
-    • Kategorie anklicken -> Frage erscheint -> Frage vorlesen ->
-      "Countdown starten" (10 Sekunden Bedenkzeit, groß im Bild, mit Piepton;
-      bei 0 heißt es "Karten hoch!") -> "Auflösen" zeigt die richtige
-      Antwort (grün) und die Erklärung -> "Zurück zur Tafel".
+    • Kategorie anklicken -> Frage und Antworten vorlesen ->
+      "Countdown starten": Jingle ertönt, 10 Sekunden laufen groß im Bild,
+      am Ende Fanfare und "KARTEN HOCH!" – alle Gäste halten gleichzeitig
+      ihre Karte hoch -> Horst verkündet seine Antwort -> "Auflösen" zeigt
+      die richtige Antwort (grün) und die Erklärung -> "Zurück zur Tafel".
     • Tastatur: [Leertaste] = Countdown, [Enter] = Auflösen,
       [Esc] = Countdown abbrechen bzw. zurück zur Tafel.
 
@@ -51,37 +54,6 @@
     font-size: clamp(14px, 1.6vw, 20px);
     color: #a8c3f0;
   }
-
-  /* Scoreboard */
-  .scoreboard {
-    display: flex; justify-content: center; gap: 4vw;
-    padding: 10px 16px 4px;
-    flex-wrap: wrap;
-  }
-  .team {
-    background: rgba(255,255,255,.08);
-    border: 2px solid rgba(255,255,255,.25);
-    border-radius: 16px;
-    padding: 10px 22px;
-    display: flex; align-items: center; gap: 16px;
-    min-width: 280px;
-    justify-content: space-between;
-  }
-  .team .tname {
-    font-size: clamp(16px, 2vw, 26px);
-    font-weight: 600;
-    border: none; background: transparent; color: #ffd23f;
-    text-align: left; width: 20ch;
-    font-family: inherit;
-  }
-  .team .tname:focus { outline: 2px dashed #ffd23f66; border-radius: 6px; }
-  .team .pts { font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; min-width: 2ch; text-align: center; }
-  .team button {
-    width: 40px; height: 40px; border-radius: 50%;
-    border: none; font-size: 22px; font-weight: 700; cursor: pointer;
-    background: #1d54b0; color: #fff;
-  }
-  .team button:hover { background: #2f6ad0; }
 
   main { flex: 1; display: flex; align-items: stretch; justify-content: center; padding: 14px 3vw 26px; }
 
@@ -217,8 +189,6 @@
   }
   @keyframes tick { 0% { transform: scale(1.25); opacity: .3; } 25% { opacity: 1; } 100% { transform: scale(1); } }
   @keyframes boom { 0% { transform: scale(.3); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
-  .btn-point { background: #1f8a3d; color: #fff; }
-  .btn-point:hover { background: #27a94c; }
   .btn-back { background: rgba(255,255,255,.15); color: #fff; }
   .btn-back:hover { background: rgba(255,255,255,.28); }
 
@@ -239,25 +209,6 @@
   <div class="subtitle">Die große Jubiläumsshow zum 70. Geburtstag 🎉</div>
 </header>
 
-<div class="scoreboard">
-  <div class="team">
-    <input class="tname" id="nameA" value="Team Horst" title="Klicken zum Umbenennen">
-    <span class="pts" id="ptsA">0</span>
-    <span>
-      <button onclick="addPts('A',-1)" title="Punkt abziehen">−</button>
-      <button onclick="addPts('A',1)" title="Punkt geben">+</button>
-    </span>
-  </div>
-  <div class="team">
-    <input class="tname" id="nameB" value="Team Herausforderer" title="Klicken zum Umbenennen">
-    <span class="pts" id="ptsB">0</span>
-    <span>
-      <button onclick="addPts('B',-1)" title="Punkt abziehen">−</button>
-      <button onclick="addPts('B',1)" title="Punkt geben">+</button>
-    </span>
-  </div>
-</div>
-
 <main>
   <div class="grid" id="grid"></div>
 
@@ -269,8 +220,6 @@
     <div class="qbuttons">
       <button class="btn-timer" id="btnTimer" onclick="startTimer()">⏱️&nbsp;Countdown starten</button>
       <button class="btn-reveal" id="btnReveal" onclick="reveal()">Auflösen&nbsp;✨</button>
-      <button class="btn-point" id="btnPtA" style="display:none" onclick="addPts('A',1)">+1 für <span id="lblA"></span></button>
-      <button class="btn-point" id="btnPtB" style="display:none" onclick="addPts('B',1)">+1 für <span id="lblB"></span></button>
       <button class="btn-back" onclick="backToGrid()">Zurück zur Tafel</button>
     </div>
   </div>
@@ -291,23 +240,6 @@
    Die Anzeige-Reihenfolge A/B/C wird automatisch gemischt.
    ==========================================================================*/
 const CATEGORIES = [
-  {
-    name: "Tierisch gut", emoji: "🐾",
-    questions: [
-      { q: "Warum stehen Flamingos meist auf einem Bein?",
-        a: ["Weil sie so weniger Körperwärme verlieren",
-            "Weil sie im Schlaf abwechselnd die Beine trainieren",
-            "Weil das zweite Bein als Köder für Fische dient"],
-        correct: 0,
-        info: "Flamingos stehen viel im kalten Wasser und verlieren über die dünnen Beine Wärme. Ein Bein wird deshalb ins warme Gefieder gezogen – reine Energiesparmaßnahme." },
-      { q: "Was passiert, wenn man eine Kuh von ihrer „besten Freundin“ trennt?",
-        a: ["Ihr Herzschlag steigt messbar – sie ist gestresst",
-            "Sie gibt aus Trotz mehr Milch",
-            "Nichts – Kühe erkennen einander gar nicht"],
-        correct: 0,
-        info: "Kühe schließen echte Freundschaften. Getrennt von der Lieblingskuh steigen Herzfrequenz und Stresshormone deutlich an." }
-    ]
-  },
   {
     name: "Anno 1956", emoji: "📅",
     questions: [
@@ -336,23 +268,6 @@ const CATEGORIES = [
             "Weil unten im Tal schlicht kein Platz mehr war"],
         correct: 0,
         info: "Der dunkle Schiefer heizt sich tagsüber auf und gibt die Wärme nachts an die Reben ab – und im Steilhang trifft die Sonne fast senkrecht auf. In dem eher kühlen Klima macht genau das den großen Saar-Riesling erst möglich. Schwer zu bewirtschaften, aber jede Flasche wert – eine Winzerfamilie weiß das." }
-    ]
-  },
-  {
-    name: "Körper & Co.", emoji: "🧠",
-    questions: [
-      { q: "Warum schrumpelt die Haut an den Fingern beim langen Baden?",
-        a: ["Das Nervensystem steuert das aktiv – für besseren Halt bei Nässe",
-            "Die Haut saugt sich mit Wasser voll und wirft Falten",
-            "Das Badewasser wäscht das Unterhautfett heraus"],
-        correct: 0,
-        info: "Das Nervensystem verengt gezielt die Blutgefäße – die Rillen wirken wie Reifenprofil und verbessern den Griff auf nassen Oberflächen." },
-      { q: "Warum können wir uns nicht selbst kitzeln?",
-        a: ["Das Gehirn sagt die eigene Berührung voraus und blendet sie ab",
-            "Die eigenen Finger sind schlicht zu langsam",
-            "Man kann es – die meisten trauen sich nur nicht"],
-        correct: 0,
-        info: "Das Kleinhirn weiß immer, was die eigenen Hände vorhaben, und meldet: „Keine Gefahr, ignorieren.“ Beim Kitzeln durch andere fehlt diese Vorwarnung." }
     ]
   },
   {
@@ -387,17 +302,6 @@ const CATEGORIES = [
             "Damit man sie beim Tanzen auf dem Finger drehen kann"],
         correct: 0,
         info: "Das große Loch führte RCA 1949 mit der 45er-Single ein: Jukeboxen und Plattenwechsler konnten die Platten damit schneller und zuverlässiger greifen. Für den Plattenspieler zu Hause brauchte man den berühmten Adapter-Puck." }
-    ]
-  },
-  {
-    name: "Redensarten", emoji: "💬",
-    questions: [
-      { q: "Woher kommt der Ausdruck „blaumachen“?",
-        a: ["Vom Färberhandwerk: Beim Blaufärben hieß es warten statt arbeiten",
-            "Von Beamten, die montags blau ins Büro kamen",
-            "Vom blauen Brief, den Schulschwänzer bekamen"],
-        correct: 0,
-        info: "Beim Färben mit Färberwaid mussten die Stoffe lange an der Luft oxidieren, um blau zu werden. Während der Wartezeit gab es nichts zu tun – man „machte blau“." }
     ]
   },
   {
@@ -444,20 +348,14 @@ const FINALE = {
   q: "Wie viele Tage alt ist Horst an seinem 70. Geburtstag?",
   /* [AUSFÜLLEN]: exakten Wert mit Horsts Geburtsdatum nachrechnen! */
   answer: "ca. 25.568 Tage (70 × 365,25 – exakt mit dem Geburtsdatum nachrechnen)",
-  info: "Beide Teams setzen vorher verdeckt Punkte. Das Team, das näher dran ist, bekommt seinen Einsatz dazu – das andere verliert ihn. Punkte oben per +/− anpassen."
+  info: "Alle Gäste schreiben ihre Schätzung auf einen Zettel (Name nicht vergessen!). Wer am nächsten dran ist, gewinnt den Finalpreis – und Horst erfährt, wie alt er wirklich ist."
 };
 
 /* ========================= Spiellogik ==================================== */
 const grid = document.getElementById("grid");
 const qview = document.getElementById("qview");
-const scores = { A: 0, B: 0 };
 let current = null;   // { cat, tile } oder { finale: true }
 let revealed = false;
-
-function addPts(team, d) {
-  scores[team] = Math.max(0, scores[team] + d);
-  document.getElementById("pts" + team).textContent = scores[team];
-}
 
 function buildGrid() {
   CATEGORIES.forEach(cat => {
@@ -473,7 +371,7 @@ function buildGrid() {
   });
   const f = document.createElement("button");
   f.className = "tile finale";
-  f.innerHTML = `<span class="emoji">${FINALE.emoji}</span>${FINALE.name}<span class="count">Schätzfrage mit Einsatz</span>`;
+  f.innerHTML = `<span class="emoji">${FINALE.emoji}</span>${FINALE.name}<span class="count">Schätzfrage für alle</span>`;
   f.onclick = () => openFinale(f);
   grid.appendChild(f);
 }
@@ -521,15 +419,13 @@ function openQuestion(cat, tile) {
 
   document.getElementById("btnTimer").style.display = "";
   document.getElementById("btnReveal").style.display = "";
-  document.getElementById("btnPtA").style.display = "none";
-  document.getElementById("btnPtB").style.display = "none";
   showQView(true);
 }
 
 function openFinale(tile) {
   current = { finale: true, tile };
   revealed = false;
-  document.getElementById("qcat").textContent = `${FINALE.emoji} FINALE – erst Punkte setzen, dann schätzen!`;
+  document.getElementById("qcat").textContent = `${FINALE.emoji} FINALE – die große Schätzfrage für alle!`;
   document.getElementById("qtext").textContent = FINALE.q;
   document.getElementById("answers").innerHTML = "";
   const ex = document.getElementById("explain");
@@ -537,8 +433,6 @@ function openFinale(tile) {
   ex.classList.add("show");
   document.getElementById("btnTimer").style.display = "";
   document.getElementById("btnReveal").style.display = "";
-  document.getElementById("btnPtA").style.display = "none";
-  document.getElementById("btnPtB").style.display = "none";
   showQView(true);
 }
 
@@ -560,10 +454,6 @@ function reveal() {
   }
   document.getElementById("btnTimer").style.display = "none";
   document.getElementById("btnReveal").style.display = "none";
-  document.getElementById("lblA").textContent = document.getElementById("nameA").value;
-  document.getElementById("lblB").textContent = document.getElementById("nameB").value;
-  document.getElementById("btnPtA").style.display = "";
-  document.getElementById("btnPtB").style.display = "";
 }
 
 function backToGrid() {
@@ -585,41 +475,73 @@ const timerSub = document.getElementById("timerSub");
 let timerId = null;
 let audioCtx = null;
 
-function beep(freq, dur) {
-  try {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start();
-    osc.stop(audioCtx.currentTime + dur);
-  } catch (e) { /* kein Ton möglich – Countdown läuft trotzdem */ }
+function ensureAudio() {
+  try { audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); }
+  catch (e) { /* kein Ton möglich – Countdown läuft trotzdem */ }
+  return audioCtx;
 }
+
+/* Ein einzelner Ton: Frequenz (Hz), Startverzögerung (s), Dauer (s) */
+function tone(freq, delay, dur, type, vol) {
+  if (!ensureAudio()) return;
+  const t0 = audioCtx.currentTime + delay;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type || "triangle";
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, t0);
+  gain.gain.exponentialRampToValueAtTime(vol || 0.25, t0 + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t0);
+  osc.stop(t0 + dur + 0.05);
+}
+
+/* Show-Jingle zum Countdown-Start: aufsteigende Quizshow-Fanfare */
+function playJingle() {
+  [392.0, 523.25, 659.25].forEach((f, i) => tone(f, i * 0.13, 0.22, "square", 0.16));
+  tone(783.99, 0.39, 0.5, "square", 0.18);
+  tone(1567.98, 0.39, 0.5, "triangle", 0.07);
+}
+
+/* Schlussfanfare bei "KARTEN HOCH!": Dreiklang mit großem Finale */
+function playFanfare() {
+  [523.25, 659.25, 783.99].forEach((f, i) => {
+    tone(f, i * 0.16, 0.28, "square", 0.18);
+    tone(f * 2, i * 0.16, 0.28, "triangle", 0.07);
+  });
+  tone(1046.5, 0.48, 1.1, "square", 0.2);
+  tone(1318.51, 0.48, 1.1, "square", 0.1);
+  tone(2093.0, 0.48, 1.1, "triangle", 0.08);
+}
+
+const JINGLE_MS = 900;   // Vorlauf, bis nach dem Jingle das Ticken beginnt
 
 function startTimer() {
   if (!current || revealed || timerId) return;
   let t = COUNTDOWN_SECONDS;
   overlay.classList.add("show");
-  timerSub.textContent = "Antworten überlegen …";
+  timerSub.textContent = "Alle überlegen … gleich heißt es: Karten hoch!";
+  timerNum.textContent = t;
+  timerNum.className = "timer-num";
+  playJingle();
   const show = () => {
     timerNum.textContent = t;
     timerNum.className = "timer-num" + (t <= 3 ? " hurry" : "");
-    beep(t <= 3 ? 880 : 660, 0.12);
+    tone(t <= 3 ? 880 : 660, 0, 0.12, "triangle", 0.22);
   };
-  show();
-  timerId = setInterval(() => {
-    t--;
-    if (t > 0) { show(); return; }
-    clearInterval(timerId);
-    timerNum.textContent = "⏰ ZEIT VORBEI!";
-    timerNum.className = "timer-num timeup";
-    timerSub.textContent = "Karten hoch! (Klick zum Schließen)";
-    beep(1200, 0.6);
-    timerId = setTimeout(() => stopTimer(), 3000);
-  }, 1000);
+  timerId = setTimeout(() => {
+    timerId = setInterval(() => {
+      t--;
+      if (t > 0) { show(); return; }
+      clearInterval(timerId);
+      timerNum.textContent = "🙌 KARTEN HOCH!";
+      timerNum.className = "timer-num timeup";
+      timerSub.textContent = "Und Horst verkündet jetzt die richtige Antwort … (Klick zum Schließen)";
+      playFanfare();
+      timerId = setTimeout(() => stopTimer(), 4000);
+    }, 1000);
+  }, JINGLE_MS);
 }
 
 function stopTimer() {

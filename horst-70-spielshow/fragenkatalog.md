@@ -6,6 +6,12 @@ zwei falsch, davon gern eine augenzwinkernd), plus eine kurze Erklärung zum Vor
 Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 (`spielbrett.html`) hinterlegt. Die übrigen sind **Reservefragen**.
 
+> **Neues Spielprinzip:** Auf der Spieltafel sind nur noch die Horst-bezogenen
+> Kategorien aktiv – **Anno 1956, Wein & Keller, Sport & Spiel,
+> Garage & Plattenkiste und Horst persönlich**. Die Kategorien Tierisch gut,
+> Körper & Co. und Redensarten bleiben hier komplett als Reserve erhalten
+> (ihre ★-Markierungen gelten nicht mehr).
+
 ---
 
 ## Kategorie 1: Tierisch gut 🐾
