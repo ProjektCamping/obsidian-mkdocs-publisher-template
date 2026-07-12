@@ -117,9 +117,29 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Knorpel wächst zwar kaum noch, verliert aber an Spannkraft und gibt der Schwerkraft
 > nach – Nase und Ohrläppchen ziehen sich mit den Jahren in die Länge.
 
-## Kategorie 5: Sport & Spiel ⚽
+## Kategorie 5: Sport & Spiel 🏓
 
-**★ Warum sind Tennisbälle heute leuchtend gelb?**
+> Auf Horst zugeschnitten: Tischtennis hat er gespielt, Mountainbike ist er gefahren.
+
+**★ Warum muss ein Tischtennisschläger zwei verschiedenfarbige Seiten haben?**
+- A) Damit der Gegner erkennt, mit welchem Belag gerade gespielt wird ✅
+- B) Damit der Schiedsrichter Vorhand und Rückhand unterscheiden kann
+- C) Reine Tradition – es sind die Farben des chinesischen Verbands
+
+> Trickspieler nutzten früher beidseitig gleichfarbige Schläger mit völlig
+> unterschiedlichen Belägen – der Gegner sah nie, ob Spin kam oder nicht.
+> Seit 1983 schreibt der Weltverband deshalb zwei Farben vor.
+
+**★ Wie ist das Mountainbike entstanden?**
+- A) In Kalifornien – eine Clique raste mit alten Schrotträdern Schotterpisten hinunter ✅
+- B) Die Schweizer Armee ließ es für ihre Gebirgstruppen entwickeln
+- C) Als Wintertrainingsgerät für Tour-de-France-Profis
+
+> In den 1970ern jagte eine Clique in Marin County bei San Francisco mit umgebauten
+> alten Ballonreifen-Rädern („Klunkern") einen Feuerwehrweg hinab. Ihr Rennen hieß
+> „Repack" – weil die Bremsnaben nach jeder Abfahrt neu gefettet werden mussten.
+
+**Reserve: Warum sind Tennisbälle heute leuchtend gelb?**
 - A) Damit man sie im Farbfernsehen besser erkennen kann ✅
 - B) Gelber Filz ist in der Herstellung am billigsten
 - C) Gelb schreckt Vögel von den Plätzen ab
@@ -127,7 +147,7 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Bis in die 1970er waren Tennisbälle weiß. Mit dem Farbfernsehen führte man 1972
 > das grelle Gelb ein – auf dem Bildschirm einfach besser zu verfolgen.
 
-**★ Warum haben Golfbälle Dellen?**
+**Reserve: Warum haben Golfbälle Dellen?**
 - A) Sie fliegen dadurch fast doppelt so weit ✅
 - B) Das sind Gebrauchsspuren von den Schlägern
 - C) Damit sie auf dem Grün nicht so leicht wegrollen
@@ -143,9 +163,30 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Der Schiedsrichter sollte wie ein Richter wirken: neutral, seriös, unbestechlich.
 > Erst in den 1990ern wurde es bunt – auch damit sich Schiris von den Teams abheben.
 
-## Kategorie 6: Technik von damals 📻
+## Kategorie 6: Garage & Plattenkiste 🚗
 
-**★ Warum sind die Buchstaben auf der Tastatur so merkwürdig angeordnet (QWERTZ)?**
+> Auf Horst zugeschnitten: sein Elfer und die Schallplattensammlung.
+> (Hieß vorher „Technik von damals" – die alten Fragen stehen unten als Reserve.)
+
+**★ Warum heißt der Porsche 911 eigentlich 911?**
+- A) Peugeot hatte sich Nummern mit der Null in der Mitte gesichert – aus 901 wurde 911 ✅
+- B) Nach dem amerikanischen Notruf – so schnell ist er nämlich da
+- C) Nach dem Geburtstag von Ferry Porsche, dem 9.11.
+
+> Der Elfer kam 1963 als „Porsche 901" zur Automobilmesse. Doch Peugeot hatte sich
+> dreistellige Zahlen mit einer Null in der Mitte schützen lassen – also machte
+> Porsche kurzerhand aus der 0 eine 1. Der Rest ist Sportwagengeschichte.
+
+**★ Warum haben Single-Schallplatten so ein großes Loch in der Mitte?**
+- A) Für die Wechselmechanik von Musikboxen ✅
+- B) Zur Materialersparnis in der Nachkriegszeit
+- C) Damit man sie beim Tanzen auf dem Finger drehen kann
+
+> Das große Loch führte RCA 1949 mit der 45er-Single ein: Jukeboxen und
+> Plattenwechsler konnten die Platten damit schneller und zuverlässiger greifen.
+> Für den Plattenspieler zu Hause brauchte man den berühmten Adapter-Puck.
+
+**Reserve: Warum sind die Buchstaben auf der Tastatur so merkwürdig angeordnet (QWERTZ)?**
 - A) Damit sich die Typenhebel der Schreibmaschine nicht verhaken ✅
 - B) Die alphabetische Reihenfolge war patentrechtlich geschützt
 - C) Der Erfinder hat die Buchstaben blind gewürfelt
@@ -154,7 +195,7 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Also legte man häufige Buchstabenpaare bewusst auseinander – und dabei ist es
 > bis heute geblieben, auch ohne Hebel.
 
-**★ Wozu diente früher das Testbild im Fernsehen?**
+**Reserve: Wozu diente früher das Testbild im Fernsehen?**
 - A) Techniker und Zuschauer konnten damit Bild und Antenne einstellen ✅
 - B) Es sollte Einbrecher glauben lassen, jemand sei zu Hause
 - C) Es war Kunst – das erste Bildschirmschoner-Programm
@@ -173,6 +214,9 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 
 ## Kategorie 7: Redensarten 💬
 
+> Auf der Spieltafel ist nur noch „blaumachen" aktiv – die übrigen bleiben hier
+> als Reserve, falls ihr die Kategorie doch voller spielen wollt.
+
 **★ Woher kommt der Ausdruck „blaumachen"?**
 - A) Vom Färberhandwerk: Beim Blaufärben hieß es warten statt arbeiten ✅
 - B) Von Beamten, die montags blau ins Büro kamen
@@ -181,7 +225,7 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Beim Färben mit Färberwaid mussten die Stoffe lange an der Luft oxidieren, um blau
 > zu werden. Während der Wartezeit gab es nichts zu tun – man „machte blau".
 
-**★ Woher kommt „einen Zahn zulegen"?**
+**Reserve: Woher kommt „einen Zahn zulegen"?**
 - A) Vom Kochkessel über dem Feuer, der an einer Zahnstange hing ✅
 - B) Vom ersten Gang im Automobil-Getriebe
 - C) Vom Pferdehandel: mehr Zähne, mehr Tempo
@@ -238,6 +282,26 @@ zwischen Horst und Lena?**
 
 > [AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung im
 > Urlaub entwickelt hat und wie die beiden heute darüber lachen können.]
+
+### Fertige Horst-Frage: Die Rhabarber-Falle 🥧
+
+> Der Witz: Die botanisch korrekte Antwort ist hier ausdrücklich FALSCH – es
+> zählt nur Horsts Version. (Genaue Horst-Aussprache bitte prüfen und ggf.
+> anpassen, auch in `spielbrett.html`.)
+
+**★ Achtung, Fangfrage: Wie heißt das saure Stangengemüse, aus dem man im
+Frühling Kompott und Kuchen macht?**
+- A) Rhabarberer ✅ (jedenfalls bei Horst)
+- B) Rhabarber
+- C) Rhabarbara
+
+> Der Duden besteht ja hartnäckig auf „Rhabarber" – aber der Duden war auch noch
+> nie bei Horst zum Kaffee. In diesem Haus hieß das Zeug noch nie anders als
+> „Rhabarberer", und deshalb ist das hier die einzig gültige Antwort. Wer
+> „Rhabarber" gewählt hat: botanisch korrekt, null Punkte.
+
+Moderations-Tipp: Erst ganz seriös als Allgemeinwissensfrage ankündigen – der
+Lacher kommt beim Auflösen, wenn ausgerechnet die „richtige" Antwort verliert.
 
 ### Weitere Vorlagen zum Ausfüllen
 
