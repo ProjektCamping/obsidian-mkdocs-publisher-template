@@ -1,19 +1,18 @@
-# Besprechungsnotizen Familie – „Beitrag Horstshow"
+# Besprechungsnotizen Familie – „Beitrag Horschti"
 
 Zusammenfassung der handschriftlichen Notizen vom Familientreffen (Simon, Mama,
-Lena). Unleserliche bzw. unsichere Stellen sind mit **[?]** markiert – bitte
-korrigieren/ergänzen.
+Lena). Wenige noch unklare Stellen sind mit **[?]** markiert.
 
 ---
 
 ## Eckpunkte des Spiels
 
-- **ca. 7 Fragen** (deutlich reduziert)
+- **7 Fragen** (plus die Beiträge von Daniel und den Nachbarn → insgesamt 9)
 - **Alle Gäste** bekommen **A/B/C-Zettel** *(besorgt Simon)*
-- **Horst löst jede Frage auf** – er kommt nach vorne und gibt die Antworten
+- **Horst löst die Fragen auf** – er kommt nach vorne und gibt die Antworten
 - **Letzte Frage = Spezialfrage ohne A/B/C**, die nur Horst gestellt bekommt –
-  als Überleitung zur **Geschenkübergabe** [?]
-- Rahmen: das Freitagabend-Programm („Wer weiß denn sowas?") als Spezialversion
+  als Überleitung **zur Geschenkübergabe**
+- Rahmen: das **Freitagabend-Programm als Spezialversion**
 - **Jingle** → macht Simon (Abspielen über **Bluetooth-Box**)
 
 ## Fragenliste (Stand der Besprechung)
@@ -21,57 +20,62 @@ korrigieren/ergänzen.
 1. **Welche Farbe hatte der erste Porsche von Horst?**
    - A) Rot
    - B) Weiß
-   - C) [? – unleserlich, bitte ergänzen]
+   - C) Gelb
+   - *(richtige Antwort bitte noch markieren!)*
 
 2. **RHCP-Frage** – die Red-Hot-Chili-Pipers-Geschichte
    *(fertig ausformuliert auf der Spieltafel)*
 
-3. **Ge…-Frage [?]** – unleserlich: „Gerichte-Frage" (Leibgericht)?
-   „Getränke-Frage"? Bitte klären.
+3. **Ge…-Frage [?]** – Gemüse-Frage? Gewürze-Frage? Bitte klären, was hier
+   gemeint war.
 
 4. **Was isst Horst am liebsten auf seinem Frühstücksbrötchen?**
    - A) Nutella
-   - B) Quark & Marmelade [?]
+   - B) Quark & Marmelade
    - C) Leberwurstbrot
+   - *(richtige Antwort bitte noch markieren!)*
 
 5. **Rhabarber-Frage** – die Rhabarberer-Falle
    *(fertig ausformuliert auf der Spieltafel)*
 
-6. **Wie hat sich Horst bei … verhalten? [?]** – unleserlich; Optionen gelesen als:
-   - A) Sch… [? Scheitel/Schirmmütze?]
-   - B) Handy [?]
-   - C) Sonnenbrille [?]
+6. **Was hat Horst bei seiner Fahrrad-Alpenüberquerung verloren?**
+   - A) Schlüssel
+   - B) Handy
+   - C) Sonnenbrille
+   - *(richtige Antwort bitte noch markieren!)*
 
-7. **Bei was hat Horst … fürs Leben ver…? [?]** – unleserlich; Optionen gelesen als:
-   - A) Schul… [?]
-   - B) Zimmer… [?]
-   - C) Führerschein [?]
+7. **Bei was hätte Horst fast sein Leben verloren?**
+   - A) Schlittenfahren
+   - B) Trampolinspringen
+   - C) Fahrradfahren
+   - *(richtige Antwort bitte noch markieren!)*
 
-8. **Frage von Daniel** – „Welchen Spaß/Spruch hat D. gemacht!" [?]
-   *(Inhalt liefert Daniel)*
+8. **Frage von Daniel:** „Welchen Sport hat D. gemacht?!"
+   *(Antwortoptionen liefert Daniel)*
 
-9. **Frage Nachbarn** – *(Inhalt liefern die Nachbarn)*
+9. **Frage der Nachbarn** – *(Inhalt liefern die Nachbarn)*
 
 ## Ablauf (laut Notizzettel)
 
 1. **Simon erklärt das Spiel**
 2. **Horst kommt nach vorne** und gibt die Antworten
 3. **Fragen werden vorgelesen**
-4. Bei jeder **richtig beantworteten Frage gibt es einen Chip**
+4. Bei jeder **richtig beantworteten Frage wird ein Chip genommen**
 5. Wer am Ende die **meisten Chips** hat, bekommt einen **Gutschein**
-6. **Abschlussfrage, die nur Horst gestellt bekommt**
+6. **Abschlussfrage, die nur Horst gestellt bekommt** (ohne A/B/C →
+   Überleitung zur Geschenkübergabe)
 
 ## Aufgabenverteilung
 
 ### Mama
 - [ ] **Chipbox** besorgen
-- [ ] **Briefumschläge 5×** – Einladung zum Kaffee [?]
-      („Du lädst Horst zum Kaffee ein …" [?])
-- [ ] Zeitplan klären: **Wie lange dauert das Essen?** [?]
+- [ ] **Zuschauerpreis: 5× „Einladung zum Kaffee"**
+      (Gutschein-Karten: „Du lädst Horst zum Kaffee ein …")
+- [ ] **Zeitplan [?]: Wie lange dauert das Essen?** klären
 
 ### Simon
-- [ ] **Chips** (die Zähl-Chips) [?]
-- [ ] **A/B/C-Zettel für alle Besucher** (drucken: `abc-karten.html`)
+- [ ] **Chips** (H) [? – Bedeutung des eingekreisten H klären]
+- [ ] **A/B/C-Zettel für alle Zuschauer** (drucken: `abc-karten.html`)
 - [ ] **Einführungsmoderation** vorbereiten
 - [ ] **Jingle** → über die **Bluetooth-Box** abspielen
 
@@ -82,20 +86,19 @@ korrigieren/ergänzen.
 
 ## Abgleich mit dem bisherigen Material – offene Punkte
 
-- **Fragenanzahl:** Ihr wollt ~7 Fragen – die Tafel hat aktuell 13 (plus
-  Finale). Sagt mir, welche Kategorien/Fragen fliegen sollen, dann baue ich
-  die Tafel entsprechend um. Die neue Liste oben ist ja fast komplett
-  „Horst persönlich" – vermutlich ersetzt sie die Themen-Kategorien?
-- **Neue Fragen eintragen:** Porsche-Farbe (Nr. 1), Frühstücksbrötchen (Nr. 4)
-  sowie Nr. 3, 6, 7 kann ich in die Tafel einbauen, sobald die richtigen
-  Antworten und die unleserlichen Stellen geklärt sind. Für Nr. 1 und 4 bitte
-  auch die **jeweils richtige Antwort** markieren!
-- **Fragen von Daniel und den Nachbarn** (Nr. 8, 9) nachreichen.
-- **Abschluss-Spezialfrage nur an Horst:** ersetzt die die bisherige
-  Schätzfrage („Wie viele Tage alt…") oder kommt sie zusätzlich? Und wie
-  lautet sie?
+- **Fragenanzahl:** Die neue Liste (9 Fragen, fast alles „Horst persönlich")
+  ersetzt vermutlich die Themen-Kategorien auf der Tafel. Sobald bestätigt,
+  baue ich die Tafel auf genau diese Liste um.
+- **Richtige Antworten fehlen noch** bei Frage 1 (Porsche-Farbe), 4
+  (Frühstücksbrötchen), 6 (Alpenüberquerung) und 7 (fast das Leben verloren).
+- **Frage 3** entziffern (Gemüse? Gewürze?) und ausformulieren.
+- **Fragen von Daniel (Nr. 8) und den Nachbarn (Nr. 9)** samt Antwortoptionen
+  nachreichen.
+- **Abschluss-Spezialfrage an Horst:** Wie lautet sie? (Sie ersetzt die
+  bisherige Tage-Schätzfrage auf der Tafel – oder soll die Schätzfrage
+  zusätzlich bleiben?)
 - **Jingle über Bluetooth-Box:** Der Countdown-Jingle steckt in der Spieltafel
-  und kommt aus dem Laptop – einfach den Laptop mit der Bluetooth-Box koppeln,
-  dann läuft beides über eine Anlage. Ein separates Jingle-Abspielen vom Handy
-  ist dann gar nicht nötig.
-- **Gutschein** als Hauptpreis besorgen (steht noch auf keiner Einkaufsliste).
+  und kommt aus dem Laptop – Laptop mit der Bluetooth-Box koppeln, dann läuft
+  alles über eine Anlage, kein separates Abspielgerät nötig.
+- **Gutschein** als Hauptpreis besorgen (steht noch auf keiner Liste) –
+  zusätzlich zu Mamas 5× Kaffee-Einladungen als Zuschauerpreis.
