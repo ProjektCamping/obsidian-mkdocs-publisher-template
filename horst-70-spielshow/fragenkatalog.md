@@ -63,9 +63,40 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > Für eine Mark bekam man damals gut 20 Brötchen – dafür musste man sie aber auch
 > selbst zu Fuß holen.
 
-## Kategorie 3: Küche & Keller 🍳
+## Kategorie 3: Wein & Keller 🍷
 
-**★ Warum hat der Emmentaler Löcher?**
+> Auf Horst zugeschnitten: Er stammt aus einer Winzerfamilie von der Saar.
+> (Hieß vorher „Küche & Keller" – Emmentaler und Zwiebel stehen unten als Reserve.)
+
+**★ Der teuerste Weißwein der Welt wächst nicht in Bordeaux oder im Burgund – sondern wo?**
+- A) An der Saar, auf einem Schieferhang bei Wiltingen ✅
+- B) In der Champagne
+- C) Im kalifornischen Napa Valley
+
+> Der Scharzhofberger Riesling von Egon Müller, gewachsen an der Saar bei Wiltingen,
+> erzielt bei Auktionen regelmäßig vier- bis fünfstellige Preise pro Flasche – mehr
+> als fast jeder Bordeaux. Horsts Heimat ist also ganz großes Wein-Kino.
+
+**★ Warum wachsen die besten Riesling-Reben an der Saar ausgerechnet auf steilen Schieferhängen?**
+- A) Der dunkle Schiefer speichert Sonnenwärme wie ein Nachtspeicherofen ✅
+- B) Damit die Trauben bei der Lese von allein nach unten rollen
+- C) Weil unten im Tal schlicht kein Platz mehr war
+
+> Der dunkle Schiefer heizt sich tagsüber auf und gibt die Wärme nachts an die Reben
+> ab – und im Steilhang trifft die Sonne fast senkrecht auf. In dem eher kühlen Klima
+> macht genau das den großen Saar-Riesling erst möglich. Schwer zu bewirtschaften,
+> aber jede Flasche wert – eine Winzerfamilie weiß das.
+
+**Reserve: Warum sind Moselwein-Flaschen traditionell grün – Rheinwein-Flaschen aber braun?**
+- A) Reine Tradition zur Unterscheidung der Anbaugebiete ✅
+- B) Grünes Glas schützt den Riesling besser vor Licht
+- C) Braunes Glas war früher billiger
+
+> Am Rhein füllte man traditionell in braune, an Mosel und Saar in grüne Flaschen –
+> so sah der Händler schon am Regal, woher der Wein kam. Technisch nötig ist der
+> Unterschied nicht, aber er hat sich bis heute gehalten.
+
+**Reserve: Warum hat der Emmentaler Löcher?**
 - A) Winzige Heupartikel in der Milch lösen die Blasenbildung aus ✅
 - B) Die Löcher werden maschinell hineingestanzt – für die Optik
 - C) Käsemilben fressen sich durch den Laib
@@ -74,7 +105,7 @@ Die mit ★ markierten Fragen sind bereits in der interaktiven Spieltafel
 > in der Milch wirken als Keime, an denen sich bei der Reifung Kohlensäure-Bläschen
 > bilden. Je sauberer gemolken wird, desto weniger Löcher!
 
-**★ Warum weinen wir beim Zwiebelschneiden?**
+**Reserve: Warum weinen wir beim Zwiebelschneiden?**
 - A) Beim Schneiden entsteht ein schwefelhaltiges Reizgas ✅
 - B) Der Zwiebelsaft trocknet die Augen aus
 - C) Das ist reine Einbildung – Köche weinen nie
