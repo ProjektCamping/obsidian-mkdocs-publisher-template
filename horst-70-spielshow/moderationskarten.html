@@ -5,11 +5,15 @@
 <title>Moderationskarten zum Ausdrucken</title>
 <!--
   Moderationskarten für "Wer weiß denn sowas? - Horsts Sonder-Edition"
-  Drucken (Strg+P) -> HOCHFORMAT, Ränder "Keine".
-  2 Karten pro Blatt, 1 Schnitt entlang der gestrichelten Linie
-  -> fertige A5-Karteikarten. Am besten auf festes Papier drucken.
 
-  Aufbau jeder Karte (von oben nach unten):
+  DOPPELSEITIG DRUCKEN:
+    Strg+P -> HOCHFORMAT, Ränder "Keine", "Hintergrundgrafiken" AKTIVIEREN,
+    beidseitig drucken mit "An langer Kante spiegeln" (Standard).
+    Jede zweite Seite ist die Logo-Rückseite - nach dem Druck pro Blatt
+    1 Schnitt entlang der gestrichelten Linie -> fertige A5-Karteikarten
+    mit Vorder- und Rückseite. Am besten auf festes Papier drucken.
+
+  Aufbau jeder Karten-VORDERSEITE (von oben nach unten):
     STICHPUNKTE  = dein Spickzettel, Schlüsselwörter fett
     WÖRTLICH     = der eine Satz, den du 1:1 ablesen kannst
     ÜBERGABE     = grüner Hinweis, wer übernimmt
@@ -134,11 +138,52 @@
     display: flex; align-items: center; justify-content: center;
     margin-top: .3mm;
   }
+
+  /* ==================== Rückseiten (Logo-Design) ==================== */
+  .back {
+    width: 210mm; height: 148.5mm;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6mm;
+    background: radial-gradient(circle at 50% 32%, #1d4a9e 0%, #14306e 52%, #0a1c46 100%);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .back.cut { border-top: 0.4mm dashed rgba(255,255,255,.45); }
+  .back .wasserzeichen {
+    position: absolute;
+    font-size: 120mm; font-weight: 900;
+    color: rgba(255,255,255,.05);
+    right: 8mm; top: -14mm;
+    transform: rotate(14deg);
+  }
+  .back .logo {
+    border: 1.6mm solid #fff;
+    border-radius: 8mm;
+    padding: 7mm 14mm 8mm;
+    display: flex; flex-direction: column;
+    align-items: center;
+    line-height: .98;
+    box-shadow: 0 0 0 1.2mm rgba(255,255,255,.15), 0 3mm 8mm rgba(0,0,0,.35);
+    background: rgba(255,255,255,.04);
+    position: relative;
+  }
+  .back .logo span { color: #fff; font-weight: 900; letter-spacing: 1mm; }
+  .back .l1 { font-size: 15mm; }
+  .back .l2 { font-size: 15mm; display: flex; align-items: baseline; gap: 3.5mm; }
+  .back .l2 em { font-style: italic; font-weight: 700; font-size: 7.5mm; color: #ffd23f; letter-spacing: .5mm; }
+  .back .l3 { font-size: 15mm; }
+  .back .l3 .q { color: #ffd23f; margin-left: 1.5mm; }
+  .back .edition {
+    font-size: 4.2mm; font-weight: 700;
+    letter-spacing: 1.6mm; text-transform: uppercase;
+    color: #ffd23f;
+  }
 </style>
 </head>
 <body>
 
-<p class="hint">Drucken mit Strg+P → <strong>Hochformat</strong>, Ränder „Keine". 2 Karten pro Blatt, 1 Schnitt = fertige A5-Karteikarten.</p>
+<p class="hint">Strg+P → <strong>Hochformat</strong>, Ränder „Keine", <strong>Hintergrundgrafiken an</strong>, <strong>beidseitig</strong> („an langer Kante spiegeln"). Jede 2. Seite = Logo-Rückseite. 1 Schnitt pro Blatt = fertige A5-Karten mit Rückseite.</p>
 
 <div class="sheet">
   <div class="karte">
@@ -191,6 +236,27 @@
 </div>
 
 <div class="sheet">
+  <div class="back">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+  <div class="back cut">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+</div>
+
+<div class="sheet">
   <div class="karte">
     <div class="kopf"><span class="nr">2</span><span class="titel">Die Konzertkarten</span><span class="thema">Musik &amp;<br>Familienlegende</span><span class="emoji">🎸</span></div>
     <div class="label">Einstieg – Stichpunkte</div>
@@ -233,6 +299,27 @@
         <div class="antwort"><span class="buchstabe">C</span><span>Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten</span></div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="sheet">
+  <div class="back">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+  <div class="back cut">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
   </div>
 </div>
 
@@ -283,6 +370,27 @@
 </div>
 
 <div class="sheet">
+  <div class="back">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+  <div class="back cut">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+</div>
+
+<div class="sheet">
   <div class="karte">
     <div class="kopf"><span class="nr">6</span><span class="titel">Die Alpenüberquerung</span><span class="thema">Sport &amp;<br>Verluste</span><span class="emoji">🚵</span></div>
     <div class="label">Einstieg – Stichpunkte</div>
@@ -328,6 +436,27 @@
 </div>
 
 <div class="sheet">
+  <div class="back">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+  <div class="back cut">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+</div>
+
+<div class="sheet">
   <div class="karte">
     <div class="kopf"><span class="nr">8</span><span class="titel">Sohn Daniel</span><span class="thema">Kampfsport</span><span class="emoji">🥋</span></div>
     <div class="label">Einstieg – Stichpunkte</div>
@@ -365,6 +494,27 @@
     <div class="frage">
       <div class="q">Wie viele Gäste haben im Juli Geburtstag?</div>
     </div>
+  </div>
+</div>
+
+<div class="sheet">
+  <div class="back">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
+  </div>
+  <div class="back cut">
+    <div class="wasserzeichen">?</div>
+    <div class="logo">
+      <span class="l1">WER</span>
+      <span class="l2">WEISS <em>denn</em></span>
+      <span class="l3">SOWAS<span class="q">?</span></span>
+    </div>
+    <div class="edition">Horsts Sonder-Edition</div>
   </div>
 </div>
 
