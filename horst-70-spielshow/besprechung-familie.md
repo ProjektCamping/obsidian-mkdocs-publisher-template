@@ -26,34 +26,39 @@ Lena). Wenige noch unklare Stellen sind mit **[?]** markiert.
 2. **RHCP-Frage** – die Red-Hot-Chili-Pipers-Geschichte
    *(fertig ausformuliert auf der Spieltafel)*
 
-3. **Ge…-Frage [?]** – Gemüse-Frage? Gewürze-Frage? Bitte klären, was hier
-   gemeint war.
+3. **Gardasee-Frage** – der Camping-Urlaub am Gardasee (Horst & Lena)
+   *(fertig ausformuliert auf der Spieltafel; nur das Jahr fehlt noch)*
 
-4. **Was isst Horst am liebsten auf seinem Frühstücksbrötchen?**
-   - A) Nutella
-   - B) Quark & Marmelade
-   - C) Leberwurstbrot
+4. **Was isst Horst auf seinem Frühstücksbrötchen am liebsten?**
+   - A) Nutella mit Banane
+   - B) Leberwurst mit Ketchup
+   - C) Quark mit Marmelade
    - *(richtige Antwort bitte noch markieren!)*
 
 5. **Rhabarber-Frage** – die Rhabarberer-Falle
    *(fertig ausformuliert auf der Spieltafel)*
 
 6. **Was hat Horst bei seiner Fahrrad-Alpenüberquerung verloren?**
-   - A) Schlüssel
-   - B) Handy
+   - A) Handy
+   - B) Schlüssel
    - C) Sonnenbrille
    - *(richtige Antwort bitte noch markieren!)*
 
 7. **Bei was hätte Horst fast sein Leben verloren?**
-   - A) Schlittenfahren
-   - B) Trampolinspringen
-   - C) Fahrradfahren
+   - A) Fahrrad fahren
+   - B) Trampolin springen
+   - C) Schlitten fahren
    - *(richtige Antwort bitte noch markieren!)*
 
-8. **Frage von Daniel:** „Welchen Sport hat D. gemacht?!"
-   *(Antwortoptionen liefert Daniel)*
+8. **Welchen Sport macht Sohn Daniel?**
+   - A) Jiu-Jitsu
+   - B) Muay Thai
+   - C) Wing Tsun
+   - *(richtige Antwort bitte noch markieren!)*
 
-9. **Frage der Nachbarn** – *(Inhalt liefern die Nachbarn)*
+9. **Abschlussfrage (nur für Horst, ohne A/B/C):**
+   „Wie viele Gäste haben im Juli Geburtstag?"
+   *(richtige Anzahl anhand der Gästeliste eintragen)*
 
 ## Ablauf (laut Notizzettel)
 
@@ -84,21 +89,23 @@ Lena). Wenige noch unklare Stellen sind mit **[?]** markiert.
 
 ---
 
-## Abgleich mit dem bisherigen Material – offene Punkte
+## Offene Punkte (Stand: finale Fragenliste eingebaut)
 
-- **Fragenanzahl:** Die neue Liste (9 Fragen, fast alles „Horst persönlich")
-  ersetzt vermutlich die Themen-Kategorien auf der Tafel. Sobald bestätigt,
-  baue ich die Tafel auf genau diese Liste um.
-- **Richtige Antworten fehlen noch** bei Frage 1 (Porsche-Farbe), 4
-  (Frühstücksbrötchen), 6 (Alpenüberquerung) und 7 (fast das Leben verloren).
-- **Frage 3** entziffern (Gemüse? Gewürze?) und ausformulieren.
-- **Fragen von Daniel (Nr. 8) und den Nachbarn (Nr. 9)** samt Antwortoptionen
-  nachreichen.
-- **Abschluss-Spezialfrage an Horst:** Wie lautet sie? (Sie ersetzt die
-  bisherige Tage-Schätzfrage auf der Tafel – oder soll die Schätzfrage
-  zusätzlich bleiben?)
+Die Spieltafel enthält jetzt genau diese 9 Fragen („Horsts Sonder-Edition").
+Was noch fehlt:
+
+- **Richtige Antworten einstellen** bei Frage 1 (Porsche-Farbe), 4
+  (Frühstücksbrötchen), 6 (Alpenüberquerung), 7 (Lebensgefahr) und 8
+  (Sport von Daniel) – in `spielbrett.html` steht bei jeder dieser Fragen ein
+  `[AUSFÜLLEN]`-Kommentar direkt am `correct:`-Wert.
+- **Erklärtexte/Anekdoten** zu Frage 1, 3 (Gardasee-Auflösung), 4, 6 und 7
+  ergänzen – Platzhalter sind markiert.
+- **Frage 3:** Jahr des Gardasee-Urlaubs nachtragen.
+- **Frage 9:** richtige Gästezahl mit Juli-Geburtstag anhand der Gästeliste
+  eintragen.
+- **Rhabarber-Aussprache** („Rhabarberer"?) einmal final bestätigen.
 - **Jingle über Bluetooth-Box:** Der Countdown-Jingle steckt in der Spieltafel
   und kommt aus dem Laptop – Laptop mit der Bluetooth-Box koppeln, dann läuft
   alles über eine Anlage, kein separates Abspielgerät nötig.
-- **Gutschein** als Hauptpreis besorgen (steht noch auf keiner Liste) –
-  zusätzlich zu Mamas 5× Kaffee-Einladungen als Zuschauerpreis.
+- **Gutschein** als Hauptpreis besorgen – zusätzlich zu Mamas 5×
+  Kaffee-Einladungen als Zuschauerpreis.

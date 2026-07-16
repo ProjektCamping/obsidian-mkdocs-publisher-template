@@ -206,7 +206,7 @@
 
 <header>
   <h1>Wer weiß denn sowas, <span class="name">HORST</span>?</h1>
-  <div class="subtitle">Die große Jubiläumsshow zum 70. Geburtstag 🎉</div>
+  <div class="subtitle">Horsts Sonder-Edition · zum 70. Geburtstag 🎉</div>
 </header>
 
 <main>
@@ -241,98 +241,52 @@
    ==========================================================================*/
 const CATEGORIES = [
   {
-    name: "Anno 1956", emoji: "📅",
+    name: "1 · Der erste Porsche", emoji: "🚗",
     questions: [
-      { q: "Wer war 1956, in Horsts Geburtsjahr, deutscher Bundeskanzler?",
-        a: ["Konrad Adenauer", "Ludwig Erhard", "Willy Brandt"],
-        correct: 0,
-        info: "Adenauer regierte von 1949 bis 1963 – Horst ist also mitten in die Wirtschaftswunderjahre hineingeboren." },
-      { q: "Welcher berühmte Wettbewerb feierte 1956 seine allererste Ausgabe?",
-        a: ["Der Eurovision Song Contest", "Die Berlinale", "Das Oktoberfest"],
-        correct: 0,
-        info: "Der erste „Grand Prix Eurovision de la Chanson“ fand im Mai 1956 im schweizerischen Lugano statt – es gewann die Gastgeberin Lys Assia mit „Refrain“. Ein guter Jahrgang für Premieren!" }
+      { q: "Welche Farbe hatte der erste Porsche von Horst?",
+        a: ["Rot",
+            "Weiß",
+            "Gelb"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Rot, 1 = Weiß, 2 = Gelb – richtige Antwort einstellen!] */
+        info: "[AUSFÜLLEN: kleine Anekdote zum ersten Porsche – Baujahr, wie er dazu kam, was aus ihm wurde]" }
     ]
   },
   {
-    name: "Wein & Keller", emoji: "🍷",
+    name: "2 · Die Konzertkarten", emoji: "🎸",
     questions: [
-      { q: "Der teuerste Weißwein der Welt wächst nicht in Bordeaux oder im Burgund – sondern wo?",
-        a: ["An der Saar, auf einem Schieferhang bei Wiltingen",
-            "In der Champagne",
-            "Im kalifornischen Napa Valley"],
-        correct: 0,
-        info: "Der Scharzhofberger Riesling von Egon Müller, gewachsen an der Saar bei Wiltingen, erzielt bei Auktionen regelmäßig vier- bis fünfstellige Preise pro Flasche – mehr als fast jeder Bordeaux. Horsts Heimat ist also ganz großes Wein-Kino." },
-      { q: "Warum wachsen die besten Riesling-Reben an der Saar ausgerechnet auf steilen Schieferhängen?",
-        a: ["Der dunkle Schiefer speichert Sonnenwärme wie ein Nachtspeicherofen",
-            "Damit die Trauben bei der Lese von allein nach unten rollen",
-            "Weil unten im Tal schlicht kein Platz mehr war"],
-        correct: 0,
-        info: "Der dunkle Schiefer heizt sich tagsüber auf und gibt die Wärme nachts an die Reben ab – und im Steilhang trifft die Sonne fast senkrecht auf. In dem eher kühlen Klima macht genau das den großen Saar-Riesling erst möglich. Schwer zu bewirtschaften, aber jede Flasche wert – eine Winzerfamilie weiß das." }
-    ]
-  },
-  {
-    name: "Sport & Spiel", emoji: "🏓",
-    questions: [
-      { q: "Warum muss ein Tischtennisschläger zwei verschiedenfarbige Seiten haben?",
-        a: ["Damit der Gegner erkennt, mit welchem Belag gerade gespielt wird",
-            "Damit der Schiedsrichter Vorhand und Rückhand unterscheiden kann",
-            "Reine Tradition – es sind die Farben des chinesischen Verbands"],
-        correct: 0,
-        info: "Trickspieler nutzten früher beidseitig gleichfarbige Schläger mit völlig unterschiedlichen Belägen – der Gegner sah nie, ob Spin kam oder nicht. Seit 1983 schreibt der Weltverband deshalb zwei Farben vor." },
-      { q: "Wie ist das Mountainbike entstanden?",
-        a: ["In Kalifornien – eine Clique raste mit alten Schrotträdern Schotterpisten hinunter",
-            "Die Schweizer Armee ließ es für ihre Gebirgstruppen entwickeln",
-            "Als Wintertrainingsgerät für Tour-de-France-Profis"],
-        correct: 0,
-        info: "In den 1970ern jagte eine Clique in Marin County bei San Francisco mit umgebauten alten Ballonreifen-Rädern („Klunkern“) einen Feuerwehrweg hinab. Ihr Rennen hieß „Repack“ – weil die Bremsnaben nach jeder Abfahrt neu gefettet werden mussten." }
-    ]
-  },
-  {
-    name: "Garage & Plattenkiste", emoji: "🚗",
-    questions: [
-      { q: "Warum heißt der Porsche 911 eigentlich 911?",
-        a: ["Peugeot hatte sich Nummern mit der Null in der Mitte gesichert – aus 901 wurde 911",
-            "Nach dem amerikanischen Notruf – so schnell ist er nämlich da",
-            "Nach dem Geburtstag von Ferry Porsche, dem 9.11."],
-        correct: 0,
-        info: "Der Elfer kam 1963 als „Porsche 901“ zur Automobilmesse. Doch Peugeot hatte sich dreistellige Zahlen mit einer Null in der Mitte schützen lassen – also machte Porsche kurzerhand aus der 0 eine 1. Der Rest ist Sportwagengeschichte." },
-      { q: "Warum haben Single-Schallplatten so ein großes Loch in der Mitte?",
-        a: ["Für die Wechselmechanik von Musikboxen",
-            "Zur Materialersparnis in der Nachkriegszeit",
-            "Damit man sie beim Tanzen auf dem Finger drehen kann"],
-        correct: 0,
-        info: "Das große Loch führte RCA 1949 mit der 45er-Single ein: Jukeboxen und Plattenwechsler konnten die Platten damit schneller und zuverlässiger greifen. Für den Plattenspieler zu Hause brauchte man den berühmten Adapter-Puck." }
-    ]
-  },
-  {
-    name: "Horst persönlich", emoji: "⭐",
-    questions: [
-      /* [AUSFÜLLEN] – Antwort A muss die richtige sein (correct: 0),
-         die Anzeige mischt automatisch. Mehr Vorlagen im fragenkatalog.md! */
-      { q: "Was war Horsts erstes Auto?",
-        a: ["[AUSFÜLLEN: richtige Antwort]",
-            "[AUSFÜLLEN: plausibel falsche Antwort]",
-            "[AUSFÜLLEN: lustig falsche Antwort]"],
-        correct: 0,
-        info: "[AUSFÜLLEN: kleine Geschichte dazu, z. B. wo das Auto am Ende gelandet ist]" },
-      { q: "Was macht Horst jeden Morgen als Allererstes?",
-        a: ["[AUSFÜLLEN: richtige Antwort]",
-            "[AUSFÜLLEN: plausibel falsche Antwort]",
-            "[AUSFÜLLEN: lustig falsche Antwort]"],
-        correct: 0,
-        info: "[AUSFÜLLEN: Erklärung/Anekdote]" },
       { q: "Horst wollte einst für Simon und sich Konzertkarten für die Red Hot Chili Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?",
         a: ["Red Hot Chili Pipers – die schottische Dudelsack-Rockband",
             "Red Not Chili Peppers – die offizielle Tribute-Band",
             "Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland"],
         correct: 0,
-        info: "Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete eines Morgens stolz am Frühstückstisch, er habe Konzertkarten für sie beide bestellt! Der Jubel war groß … bis die Karten ankamen: Red Hot Chili PIPERS – Dudelsack statt Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der Gedanke, der zählt – und eine Familienlegende war geboren." },
-      { q: "Sommer [AUSFÜLLEN: Jahr]: Camping-Urlaub in [AUSFÜLLEN: Ort], Italien – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?",
+        info: "Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete eines Morgens stolz am Frühstückstisch, er habe Konzertkarten für sie beide bestellt! Der Jubel war groß … bis die Karten ankamen: Red Hot Chili PIPERS – Dudelsack statt Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der Gedanke, der zählt – und eine Familienlegende war geboren." }
+    ]
+  },
+  {
+    name: "3 · Gardasee", emoji: "🏕️",
+    questions: [
+      { q: "Sommer [AUSFÜLLEN: Jahr]: Camping-Urlaub am Gardasee – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?",
         a: ["Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren",
             "Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert",
             "Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten"],
         correct: 0,
-        info: "[AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung im Urlaub entwickelt hat und wie die beiden heute darüber lachen können.]" },
+        info: "[AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung am Gardasee entwickelt hat und wie die beiden heute darüber lachen können.]" }
+    ]
+  },
+  {
+    name: "4 · Das Frühstücksbrötchen", emoji: "🥐",
+    questions: [
+      { q: "Was isst Horst auf seinem Frühstücksbrötchen am liebsten?",
+        a: ["Nutella mit Banane",
+            "Leberwurst mit Ketchup",
+            "Quark mit Marmelade"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Nutella/Banane, 1 = Leberwurst/Ketchup, 2 = Quark/Marmelade] */
+        info: "[AUSFÜLLEN: kleine Anekdote zum Frühstücksritual]" }
+    ]
+  },
+  {
+    name: "5 · Aus dem Garten", emoji: "🥧",
+    questions: [
       { q: "Achtung, Fangfrage: Wie heißt das saure Stangengemüse, aus dem man im Frühling Kompott und Kuchen macht?",
         a: ["Rhabarberer",
             "Rhabarber",
@@ -340,15 +294,48 @@ const CATEGORIES = [
         correct: 0,
         info: "Der Duden besteht ja hartnäckig auf „Rhabarber“ – aber der Duden war auch noch nie bei Horst zum Kaffee. In diesem Haus hieß das Zeug noch nie anders als „Rhabarberer“, und deshalb ist das hier die einzig gültige Antwort. Wer „Rhabarber“ gewählt hat: botanisch korrekt, null Punkte." }
     ]
+  },
+  {
+    name: "6 · Die Alpenüberquerung", emoji: "🚵",
+    questions: [
+      { q: "Was hat Horst bei seiner Fahrrad-Alpenüberquerung verloren?",
+        a: ["Handy",
+            "Schlüssel",
+            "Sonnenbrille"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Handy, 1 = Schlüssel, 2 = Sonnenbrille] */
+        info: "[AUSFÜLLEN: kleine Anekdote – wo und wie es verloren ging, ob es wieder aufgetaucht ist]" }
+    ]
+  },
+  {
+    name: "7 · Lebensgefahr!", emoji: "😱",
+    questions: [
+      { q: "Bei was hätte Horst fast sein Leben verloren?",
+        a: ["Fahrrad fahren",
+            "Trampolin springen",
+            "Schlitten fahren"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Fahrrad, 1 = Trampolin, 2 = Schlitten] */
+        info: "[AUSFÜLLEN: die Geschichte dazu – kurz und mit gutem Ausgang, er sitzt ja hier ;-)]" }
+    ]
+  },
+  {
+    name: "8 · Sohn Daniel", emoji: "🥋",
+    questions: [
+      { q: "Welchen Sport macht Sohn Daniel?",
+        a: ["Jiu-Jitsu",
+            "Muay Thai",
+            "Wing Tsun"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Jiu-Jitsu, 1 = Muay Thai, 2 = Wing Tsun] */
+        info: "[AUSFÜLLEN: kurzer Satz dazu – seit wann, welcher Gürtel/Level, lustiges Detail]" }
+    ]
   }
 ];
 
 const FINALE = {
-  name: "Finale", emoji: "🏆",
-  q: "Wie viele Tage alt ist Horst an seinem 70. Geburtstag?",
-  /* [AUSFÜLLEN]: exakten Wert mit Horsts Geburtsdatum nachrechnen! */
-  answer: "ca. 25.568 Tage (70 × 365,25 – exakt mit dem Geburtsdatum nachrechnen)",
-  info: "Alle Gäste schreiben ihre Schätzung auf einen Zettel (Name nicht vergessen!). Wer am nächsten dran ist, gewinnt den Finalpreis – und Horst erfährt, wie alt er wirklich ist."
+  name: "9 · Abschlussfrage", emoji: "🏆",
+  q: "Wie viele Gäste haben im Juli Geburtstag?",
+  /* [AUSFÜLLEN]: richtige Zahl anhand der Gästeliste eintragen! */
+  answer: "[AUSFÜLLEN: richtige Anzahl]",
+  info: "Diese Frage bekommt nur HORST gestellt – ohne A/B/C-Karten. Danach geht es direkt zur Geschenkübergabe. 🎁"
 };
 
 /* ========================= Spiellogik ==================================== */
@@ -371,7 +358,7 @@ function buildGrid() {
   });
   const f = document.createElement("button");
   f.className = "tile finale";
-  f.innerHTML = `<span class="emoji">${FINALE.emoji}</span>${FINALE.name}<span class="count">Schätzfrage für alle</span>`;
+  f.innerHTML = `<span class="emoji">${FINALE.emoji}</span>${FINALE.name}<span class="count">nur für Horst – ohne A/B/C</span>`;
   f.onclick = () => openFinale(f);
   grid.appendChild(f);
 }
@@ -379,7 +366,9 @@ function buildGrid() {
 function updateTile(cat) {
   const left = cat.questions.length - cat.used;
   cat.tile.querySelector(".count").textContent =
-    left > 0 ? `${left} Frage${left > 1 ? "n" : ""} übrig` : "gespielt ✓";
+    left === 0 ? "gespielt ✓"
+    : cat.questions.length === 1 ? ""
+    : `${left} Frage${left > 1 ? "n" : ""} übrig`;
   cat.tile.classList.toggle("done", left === 0);
   cat.tile.disabled = left === 0;
 }
@@ -425,7 +414,7 @@ function openQuestion(cat, tile) {
 function openFinale(tile) {
   current = { finale: true, tile };
   revealed = false;
-  document.getElementById("qcat").textContent = `${FINALE.emoji} FINALE – die große Schätzfrage für alle!`;
+  document.getElementById("qcat").textContent = `${FINALE.emoji} ABSCHLUSSFRAGE – nur für Horst!`;
   document.getElementById("qtext").textContent = FINALE.q;
   document.getElementById("answers").innerHTML = "";
   const ex = document.getElementById("explain");
