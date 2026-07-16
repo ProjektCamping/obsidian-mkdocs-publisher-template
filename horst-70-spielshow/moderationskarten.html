@@ -8,16 +8,26 @@
   Drucken (Strg+P) -> HOCHFORMAT, Ränder "Keine".
   2 Karten pro Blatt, 1 Schnitt entlang der gestrichelten Linie
   -> fertige A5-Karteikarten. Am besten auf festes Papier drucken.
+
+  Aufbau jeder Karte (von oben nach unten):
+    STICHPUNKTE  = dein Spickzettel, Schlüsselwörter fett
+    WÖRTLICH     = der eine Satz, den du 1:1 ablesen kannst
+    ÜBERGABE     = grüner Hinweis, wer übernimmt
+    FRAGE        = Frage + Antworten (liest die Übernehmende vor)
 -->
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   @page { size: A4 portrait; margin: 0; }
-  html, body { background: #f0f0f0; font-family: Georgia, "Times New Roman", serif; }
+  html, body {
+    background: #e9ebf0;
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: #16181d;
+  }
 
   .sheet {
     width: 210mm; height: 297mm;
     margin: 10px auto; background: #fff;
-    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    box-shadow: 0 2px 14px rgba(0,0,0,.22);
     display: flex; flex-direction: column;
   }
   @media print {
@@ -25,63 +35,105 @@
     .sheet { margin: 0; box-shadow: none; page-break-after: always; }
     .hint { display: none; }
   }
-  .hint { text-align: center; font-family: Arial, sans-serif; color: #555; font-size: 14px; padding: 12px; }
+  .hint { text-align: center; color: #555; font-size: 14px; padding: 12px; }
 
   .karte {
     width: 210mm; height: 148.5mm;
-    padding: 10mm 12mm;
+    padding: 8mm 10mm 8mm 12mm;
     display: flex; flex-direction: column;
     position: relative;
+    border-left: 3mm solid #14306e;
   }
-  .karte.cut { border-top: 0.5mm dashed #999; }
+  .karte.cut { border-top: 0.4mm dashed #9aa1ad; }
   .karte.cut::before {
-    content: "✂"; position: absolute; top: -3mm; left: 4mm;
-    font-size: 5mm; color: #999; background: #fff; padding: 0 1mm;
+    content: "✂"; position: absolute; top: -3mm; left: 6mm;
+    font-size: 4.5mm; color: #9aa1ad; background: #fff; padding: 0 1mm;
   }
 
+  /* Kopfzeile */
   .kopf {
-    display: flex; align-items: baseline; gap: 4mm;
-    border-bottom: 0.8mm solid #123a80;
-    padding-bottom: 2mm; margin-bottom: 3.5mm;
-    font-family: Arial, sans-serif;
+    display: flex; align-items: center; gap: 4mm;
+    padding-bottom: 2.2mm; margin-bottom: 3mm;
+    border-bottom: 0.6mm solid #14306e;
   }
   .kopf .nr {
-    background: #123a80; color: #fff; font-weight: 800;
-    border-radius: 50%; width: 9mm; height: 9mm;
+    background: #14306e; color: #fff;
+    font-weight: 800; font-size: 5.5mm;
+    width: 10mm; height: 10mm; border-radius: 2.2mm;
     display: flex; align-items: center; justify-content: center;
-    font-size: 5mm; flex: 0 0 auto; align-self: center;
+    flex: 0 0 auto;
   }
-  .kopf .titel { font-size: 6.5mm; font-weight: 800; color: #123a80; }
-  .kopf .emoji { margin-left: auto; font-size: 7mm; }
+  .kopf .titel { font-size: 6.8mm; font-weight: 800; letter-spacing: -.1mm; color: #14306e; }
+  .kopf .thema {
+    margin-left: auto; text-align: right;
+    font-size: 3mm; font-weight: 700; letter-spacing: .5mm;
+    text-transform: uppercase; color: #9aa1ad;
+  }
+  .kopf .emoji { font-size: 7mm; margin-left: 3mm; }
 
-  .stichworte {
-    font-family: Arial, sans-serif;
-    font-size: 3.4mm; line-height: 1.5;
+  /* Abschnitts-Label (Eyebrow) */
+  .label {
+    font-size: 2.7mm; font-weight: 800;
+    letter-spacing: .7mm; text-transform: uppercase;
     color: #8a6a0d;
-    background: #fdf6e0;
-    border-left: 1.2mm solid #c9a227;
-    padding: 2mm 3mm;
-    margin-bottom: 3.5mm;
+    margin: 2.2mm 0 1.2mm;
   }
-  .stichworte b { text-transform: uppercase; letter-spacing: .3mm; font-size: 3mm; color: #6d540a; }
+  .label.blau { color: #14306e; }
+  .label.gruen { color: #1f8a3d; }
 
-  .text { font-size: 4.3mm; line-height: 1.5; color: #111; flex: 1; }
-  .text .regie { color: #b00; font-size: 3.6mm; font-style: italic; }
+  /* Stichpunkte */
+  ul.punkte { list-style: none; }
+  ul.punkte li {
+    font-size: 4.1mm; line-height: 1.4;
+    padding-left: 5mm; position: relative;
+    margin-bottom: 1.2mm;
+    color: #2a2e37;
+  }
+  ul.punkte li::before {
+    content: ""; position: absolute; left: 0.8mm; top: 2.1mm;
+    width: 1.8mm; height: 1.8mm; background: #c9a227; border-radius: .4mm;
+  }
+  ul.punkte b { color: #16181d; }
+  .warn { color: #b3261e; font-weight: 800; }
 
+  /* Wörtlich-Zitat */
+  .wortlich {
+    background: #f0f3fa;
+    border-left: 1.4mm solid #14306e;
+    border-radius: 0 2mm 2mm 0;
+    padding: 2.2mm 3.5mm;
+    font-size: 4.1mm; line-height: 1.45;
+    font-style: italic; color: #14306e;
+  }
+
+  .spacer { flex: 1; }
+
+  /* Übergabe */
   .uebergabe {
-    font-family: Arial, sans-serif;
-    font-size: 3.6mm; font-weight: 700; color: #1f8a3d;
-    margin: 2.5mm 0 1.5mm;
+    display: flex; align-items: center; gap: 2.5mm;
+    font-size: 3.6mm; font-weight: 800; color: #1f8a3d;
+    margin: 2.2mm 0 1.8mm;
   }
+  .uebergabe::before { content: "➜"; font-size: 4.2mm; }
 
+  /* Frage-Box */
   .frage {
-    font-family: Arial, sans-serif;
-    font-size: 3.2mm; line-height: 1.45;
-    color: #444;
-    border-top: 0.3mm solid #bbb;
-    padding-top: 1.8mm;
+    background: #f5f6f8;
+    border: 0.3mm solid #d6dae2;
+    border-radius: 2.5mm;
+    padding: 2.5mm 3.5mm;
   }
-  .frage b { color: #111; }
+  .frage .q { font-size: 3.7mm; font-weight: 700; line-height: 1.35; margin-bottom: 1.6mm; }
+  .frage .antworten { display: flex; flex-direction: column; gap: .8mm; }
+  .frage .antwort { display: flex; gap: 2.2mm; font-size: 3.4mm; line-height: 1.35; color: #2a2e37; }
+  .frage .buchstabe {
+    flex: 0 0 auto;
+    width: 4.6mm; height: 4.6mm; border-radius: 50%;
+    background: #14306e; color: #fff;
+    font-size: 2.9mm; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: .3mm;
+  }
 </style>
 </head>
 <body>
@@ -90,87 +142,229 @@
 
 <div class="sheet">
   <div class="karte">
-    <div class="kopf"><span class="nr">0</span><span class="titel">Begrüßung &amp; Spielregeln</span><span class="emoji">🎬</span></div>
-    <div class="stichworte"><b>Stichworte:</b> Begrüßung „live aus [Ort]" · Stargast Horst · Regeln: A/B/C-Karten · Countdown-Jingle · „KARTEN HOCH!" · Horst löst auf (er IST die Jury) · pro richtige Antwort 1 Chip · meiste Chips = Gutschein · Aufwärmfrage: ALLE Antworten richtig</div>
-    <div class="text">Meine Damen und Herren, herzlich willkommen zu einer Spezialausgabe von „Wer weiß denn sowas?" – live aus [Ort], zu Ehren eines Mannes, der heute 70 wird und trotzdem alle Antworten kennt: unser Stargast – <strong>HORST!</strong><br><br>
-    So funktioniert's: Jeder von euch hat drei Karten – A, B und C. Gleich stellen wir Fragen, bei denen sich alles um unser Geburtstagskind dreht. Nach jeder Frage läuft ein Countdown – und wenn es „KARTEN HOCH!" heißt, halten alle gleichzeitig ihre Antwort hoch. Nicht früher, nicht später – und heimliches Tauschen sieht das Publikum sofort! Wer sagt uns, was richtig ist? Die höchste Instanz in allen Horst-Fragen: <strong>Horst persönlich</strong> – er spielt nicht mit, er IST die Jury. Für jede richtige Antwort gibt es einen Chip, die meisten Chips gewinnen einen Preis. Und damit wir sehen, ob alle ihre Karten gefunden haben: Aufwärmrunde!</div>
-    <div class="uebergabe">→ Aufwärmfrage stellen – Auflösung: ALLE Antworten sind richtig (Tafel zeigt alles grün), ein Chip für alle</div>
-    <div class="frage"><b>Es ist Horsts 70. Geburtstag – aber ganz ehrlich: Das glaubt ihm doch keiner. Deshalb vorab die wichtigste Frage des Abends: Wie alt sieht unser Horst WIRKLICH aus?</b><br>A) Ein junger Hüpfer – mitten in der Blüte seiner Dreißiger &nbsp;·&nbsp; B) Der Mann hat schon was erlebt, doch der Sport hält ihn jung – hat der überhaupt die Fünfzig schon erreicht? &nbsp;·&nbsp; C) Der gute Wein und die Odenwälder Luft haben diesen männlichen Körper zwar reifen lassen – aber wie einen großen Jahrgang: mit jedem Jahr nur wertvoller</div>
+    <div class="kopf"><span class="nr">0</span><span class="titel">Begrüßung &amp; Spielregeln</span><span class="thema">Opener &amp;<br>Aufwärmrunde</span><span class="emoji">🎬</span></div>
+    <div class="label blau">Begrüssung – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Willkommen zur <b>Spezialausgabe „Wer weiß denn sowas?"</b> – live aus <b>[Ort]</b></li>
+      <li>Stargast: wird heute <b>70</b> – und kennt trotzdem <b>alle Antworten</b>: <b>HORST!</b></li>
+    </ul>
+    <div class="label blau">Regeln – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Jeder Gast: <b>3 Karten – A, B, C</b> · alle Fragen drehen sich <b>um Horst</b></li>
+      <li><b>Countdown</b> läuft → bei <b>„KARTEN HOCH!"</b> alle <b>gleichzeitig</b> hoch – kein Nachziehen, kein Tauschen!</li>
+      <li><b>Horst löst auf</b> – er spielt nicht mit, er <b>IST die Jury</b></li>
+      <li><b>Richtig = 1 Chip</b> · meiste Chips am Ende = <b>Preis</b></li>
+    </ul>
+    <div class="spacer"></div>
+    <div class="uebergabe">Aufwärmfrage stellen – Kartentest! Auflösung: <span class="warn">ALLE Antworten richtig</span>, ein Chip für alle</div>
+    <div class="frage">
+      <div class="q">Es ist Horsts 70. Geburtstag – aber ganz ehrlich: Das glaubt ihm doch keiner. Deshalb vorab die wichtigste Frage des Abends: Wie alt sieht unser Horst WIRKLICH aus?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Ein junger Hüpfer – mitten in der Blüte seiner Dreißiger</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Der Mann hat schon was erlebt, doch der Sport hält ihn jung – hat der überhaupt die Fünfzig schon erreicht?</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Der gute Wein und die Odenwälder Luft haben diesen Körper zwar reifen lassen – aber wie einen großen Jahrgang: mit jedem Jahr nur wertvoller</span></div>
+      </div>
+    </div>
   </div>
   <div class="karte cut">
-    <div class="kopf"><span class="nr">1</span><span class="titel">Der erste Porsche</span><span class="emoji">🚗</span></div>
-    <div class="stichworte"><b>Stichworte:</b> Maschinenbau-Hintergrund · früh an Porsche geschraubt · ein besonderes Auto, großteils selbst zusammengebaut · Fahrzeugschein: Hersteller „Porsche Pütz" · eine Zeit lang gefahren, dann verkauft</div>
-    <div class="text">Wir alle wissen: Horst hat einen Maschinenbau-Hintergrund – und schon früh hat er an Porsche herumgeschraubt. Ein Auto in seinem Leben war dabei ganz besonders: Er hat es zu einem großen Teil selbst zusammengebaut. Am Ende stand im Fahrzeugschein als Hersteller nicht „Porsche", sondern – meines Wissens – <strong>„Porsche Pütz"</strong>. Eine Zeit lang ist er ihn gefahren, dann wurde er aus Gründen verkauft. Und um genau dieses Gefährt dreht sich die nächste Frage.</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Welche Farbe hatte der erste Porsche von Horst?</b><br>A) Rot &nbsp;·&nbsp; B) Weiß &nbsp;·&nbsp; C) Gelb</div>
+    <div class="kopf"><span class="nr">1</span><span class="titel">Der erste Porsche</span><span class="thema">Autos &amp;<br>Schrauberei</span><span class="emoji">🚗</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li><b>Maschinenbau</b>-Hintergrund – schon früh <b>an Porsche geschraubt</b></li>
+      <li>Ein besonderes Auto: <b>großteils selbst zusammengebaut</b></li>
+      <li>Im Fahrzeugschein stand nicht „Porsche", sondern: <b>„Porsche Pütz"</b></li>
+      <li>Eine Zeit lang gefahren – dann <b>aus Gründen verkauft</b></li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Und um genau dieses Gefährt dreht sich die nächste Frage."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Welche Farbe hatte der erste Porsche von Horst?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Rot</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Weiß</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Gelb</span></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="sheet">
   <div class="karte">
-    <div class="kopf"><span class="nr">2</span><span class="titel">Die Konzertkarten</span><span class="emoji">🎸</span></div>
-    <div class="stichworte"><b>Stichworte:</b> Horst &amp; Simon – die Musik verbindet · eine besondere Band prägte Simons musikalische Richtung · gefiel auch Horst · er wollte Simon einen Gefallen tun</div>
-    <div class="text">Horst und mich verbindet schon von früh an etwas ganz Bestimmtes: die Musik. Und da gab es eine ganz besondere Band, die damals vor allem meine musikalische Ausrichtung geprägt hat – die aber offenbar auch Horst gefiel. Eines Tages wollte er mir einen großen Gefallen tun … Und genau dazu die nächste Frage.</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Horst wollte einst für Simon und sich Konzertkarten für die Red Hot Chili Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?</b><br>A) Red Hot Chili Pipers – die schottische Dudelsack-Rockband &nbsp;·&nbsp; B) Red Not Chili Peppers – die offizielle Tribute-Band &nbsp;·&nbsp; C) Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland</div>
+    <div class="kopf"><span class="nr">2</span><span class="titel">Die Konzertkarten</span><span class="thema">Musik &amp;<br>Familienlegende</span><span class="emoji">🎸</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Horst &amp; Simon: <b>die Musik verbindet</b> – von früh an</li>
+      <li>Eine <b>besondere Band</b> prägte Simons musikalische Richtung …</li>
+      <li>… und <b>gefiel auch Horst</b></li>
+      <li>Eines Tages wollte er Simon <b>einen großen Gefallen tun</b></li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Und genau dazu die nächste Frage."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Horst wollte einst für Simon und sich Konzertkarten für die Red Hot Chili Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Red Hot Chili Pipers – die schottische Dudelsack-Rockband</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Red Not Chili Peppers – die offizielle Tribute-Band</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland</span></div>
+      </div>
+    </div>
   </div>
   <div class="karte cut">
-    <div class="kopf"><span class="nr">3</span><span class="titel">Lago Mergozzo</span><span class="emoji">🏕️</span></div>
-    <div class="stichworte"><b>Stichworte:</b> Verhältnis Lena &amp; Horst heute: sehr gut · früher: anders! · ⚠️ Lösung nicht verraten · ein unvergessener besonderer Urlaub</div>
-    <div class="text">Das Verhältnis zwischen Lena und Horst scheint ja heute sehr gut zu sein. Und so viel kann ich vorwegnehmen: Das war in der Vergangenheit auch schon mal anders. Eine Zeit, die uns allen in Erinnerung geblieben ist, war ein ganz besonderer Urlaub … Genau darum dreht sich die nächste Frage.</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Sommer 2004: Camping-Urlaub am Lago Mergozzo – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?</b><br>A) Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren &nbsp;·&nbsp; B) Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert &nbsp;·&nbsp; C) Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten</div>
+    <div class="kopf"><span class="nr">3</span><span class="titel">Lago Mergozzo</span><span class="thema">Urlaub<br>2004</span><span class="emoji">🏕️</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Lena &amp; Horst <b>heute: sehr gut</b> …</li>
+      <li>… <b>früher: anders!</b> <span class="warn">⚠️ Lösung nicht verraten</span></li>
+      <li>Unvergessen für alle: <b>ein ganz besonderer Urlaub</b></li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„So viel kann ich vorwegnehmen: Das war in der Vergangenheit auch schon mal anders. Genau darum dreht sich die nächste Frage."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Sommer 2004: Camping-Urlaub am Lago Mergozzo – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten</span></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="sheet">
   <div class="karte">
-    <div class="kopf"><span class="nr">4</span><span class="titel">Das Frühstücksbrötchen</span><span class="emoji">🥐</span></div>
-    <div class="stichworte"><b>Stichworte:</b> Wochenend-Frühstück in der Heimat · alle kommen zusammen · Tradition: großes Frühstück, viel Belag · Horst bräuchte eigentlich nur EINS</div>
-    <div class="text">Wenn wir am Wochenende in der Heimat frühstücken, kommen alle zusammen – und es ist Tradition, dass groß aufgetischt wird: viel Belag auf dem Tisch, es wird ausgiebig gefrühstückt. Doch eigentlich würde Horst ziemlich wenig reichen, um für ihn ein glückliches und gutes Wochenend-Frühstück mit Brötchen zu garantieren. Was wäre das?</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Was isst Horst auf seinem Frühstücksbrötchen am liebsten?</b><br>A) Nutella mit Banane &nbsp;·&nbsp; B) Leberwurst mit Ketchup &nbsp;·&nbsp; C) Quark mit Marmelade</div>
+    <div class="kopf"><span class="nr">4</span><span class="titel">Das Frühstücksbrötchen</span><span class="thema">Heimat &amp;<br>Tradition</span><span class="emoji">🥐</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li><b>Wochenend-Frühstück in der Heimat</b> – alle kommen zusammen</li>
+      <li>Tradition: <b>groß aufgetischt</b>, viel Belag, ausgiebig</li>
+      <li>Doch Horst? Dem würde <b>ziemlich wenig reichen</b> …</li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„… um für ihn ein glückliches Wochenend-Frühstück mit Brötchen zu garantieren. Was wäre das?"</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Was isst Horst auf seinem Frühstücksbrötchen am liebsten?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Nutella mit Banane</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Leberwurst mit Ketchup</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Quark mit Marmelade</span></div>
+      </div>
+    </div>
   </div>
   <div class="karte cut">
-    <div class="kopf"><span class="nr">5</span><span class="titel">Aus dem Garten</span><span class="emoji">🥧</span></div>
-    <div class="stichworte"><b>Stichworte:</b> als reine ALLGEMEINWISSENSFRAGE ansagen! · „botanische Zwischenfrage" · Pointe erst bei Horsts Auflösung · ⚠️ nicht verraten, dass es um seine Aussprache geht</div>
-    <div class="text">So, zwischendurch frischen wir kurz das Allgemeinwissen auf – eine kleine botanische Frage für alle.<br><br><span class="regie">Regieanweisung: ganz neutral stellen! Der Witz kommt von allein, wenn Horst als Juror auflöst – die „richtige" Antwort auf der Tafel ist nämlich seine ganz eigene Aussprache.</span></div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Achtung, Fangfrage: Wie heißt das saure Stangengemüse, aus dem man im Frühling Kompott und Kuchen macht?</b><br>A) Rhabarberer &nbsp;·&nbsp; B) Rhabarber &nbsp;·&nbsp; C) Rhabarbara</div>
+    <div class="kopf"><span class="nr">5</span><span class="titel">Aus dem Garten</span><span class="thema">Fangfrage!</span><span class="emoji">🥧</span></div>
+    <div class="label">Regie – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Als <b>reine Allgemeinwissensfrage</b> ansagen („botanische Zwischenfrage")</li>
+      <li><span class="warn">⚠️ NICHT verraten:</span> Es geht um <b>Horsts Aussprache</b></li>
+      <li>Die <b>Pointe kommt von allein</b>, wenn Horst als Jury auflöst</li>
+      <li>Auf der Tafel ist <b>„Rhabarberer"</b> die richtige Antwort</li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Zwischendurch frischen wir kurz das Allgemeinwissen auf – eine kleine botanische Frage für alle."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Achtung, Fangfrage: Wie heißt das saure Stangengemüse, aus dem man im Frühling Kompott und Kuchen macht?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Rhabarberer</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Rhabarber</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Rhabarbara</span></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="sheet">
   <div class="karte">
-    <div class="kopf"><span class="nr">6</span><span class="titel">Die Alpenüberquerung</span><span class="emoji">🚵</span></div>
-    <div class="stichworte"><b>Stichworte:</b> wir alle vergessen &amp; verlieren mal was · bei manchen fällt es mehr auf … · ob das auf Horst zutrifft? Kein Kommentar! · damit sind wir im Kontext</div>
-    <div class="text">Wir alle vergessen und verlieren manchmal etwas. Es gibt Personen, bei denen fällt das mehr auf – und es gibt Personen, bei denen fällt es weniger auf. Inwieweit diese Eigenschaft auf Horst zutrifft, kann und möchte ich in diesem Rahmen nicht beantworten … Aber damit sind wir schon genau im richtigen Kontext. Dazu die nächste Frage.</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Was hat Horst bei seiner Fahrrad-Alpenüberquerung verloren?</b><br>A) Handy &nbsp;·&nbsp; B) Schlüssel &nbsp;·&nbsp; C) Sonnenbrille</div>
+    <div class="kopf"><span class="nr">6</span><span class="titel">Die Alpenüberquerung</span><span class="thema">Sport &amp;<br>Verluste</span><span class="emoji">🚵</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Wir alle <b>vergessen &amp; verlieren</b> mal etwas</li>
+      <li>Bei manchen fällt es <b>mehr</b> auf, bei anderen <b>weniger</b> …</li>
+      <li>Ob das auf Horst zutrifft? <b>„Kein Kommentar!"</b></li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Aber damit sind wir schon genau im richtigen Kontext – dazu die nächste Frage."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Was hat Horst bei seiner Fahrrad-Alpenüberquerung verloren?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Handy</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Schlüssel</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Sonnenbrille</span></div>
+      </div>
+    </div>
   </div>
   <div class="karte cut">
-    <div class="kopf"><span class="nr">7</span><span class="titel">Lebensgefahr!</span><span class="emoji">😱</span></div>
-    <div class="stichworte"><b>Stichworte:</b> Horst war schon immer sportlich · viele Sportarten · EIN Ereignis: beinahe das letzte Mal Sport · Krankenhaus + Schutzengel · glimpflich davongekommen</div>
-    <div class="text">Dass unser Horst schon immer sportlich war und verschiedenste Sportarten ausgeübt hat, wissen wir alle. Aber es gab ein Ereignis in seinem Leben, bei dem es beinahe das letzte Mal gewesen wäre, dass er überhaupt in der Lage war, Sport auszuüben. Nur mit einem Krankenhausaufenthalt – und wahrscheinlich den richtigen Schutzengeln an seiner Seite – ist er glimpflich aus dieser Situation herausgekommen. Darum dreht sich die nächste Frage.</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Bei was hätte Horst fast sein Leben verloren?</b><br>A) Fahrrad fahren &nbsp;·&nbsp; B) Trampolin springen &nbsp;·&nbsp; C) Schlitten fahren</div>
+    <div class="kopf"><span class="nr">7</span><span class="titel">Lebensgefahr!</span><span class="thema">Sport &amp;<br>Schutzengel</span><span class="emoji">😱</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Horst: <b>schon immer sportlich</b>, viele Sportarten</li>
+      <li>Aber: <b>EIN Ereignis</b> – beinahe das <b>letzte Mal Sport</b></li>
+      <li><b>Krankenhaus</b> + die richtigen <b>Schutzengel</b> → <b>glimpflich davongekommen</b></li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Darum dreht sich die nächste Frage."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Bei was hätte Horst fast sein Leben verloren?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Fahrrad fahren</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Trampolin springen</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Schlitten fahren</span></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="sheet">
   <div class="karte">
-    <div class="kopf"><span class="nr">8</span><span class="titel">Sohn Daniel</span><span class="emoji">🥋</span></div>
-    <div class="stichworte"><b>Stichworte:</b> was Horst NICHT hat: das Antlitz eines Kämpfers · Fäuste &amp; Körper, kampftechnisch · das hat er seinem Sohn überlassen · Daniel: viele Jahre, intensiv &amp; erfolgreich</div>
-    <div class="text">Eines hatte Horst in seinem Leben wohl nie: das Antlitz eines Mannes, der mit seinen Fäusten und seinem Körper auf kampftechnische Art und Weise umzugehen weiß. Das hat er lieber seinem Sohn übergeben und überlassen. Und dazu die nächste Frage: Welchen Kampfsport hat Daniel viele Jahre sehr intensiv und erfolgreich ausgeübt?</div>
-    <div class="uebergabe">→ Übergabe: Frage vorlesen lassen</div>
-    <div class="frage"><b>Welchen Sport macht Sohn Daniel?</b><br>A) Jiu-Jitsu &nbsp;·&nbsp; B) Muay Thai &nbsp;·&nbsp; C) Wing Tsun</div>
+    <div class="kopf"><span class="nr">8</span><span class="titel">Sohn Daniel</span><span class="thema">Kampfsport</span><span class="emoji">🥋</span></div>
+    <div class="label">Einstieg – Stichpunkte</div>
+    <ul class="punkte">
+      <li>Was Horst <b>nie hatte</b>: das Antlitz eines <b>Kämpfers</b></li>
+      <li><b>Fäuste &amp; Körper</b>, kampftechnisch – nichts für ihn</li>
+      <li>Das hat er <b>seinem Sohn überlassen</b></li>
+      <li>Daniel: <b>viele Jahre, intensiv &amp; erfolgreich</b></li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Welchen Kampfsport hat Daniel viele Jahre sehr intensiv und erfolgreich ausgeübt? Dazu die nächste Frage."</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Übergabe – Frage vorlesen lassen</div>
+    <div class="frage">
+      <div class="q">Welchen Sport macht Sohn Daniel?</div>
+      <div class="antworten">
+        <div class="antwort"><span class="buchstabe">A</span><span>Jiu-Jitsu</span></div>
+        <div class="antwort"><span class="buchstabe">B</span><span>Muay Thai</span></div>
+        <div class="antwort"><span class="buchstabe">C</span><span>Wing Tsun</span></div>
+      </div>
+    </div>
   </div>
   <div class="karte cut">
-    <div class="kopf"><span class="nr">9</span><span class="titel">Abschlussfrage</span><span class="emoji">🏆</span></div>
-    <div class="stichworte"><b>Stichworte:</b> letzte Frage · ausnahmsweise KEINE Karten · geht nur an einen: den Stargast · danach → Geschenkübergabe 🎁</div>
-    <div class="text">Wir kommen zur letzten Frage des Abends – und dafür braucht ihr ausnahmsweise keine Karten. Denn diese Frage geht nur an einen einzigen Menschen hier im Raum: an unseren Stargast. Horst, du hast heute bewiesen, dass du alle Antworten kennst. Jetzt zeigt sich, wie gut du dein Publikum kennst – schau dich ruhig einmal in der Runde um …</div>
-    <div class="uebergabe">→ Frage direkt an Horst (ohne A/B/C) – danach Geschenkübergabe</div>
-    <div class="frage"><b>Wie viele Gäste haben im Juli Geburtstag?</b></div>
+    <div class="kopf"><span class="nr">9</span><span class="titel">Abschlussfrage</span><span class="thema">Finale →<br>Geschenke</span><span class="emoji">🏆</span></div>
+    <div class="label">Regie – Stichpunkte</div>
+    <ul class="punkte">
+      <li><b>Letzte Frage</b> des Abends – <b>keine Karten</b> nötig</li>
+      <li>Geht nur an <b>einen</b>: den <b>Stargast</b></li>
+      <li>Nach der Auflösung: <b>Geschenkübergabe</b> 🎁</li>
+    </ul>
+    <div class="label blau">Wörtlich</div>
+    <div class="wortlich">„Horst, du hast heute bewiesen, dass du alle Antworten kennst. Jetzt zeigt sich, wie gut du dein Publikum kennst – schau dich ruhig einmal in der Runde um …"</div>
+    <div class="spacer"></div>
+    <div class="uebergabe">Frage direkt an Horst – ohne A/B/C</div>
+    <div class="frage">
+      <div class="q">Wie viele Gäste haben im Juli Geburtstag?</div>
+    </div>
   </div>
 </div>
 
