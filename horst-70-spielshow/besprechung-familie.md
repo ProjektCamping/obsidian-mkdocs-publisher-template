@@ -26,8 +26,8 @@ Lena). Wenige noch unklare Stellen sind mit **[?]** markiert.
 2. **RHCP-Frage** – die Red-Hot-Chili-Pipers-Geschichte
    *(fertig ausformuliert auf der Spieltafel)*
 
-3. **Gardasee-Frage** – der Camping-Urlaub am Gardasee (Horst & Lena)
-   *(fertig ausformuliert auf der Spieltafel; nur das Jahr fehlt noch)*
+3. **Lago-Mergozzo-Frage** – der Camping-Urlaub am Lago Mergozzo 2004 (Horst & Lena)
+   *(fertig ausformuliert auf der Spieltafel)*
 
 4. **Was isst Horst auf seinem Frühstücksbrötchen am liebsten?**
    - A) Nutella mit Banane
@@ -98,9 +98,8 @@ Was noch fehlt:
   (Frühstücksbrötchen), 6 (Alpenüberquerung), 7 (Lebensgefahr) und 8
   (Sport von Daniel) – in `spielbrett.html` steht bei jeder dieser Fragen ein
   `[AUSFÜLLEN]`-Kommentar direkt am `correct:`-Wert.
-- **Erklärtexte/Anekdoten** zu Frage 1, 3 (Gardasee-Auflösung), 4, 6 und 7
+- **Erklärtexte/Anekdoten** zu Frage 1, 3 (Lago-Mergozzo-Auflösung), 4, 6 und 7
   ergänzen – Platzhalter sind markiert.
-- **Frage 3:** Jahr des Gardasee-Urlaubs nachtragen.
 - **Frage 9:** richtige Gästezahl mit Juli-Geburtstag anhand der Gästeliste
   eintragen.
 - **Rhabarber-Aussprache** („Rhabarberer"?) einmal final bestätigen.

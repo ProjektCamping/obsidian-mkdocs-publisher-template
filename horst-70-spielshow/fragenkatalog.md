@@ -310,7 +310,7 @@ war also immerhin ein Fehlkauf mit Qualität.
 > ⚠️ Jahr und Ort sind noch Platzhalter – bitte ergänzen (auch in
 > `spielbrett.html`), ebenso die Auflösung im Erklärtext.
 
-**★ Sommer [AUSFÜLLEN: Jahr]: Camping-Urlaub in [AUSFÜLLEN: Ort], Italien – mit
+**★ Sommer 2004: Camping-Urlaub am Lago Mergozzo, Italien – mit
 Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis
 zwischen Horst und Lena?**
 - A) Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren ✅

@@ -13,7 +13,7 @@
 - C) Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland
 
 ## Frage 3
-**Sommer [Jahr]: Camping-Urlaub am Gardasee – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?**
+**Sommer 2004: Camping-Urlaub am Lago Mergozzo – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?**
 - A) Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren
 - B) Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert
 - C) Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten

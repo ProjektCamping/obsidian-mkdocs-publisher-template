@@ -90,7 +90,7 @@ C) Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland
 
 ---
 
-## Karte 3 · Gardasee 🏕️
+## Karte 3 · Lago Mergozzo 🏕️
 
 **Stichworte:** Verhältnis Lena & Horst heute: sehr gut · früher: anders! ·
 ⚠️ Lösung nicht verraten · ein unvergessener besonderer Urlaub
@@ -101,7 +101,7 @@ C) Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland
 > ganz besonderer Urlaub … Genau darum dreht sich die nächste Frage.
 
 **→ Übergabe zum Vorlesen:**
-*Sommer [Jahr]: Camping-Urlaub am Gardasee – mit Doris, Horst, Martina,
+*Sommer 2004: Camping-Urlaub am Lago Mergozzo – mit Doris, Horst, Martina,
 Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und
 Lena?*
 A) Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren ·
