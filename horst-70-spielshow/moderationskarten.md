@@ -8,6 +8,47 @@ Druckversion: `moderationskarten.html` (2 Karten pro A4-Blatt, ein Schnitt).
 
 ---
 
+## Karte 0 · Begrüßung & Spielregeln 🎬
+
+**Stichworte:** Begrüßung „live aus [Ort]" · Stargast Horst · Regeln: A/B/C-Karten
+· Countdown-Jingle · „KARTEN HOCH!" · Horst löst auf (spielt nicht mit – er IST
+die Jury) · pro richtige Antwort 1 Chip · meiste Chips = Gutschein ·
+Aufwärmfrage = Kartentest, ALLE Antworten richtig
+
+> Meine Damen und Herren, herzlich willkommen zu einer Spezialausgabe von
+> „Wer weiß denn sowas?" – live aus [Ort], zu Ehren eines Mannes, der heute
+> 70 wird und trotzdem alle Antworten kennt: unser Stargast – HORST!
+>
+> So funktioniert's: Jeder von euch hat drei Karten – A, B und C. Gleich
+> stellen wir Fragen, bei denen sich alles um unser Geburtstagskind dreht.
+> Nach jeder Frage läuft ein Countdown – und wenn es „KARTEN HOCH!" heißt,
+> halten alle gleichzeitig ihre Antwort hoch. Nicht früher, nicht später,
+> und heimliches Tauschen sieht das Publikum sofort!
+>
+> Und wer sagt uns, was richtig ist? Kein Moderatorenkärtchen, kein
+> Publikumsjoker – sondern die höchste Instanz in allen Horst-Fragen:
+> **Horst persönlich!** Er spielt nicht mit – er IST die Jury.
+>
+> Für jede richtige Antwort gibt es einen Chip. Wer am Ende die meisten
+> Chips hat, gewinnt einen Preis. Und damit wir sehen, ob alle ihre Karten
+> gefunden haben, starten wir mit einer Aufwärmrunde – Achtung:
+
+**→ Aufwärmfrage (selbst stellen oder vorlesen lassen):**
+*Es ist Horsts 70. Geburtstag – aber ganz ehrlich: Das glaubt ihm doch keiner.
+Deshalb vorab die wichtigste Frage des Abends: Wie alt sieht unser Horst
+WIRKLICH aus?*
+A) Ein junger Hüpfer – mitten in der Blüte seiner Dreißiger ·
+B) Der Mann hat schon was erlebt, doch der Sport hält ihn jung – hat der
+überhaupt die Fünfzig schon erreicht? ·
+C) Der gute Wein und die Odenwälder Luft haben diesen männlichen Körper zwar
+reifen lassen – aber wie einen großen Jahrgang: mit jedem Jahr nur wertvoller
+
+*(Auflösung: ALLE Antworten sind richtig – die Tafel lässt alle drei grün
+aufleuchten. Ein Chip für alle, die eine Karte oben hatten. Perfekter
+Stimmungs-Opener.)*
+
+---
+
 ## Karte 1 · Der erste Porsche 🚗
 
 **Stichworte:** Maschinenbau-Hintergrund · früh an Porsche geschraubt ·

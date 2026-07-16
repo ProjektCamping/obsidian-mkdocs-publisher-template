@@ -241,6 +241,18 @@
    ==========================================================================*/
 const CATEGORIES = [
   {
+    name: "0 · Aufwärmrunde", emoji: "🎬",
+    questions: [
+      { q: "Es ist Horsts 70. Geburtstag – aber ganz ehrlich: Das glaubt ihm doch keiner. Deshalb vorab die wichtigste Frage des Abends: Wie alt sieht unser Horst WIRKLICH aus?",
+        a: ["Ein junger Hüpfer – mitten in der Blüte seiner Dreißiger",
+            "Der Mann hat schon was erlebt, doch der Sport hält ihn jung – hat der überhaupt die Fünfzig schon erreicht?",
+            "Der gute Wein und die Odenwälder Luft haben diesen männlichen Körper zwar reifen lassen – aber wie einen großen Jahrgang: mit jedem Jahr nur wertvoller"],
+        correct: 0,
+        allCorrect: true,
+        info: "Aufwärmrunde geschafft – und ausnahmsweise sind heute ALLE Antworten richtig! Ein Chip für alle, die eine Karte oben hatten. Und Horst: Glückwunsch, du siehst wirklich keinen Tag älter aus als … sagen wir: genau richtig." }
+    ]
+  },
+  {
     name: "1 · Der erste Porsche", emoji: "🚗",
     questions: [
       { q: "Welche Farbe hatte der erste Porsche von Horst?",
@@ -384,7 +396,7 @@ function shuffle(arr) {
 function openQuestion(cat, tile) {
   const q = cat.questions[cat.used];
   if (!q) return;
-  current = { cat };
+  current = { cat, q };
   revealed = false;
 
   document.getElementById("qcat").textContent = `${cat.emoji} ${cat.name}`;
@@ -435,7 +447,8 @@ function reveal() {
     current.tile.disabled = true;
   } else {
     document.querySelectorAll("#answers .answer").forEach(el => {
-      el.classList.add(el.dataset.correct === "1" ? "correct" : "wrong");
+      const richtig = current.q.allCorrect || el.dataset.correct === "1";
+      el.classList.add(richtig ? "correct" : "wrong");
     });
     document.getElementById("explain").classList.add("show");
     current.cat.used++;
