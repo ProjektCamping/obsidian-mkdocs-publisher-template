@@ -1,33 +1,35 @@
-# AeroPress Wandhalter – hängend, Entnahme nach vorne
+# AeroPress Wandhalter – Entnahme nach vorne
 
 Halter für die **normale AeroPress** an der Holzwange der Kaffeeecke.
-Beide Teile hängen **senkrecht nach unten** durch eine waagerechte
-Ablageplatte – hintereinander – und werden **nacheinander nach vorne**
-entnommen, statt wie bisher seitlich an der großen AeroPress vorbei.
+Beide Teile hängen **genauso ausgerichtet wie im bisherigen Halter** –
+waagerecht nebeneinander, Achsen von der Holzwange weg zeigend, der
+Stempel auf der runden Aufnahme, der Korpus auf dem Sechskant – aber
+sie werden **nacheinander nach vorne** entnommen statt zur Seite,
+wo die große AeroPress im Weg hängt.
 
 ![Schrägansicht](preview-schraeg.png)
 
 ## Funktionsprinzip
 
-Die Ablageplatte hat zwei Öffnungen mit Profil-Mulden obenauf
-(2,5 mm tief, 45° angefast – wie beim bisherigen Halter):
+Eine Frontplatte steht parallel zur Holzwange, dahinter ein 18 mm
+breiter Spalt:
 
-- **vorne:** Der Korpus hängt durch die Öffnung, sein
-  **Sechskant-Flansch** liegt in der **Sechskant-Mulde**.
-- **hinten:** Der Kolben hängt durch die Öffnung, sein runder
-  **Griffteller** liegt in der **runden Mulde**.
+- Das **Rohr** liegt in einem Schlitz der Frontplatte in einer
+  3 mm tiefen Rast-Vertiefung (Sitz).
+- **Griffteller** (rund) bzw. **Sechskant-Flansch** sitzen HINTER
+  der Frontplatte in flachen, 45°-angefasten Profil-Mulden – sie
+  stützen das Teil gegen Kippen und verriegeln es axial: Man kann
+  die AeroPress nicht versehentlich nach links herausziehen.
+- Die Schlitze führen zur **Vorderkante**.
 
-Von der hinteren Öffnung führt ein Kanal durch die vordere Öffnung
-bis zur Vorderkante. **Entnahme:** Teil ca. 5 mm anheben (aus der
-Mulde heben) und **gerade nach vorne herausziehen** – erst den
-Korpus, dann den Kolben, der durch dieselbe vordere Öffnung
-nachrutscht. Die Mulden verhindern, dass etwas von allein nach
-vorne wandert; solange der Korpus hängt, ist auch der Kolben
-formschlüssig gesperrt. Einsetzen in umgekehrter Reihenfolge
-einfach von oben.
-
-Beim Sechskant-Flansch eine **Flächenseite zur Wand** drehen, dann
-setzt er sich satt in die Mulde.
+**Entnahme:** Teil ca. 3 mm anheben und gerade **nach vorne
+herausziehen** – Teller/Flansch gleiten dabei frei durch den Spalt.
+Erst den Korpus (vorne), dann den Kolben durch dieselbe Öffnung.
+Solange der Korpus hängt, ist der Kolben formschlüssig gesperrt
+(„nacheinander"). Einsetzen umgekehrt: von vorne einschieben, am
+Sitz ins Raster abgesenkt – fertig. Die Deckwand liegt so hoch,
+dass der Sechskant-Flansch in jeder Drehstellung durch den Spalt
+passt; einrasten tut er satt mit einer Fläche nach unten.
 
 ## Dateien
 
@@ -48,12 +50,14 @@ Teller Ø 83,3 mm). **Mit Messschieber prüfen:**
 |---|---|---|
 | `chamber_tube_d` | 70 mm | Rohr-Außen-Ø des Korpus |
 | `chamber_hex_af` | 92,8 mm | Sechskant-Flansch: Schlüsselweite (Fläche zu Fläche) |
+| `chamber_stub_d` | 76 mm | Ø des Kragens zwischen Flansch und Trinkrand |
+| `chamber_flange_pos` | 8 mm | Abstand Trinkrand → Flansch |
 | `plunger_tube_d` | 63 mm | Rohr-Außen-Ø des Kolbens |
 | `plunger_rim_d` | 83,3 mm | Griffteller-Ø |
 | `flange_t` | 6 mm | Dicke von Teller und Flansch |
 
-Die Öffnungen haben 4 mm, die Mulden 2,4 mm Spiel – kleine
-Abweichungen sind unkritisch. STL neu erzeugen:
+Schlitze haben 4 mm, Mulden 2,7 mm Spiel – kleine Abweichungen
+sind unkritisch. STL neu erzeugen:
 
 ```sh
 openscad --export-format binstl -o aeropress-wandhalter.stl aeropress-wandhalter.scad
@@ -61,31 +65,28 @@ openscad --export-format binstl -o aeropress-wandhalter.stl aeropress-wandhalter
 
 ## Platzbedarf
 
-- Ablageplatte: **210 mm tief × 126 mm** Auskragung von der
-  Holzwange, 8 mm stark; Rückplatte 90 mm hoch.
-- Die Holzwange sollte also mindestens ~21 cm tief sein.
-- Nach unten hängen die Teile bis ca. **133 mm** unter die Platte.
-- Nach oben ragen die Flansche ~12 mm über die Platte; zum
-  Anheben bei der Entnahme reichen **~2 cm Luft** über der Platte.
+- An der Holzwange: **215 mm tief × 152 mm hoch** (Rückplatte).
+- Auskragung: Frontplatte endet 34 mm vor der Wange, die Teile
+  ragen bis ca. **156 mm** von der Wange ab (wie bisher seitlich).
+- Zum Entnehmen nach vorne ca. 15 cm freier Zugriff vor dem Halter.
 
 ## Druck
 
 | Parameter | Empfehlung |
 |---|---|
 | Material | PETG oder PLA |
-| Ausrichtung | Aufrecht auf der **hinteren Stirnkante** (Wandseite y=0) stehend – Ablageplatte und Rückplatte stehen dann senkrecht, keine Stützen nötig |
+| Ausrichtung | Aufrecht auf der **hinteren Stirnkante** (y=0) stehend – alle Wände stehen dann senkrecht, keine Stützen nötig |
 | Stützstruktur | keine (Brim empfohlen) |
 | Wandlinien | 4 |
 | Füllung | 25–30 % |
 | Schichthöhe | 0,2 mm |
 
-In dieser Ausrichtung verlaufen die Schichten quer zur Platte –
-die Biegelast der hängenden Teile wirkt in der Schichtebene, der
-Halter ist also voll belastbar.
+In dieser Ausrichtung wirken die Lasten der hängenden Teile in der
+Schichtebene – der Halter ist voll belastbar.
 
 ## Montage
 
-Mit 4 Senkkopf-Holzschrauben 4 × 25 mm an die Holzwange schrauben
-(Löcher Ø 4,5 mm mit Senkung: 2 über, 2 unter der Platte; die
-unteren vor dem Einhängen der Teile eindrehen). Platte waagerecht
-ausrichten, offener Kanal nach vorne.
+Mit 4 Senkkopf-Holzschrauben 4 × 25 mm an die Holzwange
+(Löcher Ø 4,5 mm mit Senkung: 2 oben über der Deckwand, 2 unten
+unter der Frontplatte – beide Reihen sind frei zugänglich).
+Offene Schlitzseite nach vorne, Platte waagerecht ausrichten.
