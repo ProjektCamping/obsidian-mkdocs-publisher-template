@@ -1,36 +1,33 @@
-# AeroPress Wandhalter – Entnahme nach vorne
+# AeroPress Wandhalter – hängend, Entnahme nach vorne
 
 Halter für die **normale AeroPress** an der Holzwange der Kaffeeecke.
-Beide Teile liegen waagerecht **hintereinander mit der Achse zum
-Betrachter** und werden **nacheinander nach vorne** entnommen – nichts
-muss mehr seitlich an der großen AeroPress vorbeigefädelt werden.
+Beide Teile hängen **senkrecht nach unten** durch eine waagerechte
+Ablageplatte – hintereinander – und werden **nacheinander nach vorne**
+entnommen, statt wie bisher seitlich an der großen AeroPress vorbei.
 
 ![Schrägansicht](preview-schraeg.png)
 
 ## Funktionsprinzip
 
-Jedes Teil liegt auf zwei Kamm-Scheiben:
+Die Ablageplatte hat zwei Öffnungen mit Profil-Mulden obenauf
+(2,5 mm tief, 45° angefast – wie beim bisherigen Halter):
 
-1. **Profil-Scheibe** (12 mm dick, dreilagig ausgeschnitten):
-   Der runde **Griffteller des Kolbens** bzw. der **Sechskant-Flansch
-   des Korpus** fällt in eine passgenaue Profil-Nut (rund bzw.
-   Sechskant – wie beim bisherigen Halter). Die Nut sperrt das Teil
-   axial in beide Richtungen: Es kann weder nach vorne herausrutschen
-   noch nach hinten geschoben werden.
-2. **Sattel-Scheibe** weiter vorne: trägt das Rohr. Das Maul ist
-   oberhalb der Mulde verbreitert, damit Teller bzw. Flansch beim
-   Herausziehen hindurchpassen.
+- **vorne:** Der Korpus hängt durch die Öffnung, sein
+  **Sechskant-Flansch** liegt in der **Sechskant-Mulde**.
+- **hinten:** Der Kolben hängt durch die Öffnung, sein runder
+  **Griffteller** liegt in der **runden Mulde**.
 
-**Entnahme:** Teil ca. **2 cm anheben** und gerade **nach vorne
-herausziehen**. Erst den Korpus (vorne), dann den Kolben – der Kolben
-gleitet dabei über die dann leeren vorderen Scheiben hinweg.
-Einsetzen in umgekehrter Reihenfolge (Kolben lässt sich auch bei
-eingesetztem Korpus von oben einlegen).
+Von der hinteren Öffnung führt ein Kanal durch die vordere Öffnung
+bis zur Vorderkante. **Entnahme:** Teil ca. 5 mm anheben (aus der
+Mulde heben) und **gerade nach vorne herausziehen** – erst den
+Korpus, dann den Kolben, der durch dieselbe vordere Öffnung
+nachrutscht. Die Mulden verhindern, dass etwas von allein nach
+vorne wandert; solange der Korpus hängt, ist auch der Kolben
+formschlüssig gesperrt. Einsetzen in umgekehrter Reihenfolge
+einfach von oben.
 
-Der Korpus liegt mit dem Sechskant-Flansch hinten (Trinkrand zur
-Wand, Filterdeckel nach vorn), der Kolben mit dem Griffteller hinten.
-Beim Sechskant eine **Flächenseite nach unten** drehen, dann setzt
-sich der Flansch satt in die Nut.
+Beim Sechskant-Flansch eine **Flächenseite zur Wand** drehen, dann
+setzt er sich satt in die Mulde.
 
 ## Dateien
 
@@ -38,28 +35,25 @@ sich der Flansch satt in die Nut.
 |---|---|
 | `aeropress-wandhalter.scad` | Parametrisches OpenSCAD-Modell |
 | `aeropress-wandhalter.stl` | Druckfertiges Mesh |
-| `preview-schraeg.png`, `preview-vorne.png` | Vorschau (transparent: AeroPress zur Passkontrolle) |
+| `preview-*.png` | Vorschau (transparent: AeroPress zur Passkontrolle) |
 
 ## Maße – bitte vor dem Druck nachmessen!
 
-Die AeroPress-Maße stehen als Variablen am Dateianfang. Offizielle
-Herstellerangaben sind eingearbeitet (Korpus 121 mm lang, Sechskant
-107,2 mm über Eck ≙ 92,8 mm Schlüsselweite; Kolben 133 mm lang,
+Alle AeroPress-Maße stehen als Variablen am Dateianfang. Offizielle
+Herstellerangaben sind eingearbeitet (Korpus 121 mm, Sechskant
+107,2 mm über Eck ≙ 92,8 mm Schlüsselweite; Kolben 133 mm,
 Teller Ø 83,3 mm). **Mit Messschieber prüfen:**
 
 | Variable | angenommen | messen |
 |---|---|---|
 | `chamber_tube_d` | 70 mm | Rohr-Außen-Ø des Korpus |
 | `chamber_hex_af` | 92,8 mm | Sechskant-Flansch: Schlüsselweite (Fläche zu Fläche) |
-| `chamber_stub_d` | 76 mm | Ø des Kragens zwischen Trinkrand und Flansch |
-| `chamber_flange_pos` | 8 mm | Abstand Trinkrand → Flansch |
 | `plunger_tube_d` | 63 mm | Rohr-Außen-Ø des Kolbens |
 | `plunger_rim_d` | 83,3 mm | Griffteller-Ø |
-| `plunger_len` / `chamber_len` | 133 / 121 mm | Gesamtlängen |
 | `flange_t` | 6 mm | Dicke von Teller und Flansch |
 
-Die Mulden haben 2,2–2,4 mm Spiel; kleine Abweichungen sind also
-unkritisch. STL neu erzeugen:
+Die Öffnungen haben 4 mm, die Mulden 2,4 mm Spiel – kleine
+Abweichungen sind unkritisch. STL neu erzeugen:
 
 ```sh
 openscad --export-format binstl -o aeropress-wandhalter.stl aeropress-wandhalter.scad
@@ -67,26 +61,31 @@ openscad --export-format binstl -o aeropress-wandhalter.stl aeropress-wandhalter
 
 ## Platzbedarf
 
-- Rückplatte: **230 mm tief × 67 mm hoch**, 8 mm dick;
-  Scheiben ragen **122 mm** von der Holzwange ab.
-- Der Korpus steht vorne ca. 40 mm über die Rückplatte hinaus.
-- Über den Teilen ca. **4 cm Luft** lassen (Anheben zur Entnahme);
-  höchster Punkt ist der Sechskant-Flansch bei ~96 mm über
-  Plattenunterkante.
+- Ablageplatte: **210 mm tief × 126 mm** Auskragung von der
+  Holzwange, 8 mm stark; Rückplatte 90 mm hoch.
+- Die Holzwange sollte also mindestens ~21 cm tief sein.
+- Nach unten hängen die Teile bis ca. **133 mm** unter die Platte.
+- Nach oben ragen die Flansche ~12 mm über die Platte; zum
+  Anheben bei der Entnahme reichen **~2 cm Luft** über der Platte.
 
 ## Druck
 
 | Parameter | Empfehlung |
 |---|---|
 | Material | PETG oder PLA |
-| Ausrichtung | Aufrecht auf der hinteren Stirnseite (y=0) stehend – die Scheiben liegen dann als waagerechte Platten übereinander |
-| Stützstruktur | Baumstützen (Bauplatte + Modell) unter den drei vorderen Scheiben, Brim |
+| Ausrichtung | Aufrecht auf der **hinteren Stirnkante** (Wandseite y=0) stehend – Ablageplatte und Rückplatte stehen dann senkrecht, keine Stützen nötig |
+| Stützstruktur | keine (Brim empfohlen) |
 | Wandlinien | 4 |
 | Füllung | 25–30 % |
 | Schichthöhe | 0,2 mm |
 
+In dieser Ausrichtung verlaufen die Schichten quer zur Platte –
+die Biegelast der hängenden Teile wirkt in der Schichtebene, der
+Halter ist also voll belastbar.
+
 ## Montage
 
 Mit 4 Senkkopf-Holzschrauben 4 × 25 mm an die Holzwange schrauben
-(Löcher Ø 4,5 mm, Senkungen sind vorgesehen). Achsen zeigen zum
-Betrachter, Halter waagerecht ausrichten.
+(Löcher Ø 4,5 mm mit Senkung: 2 über, 2 unter der Platte; die
+unteren vor dem Einhängen der Teile eindrehen). Platte waagerecht
+ausrichten, offener Kanal nach vorne.
