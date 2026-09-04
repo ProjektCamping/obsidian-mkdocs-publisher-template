@@ -698,7 +698,8 @@ function shellHtml() {
     <span class="lightbox-hint">Tippen zum Vergroessern</span>
   </div>
   <dialog id="dlg">
-    <div class="dlg-head"><h3>Fertigen Text sichern</h3><p>Die Markierungen werden durch deine Entscheidungen ersetzt.</p></div>
+    <div class="dlg-head"><h3>Fertigen Text sichern</h3><p>Die Markierungen werden durch deine Entscheidungen ersetzt.</p>
+      <p id="dlg-bundle" hidden style="margin-top:6px;color:var(--text-dim)">In dieser Web-Ansicht kommen alle Tage in <b>einer</b> Markdown-Datei zurück, durch Trennlinien geteilt.</p></div>
     <div class="dlg-body">
       <label class="opt"><input type="checkbox" id="o-strip" checked>
         <span>Seitenkommentare entfernen<small>Die <code>&lt;!-- seite: ... --&gt;</code>-Zeilen fliegen aus dem fertigen Text.</small></span></label>
@@ -1076,6 +1077,10 @@ function openExport() {
   $("#o-strip").checked = State.settings.stripPages;
   $("#o-keep").checked = State.settings.keepOpen;
   $("#o-ill").value = State.settings.illegible;
+  downloadsApi().then((api) => {
+    const hint = $("#dlg-bundle");
+    if (hint) hint.hidden = !(api && State.docs.length > 1);
+  });
   $("#dlg-cancel").onclick = () => dlg.close();
   $("#dlg-ok").onclick = () => {
     State.settings.stripPages = $("#o-strip").checked;
@@ -1087,20 +1092,52 @@ function openExport() {
   dlg.showModal();
 }
 
-function doExport(withLog) {
-  const files = State.docs.map((d) => ({
-    name: d.name.replace(/\.(md|markdown|txt)$/i, "") + ".md",
-    data: new TextEncoder().encode(buildOutput(d)),
-  }));
-  if (withLog) files.push({ name: "korrekturen.json", data: new TextEncoder().encode(buildLog()) });
+/* Laeuft die Seite im Web, gibt der Viewer Dateien nur ueber diesen Weg
+   heraus; lokal aus dem Dateisystem gibt es ihn nicht und der gewoehnliche
+   Download greift. Dieselbe Datei bedient beides. */
+let dlPromise = null;
+function downloadsApi() {
+  if (!window.claude || typeof window.claude.use !== "function") return Promise.resolve(null);
+  if (!dlPromise) dlPromise = Promise.resolve(window.claude.use("downloads")).catch(() => null);
+  return dlPromise;
+}
 
-  if (files.length === 1) {
-    download(new Blob([files[0].data], { type: "text/markdown;charset=utf-8" }), files[0].name);
-  } else {
-    download(new Blob([makeZip(files)], { type: "application/zip" }), "transkript-fertig.zip");
-  }
+async function doExport(withLog) {
+  const enc = new TextEncoder();
+  const texts = State.docs.map((d) => ({
+    name: d.name.replace(/\.(md|markdown|txt)$/i, "") + ".md",
+    text: buildOutput(d),
+  }));
+  const log = withLog ? buildLog() : null;
   const off = totalOpen();
-  toast(off ? "Gespeichert - " + off + " Stellen sind noch offen" : "Gespeichert - alles entschieden");
+  const fertig = () => toast(off ? "Gespeichert - " + off + " Stellen sind noch offen" : "Gespeichert - alles entschieden");
+
+  const api = await downloadsApi();
+  if (api) {
+    // Im Web: mehrere Tage wandern gebuendelt in eine Datei, weil jede
+    // einzelne sonst eine eigene Rueckfrage braeuchte.
+    const bundle = texts.length === 1
+      ? texts[0]
+      : { name: "transkript-fertig.md",
+          text: texts.map((t) => `<!-- datei: ${t.name} -->\n\n${t.text.trim()}`).join("\n\n---\n\n") + "\n" };
+    try {
+      await api.save({ filename: bundle.name, data: bundle.text });
+      if (log) await api.save({ filename: "korrekturen.json", data: log });
+      fertig();
+    } catch (err) {
+      const code = err && err.code;
+      if (code === "declined") toast("Speichern abgebrochen - dein Stand bleibt erhalten");
+      else if (code === "rate_limited") toast("Eine Rueckfrage ist noch offen - kurz warten");
+      else toast("Speichern hier nicht moeglich" + (err && err.message ? ": " + err.message : ""));
+    }
+    return;
+  }
+
+  const files = texts.map((t) => ({ name: t.name, data: enc.encode(t.text) }));
+  if (log) files.push({ name: "korrekturen.json", data: enc.encode(log) });
+  if (files.length === 1) download(new Blob([files[0].data], { type: "text/markdown;charset=utf-8" }), files[0].name);
+  else download(new Blob([makeZip(files)], { type: "application/zip" }), "transkript-fertig.zip");
+  fertig();
 }
 
 function download(blob, name) {
@@ -1199,6 +1236,7 @@ function loadDemo() {
 }
 
 /* ---------------------------------------------------------------- Start */
+downloadsApi();
 try {
   const t = localStorage.getItem("tx:theme");
   if (t) document.documentElement.setAttribute("data-theme", t);
