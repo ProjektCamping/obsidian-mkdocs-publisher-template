@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transkript-Editor</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f4f1ea;
+  --bg-panel: #fffdf8;
+  --bg-sunken: #ebe6db;
+  --bg-hover: #e4ddcd;
+  --text: #2b2721;
+  --text-dim: #6d6558;
+  --text-faint: #9a9284;
+  --border: #ded6c6;
+  --border-strong: #c7bda8;
+  --accent: #1f6f66;
+  --accent-soft: #d9ebe7;
+  --open: #a8611a;
+  --open-bg: #fbe9d0;
+  --open-border: #e3b276;
+  --done: #2f6b3a;
+  --done-bg: #dcecdc;
+  --done-border: #9ec4a2;
+  --skip: #6d6558;
+  --skip-bg: #e6e1d6;
+  --skip-border: #c5bcaa;
+  --danger: #a3352c;
+  --radius: 8px;
+  --shadow: 0 1px 2px rgba(43,39,33,.07), 0 6px 20px rgba(43,39,33,.06);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16150f;
+    --bg-panel: #1e1d16;
+    --bg-sunken: #12110c;
+    --bg-hover: #2a2820;
+    --text: #e8e2d4;
+    --text-dim: #a49c8a;
+    --text-faint: #756e60;
+    --border: #333025;
+    --border-strong: #4a4636;
+    --accent: #6fc2b4;
+    --accent-soft: #1d3833;
+    --open: #e0a45e;
+    --open-bg: #3a2c17;
+    --open-border: #7a5c2c;
+    --done: #8cc796;
+    --done-bg: #1e3322;
+    --done-border: #3f6446;
+    --skip: #a49c8a;
+    --skip-bg: #272419;
+    --skip-border: #454033;
+    --danger: #e28a80;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16150f; --bg-panel: #1e1d16; --bg-sunken: #12110c; --bg-hover: #2a2820;
+  --text: #e8e2d4; --text-dim: #a49c8a; --text-faint: #756e60;
+  --border: #333025; --border-strong: #4a4636;
+  --accent: #6fc2b4; --accent-soft: #1d3833;
+  --open: #e0a45e; --open-bg: #3a2c17; --open-border: #7a5c2c;
+  --done: #8cc796; --done-bg: #1e3322; --done-border: #3f6446;
+  --skip: #a49c8a; --skip-bg: #272419; --skip-border: #454033;
+  --danger: #e28a80;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+/* ---------- App shell ---------- */
+#app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+
+header.bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px; background: var(--bg-panel);
+  border-bottom: 1px solid var(--border); flex: 0 0 auto; flex-wrap: wrap;
+}
+.brand { font-weight: 600; letter-spacing: -.01em; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+.brand svg { width: 17px; height: 17px; color: var(--accent); }
+.bar .spacer { flex: 1 1 auto; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 11px; border: 1px solid var(--border-strong); border-radius: var(--radius);
+  background: var(--bg-panel); color: var(--text); white-space: nowrap;
+  transition: background .12s, border-color .12s;
+}
+.btn:hover:not(:disabled) { background: var(--bg-hover); }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+:root[data-theme="dark"] .btn.primary, .btn.primary { color: #fff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #08110f; } }
+:root[data-theme="dark"] .btn.primary { color: #08110f; }
+.btn.primary:hover:not(:disabled) { filter: brightness(1.08); }
+.btn.icon { padding: 6px 8px; }
+.btn svg { width: 15px; height: 15px; }
+
+.progress-wrap { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--text-dim); white-space: nowrap; }
+.progress-track { display: inline-block; width: 130px; height: 6px; border-radius: 99px; background: var(--bg-sunken); overflow: hidden; border: 1px solid var(--border); }
+.progress-fill { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+
+/* ---------- Layout ---------- */
+main.workspace { flex: 1 1 auto; display: grid; grid-template-columns: 210px minmax(0,1fr) minmax(0,0.85fr); min-height: 0; }
+main.workspace.no-image { grid-template-columns: 210px minmax(0,1fr); }
+main.workspace.no-files { grid-template-columns: minmax(0,1fr) minmax(0,0.85fr); }
+main.workspace.no-files.no-image { grid-template-columns: minmax(0,1fr); }
+main.workspace.no-files > aside.files { display: none; }
+main.workspace.no-image > aside.imgpane { display: none; }
+
+aside.files {
+  background: var(--bg-panel); border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 10px 8px; min-height: 0;
+}
+.files h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin: 4px 6px 8px; }
+.file-item {
+  display: block; width: 100%; text-align: left; border: 0; background: none;
+  padding: 7px 9px; border-radius: 6px; margin-bottom: 1px; line-height: 1.35;
+}
+.file-item:hover { background: var(--bg-hover); }
+.file-item.active { background: var(--accent-soft); }
+.file-item .fname { display: block; font-size: 13px; }
+.file-item.active .fname { font-weight: 600; }
+.file-item .fmeta { display: block; font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+.dot { display: inline-block; width: 6px; height: 6px; border-radius: 99px; background: var(--open); margin-right: 5px; vertical-align: middle; }
+.dot.clear { background: var(--done); }
+
+section.doc { overflow-y: auto; min-height: 0; padding: 26px 30px 55vh; }
+.doc-inner { max-width: 68ch; margin: 0 auto; font-family: var(--serif); font-size: 16.5px; line-height: 1.72; }
+.doc-inner h1 { font-size: 25px; line-height: 1.25; margin: 0 0 4px; }
+.doc-inner h2 { font-size: 20px; margin: 1.6em 0 .4em; }
+.doc-inner h3 { font-size: 17px; margin: 1.4em 0 .3em; }
+.doc-inner p { margin: 0 0 .85em; white-space: pre-wrap; }
+.doc-inner blockquote { margin: 0 0 .85em; padding-left: 14px; border-left: 3px solid var(--border-strong); color: var(--text-dim); font-style: italic; }
+.doc-inner hr { border: 0; border-top: 1px solid var(--border); margin: 1.8em 0; }
+.doc-inner ul, .doc-inner ol { margin: 0 0 .85em; padding-left: 1.4em; }
+.doc-meta { font-family: var(--sans); font-size: 12.5px; color: var(--text-dim); margin: 0 0 22px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+.page-sep {
+  font-family: var(--sans); font-size: 11px; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--text-faint); margin: 1.9em 0 1em; display: flex; align-items: center; gap: 10px;
+}
+.page-sep::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.page-sep button { border: 0; background: none; color: inherit; font: inherit; padding: 0; text-decoration: underline dotted; }
+.page-sep button:hover { color: var(--accent); }
+
+/* ---------- Marker ---------- */
+.mk {
+  font-family: var(--sans); font-size: .87em; border-radius: 4px;
+  padding: 1px 4px; margin: 0 1px; border: 1px solid transparent;
+  cursor: pointer; transition: background .12s, box-shadow .12s;
+  background: var(--open-bg); border-color: var(--open-border); color: var(--open);
+  text-decoration: underline; text-decoration-style: wavy; text-decoration-thickness: 1px; text-underline-offset: 2.5px;
+}
+.mk:hover { filter: brightness(.97); }
+.mk.done { background: var(--done-bg); border-color: var(--done-border); color: var(--done); text-decoration: none; font-family: var(--serif); font-size: 1em; }
+.mk.skip { background: var(--skip-bg); border-color: var(--skip-border); color: var(--skip); text-decoration: none; font-style: italic; }
+.mk.current { box-shadow: 0 0 0 3px var(--accent-soft), 0 0 0 4px var(--accent); }
+.mk.empty::before { content: "unleserlich"; opacity: .75; font-style: italic; }
+
+/* ---------- Editor popover ---------- */
+.editor {
+  font-family: var(--sans); font-size: 13.5px; line-height: 1.45;
+  display: block; white-space: normal; margin: 10px 0; padding: 12px 13px;
+  background: var(--bg-panel); border: 1px solid var(--border-strong);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.editor:focus { outline: none; }
+.editor-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 9px; flex-wrap: wrap; }
+.editor-head .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--text-faint); }
+.editor-head .count { margin-left: auto; font-size: 11.5px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.editor-note {
+  display: block;
+  background: var(--bg-sunken); border-radius: 6px; padding: 6px 9px; margin-bottom: 9px;
+  font-size: 12.5px; color: var(--text-dim); border-left: 2px solid var(--border-strong);
+}
+.choices { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 9px; }
+.choice {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 99px; border: 1px solid var(--border-strong);
+  background: var(--bg); transition: background .12s, border-color .12s;
+}
+.choice:hover { background: var(--accent-soft); border-color: var(--accent); }
+.choice kbd {
+  font: 500 10.5px var(--mono); background: var(--bg-sunken); border: 1px solid var(--border);
+  border-radius: 3px; padding: 0 4px; color: var(--text-faint);
+}
+.choice.is-original { border-style: dashed; }
+.choice.is-illegible { font-style: italic; color: var(--text-dim); }
+.editor-row { display: flex; gap: 6px; align-items: stretch; }
+.editor-row input[type=text] {
+  flex: 1 1 auto; min-width: 0; padding: 7px 10px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--bg);
+}
+.editor-row input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+.editor-foot { display: flex; gap: 12px; align-items: center; margin-top: 9px; font-size: 12px; color: var(--text-faint); flex-wrap: wrap; }
+.editor-foot button { border: 0; background: none; color: var(--text-dim); text-decoration: underline; padding: 0; font-size: 12px; }
+.editor-foot button:hover { color: var(--accent); }
+.editor-foot button.undo:hover { color: var(--danger); }
+
+/* ---------- Image pane ---------- */
+aside.imgpane { background: var(--bg-sunken); border-left: 1px solid var(--border); display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.imgpane-bar { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 1px solid var(--border); background: var(--bg-panel); flex: 0 0 auto; }
+.imgpane-bar .name { font-size: 12px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; }
+.imgpane-bar input[type=range] { width: 74px; accent-color: var(--accent); }
+.imgview { flex: 1 1 auto; overflow: auto; position: relative; display: flex; align-items: flex-start; justify-content: center; padding: 10px; min-height: 0; }
+.imgview img { display: block; max-width: none; transform-origin: top center; border-radius: 4px; box-shadow: var(--shadow); background: #fff; }
+.imgview.empty { align-items: center; color: var(--text-faint); font-size: 13px; text-align: center; padding: 24px; }
+
+/* ---------- Drop zone / start screen ---------- */
+.start { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 28px; overflow-y: auto; }
+.start-card { max-width: 620px; width: 100%; }
+.start-card h1 { font-size: 24px; margin: 0 0 6px; letter-spacing: -.02em; }
+.start-card > p { color: var(--text-dim); margin: 0 0 20px; }
+.dropzone {
+  border: 2px dashed var(--border-strong); border-radius: 12px; padding: 30px 24px;
+  text-align: center; background: var(--bg-panel); transition: border-color .15s, background .15s;
+}
+.dropzone.over { border-color: var(--accent); background: var(--accent-soft); }
+.dropzone strong { display: block; font-size: 15.5px; }
+.dropzone p { margin: 10px 0 16px; color: var(--text-dim); font-size: 13.5px; }
+.dropzone .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.hint { margin-top: 20px; font-size: 12.5px; color: var(--text-faint); line-height: 1.6; }
+.hint code { font: 12px var(--mono); background: var(--bg-sunken); padding: 1px 5px; border-radius: 4px; color: var(--text-dim); }
+.hint b { color: var(--text-dim); font-weight: 600; }
+
+/* ---------- Dialog ---------- */
+dialog {
+  border: 1px solid var(--border-strong); border-radius: 12px; padding: 0;
+  background: var(--bg-panel); color: var(--text); box-shadow: var(--shadow);
+  max-width: 500px; width: calc(100vw - 40px);
+}
+dialog::backdrop { background: rgba(20,18,14,.45); }
+.dlg-head { padding: 14px 18px 0; }
+.dlg-head h3 { margin: 0 0 3px; font-size: 16px; }
+.dlg-head p { margin: 0; font-size: 12.5px; color: var(--text-dim); }
+.dlg-body { padding: 14px 18px; display: flex; flex-direction: column; gap: 11px; }
+.opt { display: flex; gap: 9px; align-items: flex-start; font-size: 13.5px; }
+.opt input { margin-top: 3px; accent-color: var(--accent); flex: 0 0 auto; }
+.opt span small { display: block; color: var(--text-dim); font-size: 12px; margin-top: 1px; }
+.dlg-foot { padding: 12px 18px 16px; display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid var(--border); }
+
+.toast {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(12px);
+  background: var(--text); color: var(--bg); padding: 9px 16px; border-radius: 99px;
+  font-size: 13px; box-shadow: var(--shadow); opacity: 0; pointer-events: none;
+  transition: opacity .2s, transform .2s; z-index: 50;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 1100px) {
+  main.workspace, main.workspace.no-image, main.workspace.no-files { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 1fr; }
+  aside.files { grid-row: 1; max-height: 130px; border-right: 0; border-bottom: 1px solid var(--border); }
+  aside.imgpane { display: none; }
+  section.doc { padding: 20px 16px 50vh; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+
+/* =========================================================================
+   Transkript-Editor
+   Ein Werkzeug, um handschriftliche Transkripte zu prüfen: unsichere
+   Stellen sind im Markdown markiert, hier werden sie eine nach der anderen
+   entschieden - mit dem Foto der Originalseite daneben.
+
+   Markierungs-Syntax im Markdown:
+     {?lesung}                     unsichere Stelle, eine Lesung
+     {?lesung|alt1|alt2}           unsichere Stelle mit Alternativvorschlägen
+     {?lesung // notiz}            mit Hinweis für den Menschen
+     {?}                           unleserlich, keine Lesung
+   Seitenzuordnung (bindet den folgenden Text an ein Foto):
+     <!-- seite: bilder/tag03_a.jpg -->
+     <!-- seite: 12 | bilder/tag03_a.jpg -->
+   ========================================================================= */
+
+const MARKER_RE = /\{\?([^{}]*)\}/g;
+const PAGE_RE   = /<!--\s*(?:seite|page)\s*:\s*([^>]*?)\s*-->/gi;
+const IMG_EXT   = /\.(jpe?g|png|gif|webp|avif|heic|heif|bmp|tiff?)$/i;
+
+/* ---------------------------------------------------------------- Zustand */
+const State = {
+  docs: [],            // geladene Markdown-Dateien
+  images: new Map(),   // normalisierter Pfad -> {url, name}
+  activeDoc: 0,
+  activeMarker: null,  // id der gerade bearbeiteten Stelle
+  imgZoom: 1,
+  settings: { illegible: "[unleserlich]", stripPages: true, keepOpen: true },
+};
+
+/* ------------------------------------------------------------ Hilfsmittel */
+const $ = (sel, root = document) => root.querySelector(sel);
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const norm = (p) => p.replace(/\\/g, "/").replace(/^\.\//, "").replace(/^\/+/, "").toLowerCase();
+const base = (p) => norm(p).split("/").pop();
+
+function hash(str) {
+  let h = 5381;
+  for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+
+let toastTimer;
+function toast(msg) {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+/* ------------------------------------------------------------ Frontmatter */
+function splitFrontmatter(text) {
+  const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(text);
+  if (!m) return { fm: {}, fmRaw: "", body: text };
+  const fm = {};
+  for (const line of m[1].split(/\r?\n/)) {
+    const kv = /^([A-Za-z_][\w-]*)\s*:\s*(.*)$/.exec(line);
+    if (kv) fm[kv[1].toLowerCase()] = kv[2].trim().replace(/^["']|["']$/g, "");
+  }
+  return { fm, fmRaw: m[0], body: text.slice(m[0].length) };
+}
+
+/* ------------------------------------------------------------------ Parser */
+/* Zerlegt eine Markdown-Datei in Text + Liste der unsicheren Stellen.
+   Der Originaltext bleibt unangetastet erhalten - exportiert wird immer
+   aus dem Original, damit nichts Ungewolltes verändert wird. */
+function parseDoc(name, path, text) {
+  const { fm, body } = splitFrontmatter(text);
+  const markers = [];
+  const pages = [];
+
+  PAGE_RE.lastIndex = 0;
+  let pm;
+  while ((pm = PAGE_RE.exec(body)) !== null) {
+    const parts = pm[1].split("|").map((s) => s.trim()).filter(Boolean);
+    let label = "", image = "";
+    if (parts.length >= 2) { label = parts[0]; image = parts[1]; }
+    else if (parts.length === 1) { IMG_EXT.test(parts[0]) ? (image = parts[0]) : (label = parts[0]); }
+    pages.push({ i: pages.length, at: pm.index, len: pm[0].length, label, image });
+  }
+
+  MARKER_RE.lastIndex = 0;
+  let mm, idx = 0;
+  while ((mm = MARKER_RE.exec(body)) !== null) {
+    const inner = mm[1];
+    const noteSplit = inner.split("//");
+    const note = noteSplit.length > 1 ? noteSplit.slice(1).join("//").trim() : "";
+    const opts = noteSplit[0].split("|").map((s) => s.trim()).filter((s) => s.length);
+    let page = -1;
+    for (let i = 0; i < pages.length; i++) if (pages[i].at < mm.index) page = i;
+    markers.push({
+      id: "m" + idx++,
+      at: mm.index, len: mm[0].length, raw: mm[0],
+      reading: opts[0] || "",
+      options: opts,
+      note, page,
+      status: "open",           // open | done | skip
+      value: opts[0] || "",
+    });
+  }
+
+  return {
+    name, path, text, body, fm, pages, markers,
+    key: "tx:" + hash(path + "::" + text),
+    title: fm.title || name.replace(/\.md$/i, "").replace(/[_-]+/g, " "),
+  };
+}
+
+/* ---------------------------------------------------- Fortschritt, Speicher */
+const openCount = (doc) => doc.markers.filter((m) => m.status === "open").length;
+const totalOpen = () => State.docs.reduce((n, d) => n + openCount(d), 0);
+const totalMarkers = () => State.docs.reduce((n, d) => n + d.markers.length, 0);
+
+function save(doc) {
+  try {
+    const data = {};
+    for (const m of doc.markers) if (m.status !== "open") data[m.id] = [m.status, m.value];
+    localStorage.setItem(doc.key, JSON.stringify(data));
+  } catch (e) { /* privater Modus o.Ä. - die Arbeit läuft trotzdem weiter */ }
+}
+function restore(doc) {
+  try {
+    const data = JSON.parse(localStorage.getItem(doc.key) || "{}");
+    let n = 0;
+    for (const m of doc.markers) {
+      const d = data[m.id];
+      if (Array.isArray(d)) { m.status = d[0]; m.value = d[1]; n++; }
+    }
+    return n;
+  } catch (e) { return 0; }
+}
+
+/* ------------------------------------------------------------ Bildzuordnung */
+function imageFor(doc, marker) {
+  const p = marker && marker.page >= 0 ? doc.pages[marker.page] : null;
+  const ref = (p && p.image) || doc.fm.image || "";
+  const label = p ? p.label : "";
+  if (!ref) return null;
+  const dir = doc.path.includes("/") ? doc.path.slice(0, doc.path.lastIndexOf("/") + 1) : "";
+  const found =
+    State.images.get(norm(dir + ref)) ||
+    State.images.get(norm(ref)) ||
+    State.images.get(base(ref));
+  return found ? { url: found.url, name: found.name, ref, label }
+               : { url: null, name: ref, ref, label };
+}
+
+/* ========================================================================
+   Darstellung des Dokuments
+   Bewusst ein sehr kleiner Markdown-Renderer: der Tagebuchtext soll lesbar
+   sein, nicht perfekt gesetzt. Entscheidend ist, dass die markierten
+   Stellen exakt dort sitzen, wo sie im Original stehen.
+   ======================================================================== */
+
+function markerHtml(doc, m, di) {
+  const cls = ["mk", m.status];
+  if (m.id === State.activeMarker) cls.push("current");
+  let label;
+  if (m.status === "done")      label = esc(m.value);
+  else if (m.status === "skip") label = esc(State.settings.illegible);
+  else if (m.reading)           label = esc(m.reading);
+  else { cls.push("empty"); label = ""; }
+  const alt = m.options.length > 1 ? m.options.length + " Vorschläge" : "unsichere Stelle";
+  return `<span class="${cls.join(" ")}" data-mk="${m.id}" data-doc="${di}" role="button" tabindex="0" title="${esc(alt)}">${label}</span>`;
+}
+
+function inlineMd(s) {
+  return esc(s)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s.,;:!?)]|$)/g, "$1<em>$2</em>")
+    .replace(/(^|[\s(])_([^_\n]+)_(?=[\s.,;:!?)]|$)/g, "$1<em>$2</em>");
+}
+
+/* HTML für body[from..to), mit eingesetzten Markern. Zeilenumbrüche
+   bleiben erhalten, damit Listen danach noch aufgeteilt werden koennen. */
+function spanHtml(doc, di, from, to, specials) {
+  let out = "", cur = from;
+  for (const s of specials) {
+    if (s.at < from || s.at >= to) continue;
+    out += inlineMd(doc.body.slice(cur, s.at));
+    out += s.kind === "marker" ? markerHtml(doc, s.m, di) : "";
+    cur = s.at + s.len;
+  }
+  return out + inlineMd(doc.body.slice(cur, to));
+}
+
+function renderDoc(doc, di) {
+  const specials = [
+    ...doc.markers.map((m) => ({ kind: "marker", at: m.at, len: m.len, m })),
+    ...doc.pages.map((p) => ({ kind: "page", at: p.at, len: p.len, p })),
+  ].sort((a, b) => a.at - b.at);
+
+  let html = "";
+  const head = [];
+  if (doc.fm.date) head.push(esc(doc.fm.date));
+  head.push(doc.markers.length + (doc.markers.length === 1 ? " markierte Stelle" : " markierte Stellen"));
+  if (doc.pages.length) head.push(doc.pages.length + (doc.pages.length === 1 ? " Seite" : " Seiten"));
+  html += `<h1>${esc(doc.title)}</h1><p class="doc-meta">${head.join("  &middot;  ")}</p>`;
+
+  // Blöcke: durch Leerzeilen getrennt, mit Offset im Body
+  const re = /\r?\n[ \t]*\r?\n/g;
+  const bounds = [];
+  let last = 0, bm;
+  while ((bm = re.exec(doc.body)) !== null) { bounds.push([last, bm.index]); last = bm.index + bm[0].length; }
+  bounds.push([last, doc.body.length]);
+
+  for (const [from, to] of bounds) {
+    const raw = doc.body.slice(from, to);
+    if (!raw.trim()) continue;
+
+    // Reiner Seitenmarker-Block -> Trennlinie mit Sprung zum Foto
+    const pageOnly = doc.pages.find((p) => p.at >= from && p.at + p.len <= to &&
+      !(doc.body.slice(from, p.at) + doc.body.slice(p.at + p.len, to)).trim());
+    if (pageOnly) {
+      const img = imageFor(doc, { page: pageOnly.i });
+      const cap = pageOnly.label ? "Seite " + esc(pageOnly.label) : "Seite " + (pageOnly.i + 1);
+      const btn = img && img.url ? `<button data-page="${pageOnly.i}">${esc(img.name)}</button>` : (img ? `<span>${esc(img.name)} (Bild fehlt)</span>` : "");
+      html += `<p class="page-sep">${cap} ${btn}</p>`;
+      continue;
+    }
+
+    const inner = spanHtml(doc, di, from, to, specials);
+    const first = raw.trimStart();
+
+    if (/^#{1,6}\s/.test(first)) {
+      const lvl = Math.min(first.match(/^#+/)[0].length + 1, 6);
+      html += `<h${lvl}>${inner.replace(/^\s*#{1,6}\s*/, "")}</h${lvl}>`;
+    } else if (/^(---+|\*\*\*+)\s*$/.test(first)) {
+      html += "<hr>";
+    } else if (/^>\s?/.test(first)) {
+      html += `<blockquote>${inner.replace(/^\s*&gt;\s?/gm, "")}</blockquote>`;
+    } else if (/^(\s*[-*+]\s|\s*\d+[.)]\s)/.test(first)) {
+      const ordered = /^\s*\d+[.)]\s/.test(first);
+      const items = inner.split("\n").filter((l) => l.trim())
+        .map((l) => `<li>${l.replace(/^\s*(?:[-*+]|\d+[.)])\s*/, "")}</li>`).join("");
+      html += ordered ? `<ol>${items}</ol>` : `<ul>${items}</ul>`;
+    } else {
+      html += `<p>${inner}</p>`;
+    }
+  }
+  return html;
+}
+
+/* ------------------------------------------------------------- Editorfeld */
+function editorHtml(doc, m) {
+  const nth = doc.markers.indexOf(m) + 1;
+  const opts = m.options.slice();
+  const seen = new Set(opts.map((o) => o.toLowerCase()));
+  if (m.status === "done" && m.value && !seen.has(m.value.toLowerCase())) opts.push(m.value);
+
+  const choices = opts.map((o, i) => {
+    const isOrig = i === 0 && o === m.reading;
+    return `<button class="choice${isOrig ? " is-original" : ""}" data-val="${esc(o)}">${esc(o)}` +
+           (i < 9 ? `<kbd>${i + 1}</kbd>` : "") + `</button>`;
+  }).join("");
+
+  const note = m.note ? `<span class="editor-note">${esc(m.note)}</span>` : "";
+  const undo = m.status !== "open" ? `<button class="undo" data-act="reset">zurücksetzen</button>` : "";
+
+  return `<span class="editor" data-editor="${m.id}">
+    <span class="editor-head">
+      <span class="lbl">${m.reading ? "Unsichere Stelle" : "Unleserliche Stelle"}</span>
+      <span class="count">Stelle ${nth} von ${doc.markers.length}</span>
+    </span>
+    ${note}
+    <span class="choices">${choices}
+      <button class="choice is-illegible" data-act="skip">unleserlich lassen</button>
+    </span>
+    <span class="editor-row">
+      <input type="text" id="mk-input" value="${esc(m.status === "open" ? m.reading : m.value)}"
+             placeholder="eigene Lesung eintippen" autocomplete="off" spellcheck="false">
+      <button class="btn primary" data-act="apply">Übernehmen</button>
+    </span>
+    <span class="editor-foot">
+      <span>Enter = übernehmen und weiter &middot; Esc = schließen &middot; Ziffern wählen Vorschläge</span>
+      ${undo}
+      <button data-act="next">überspringen</button>
+    </span>
+  </span>`;
+}
+
+/* ========================================================================
+   Oberfläche
+   ======================================================================== */
+
+const ICON_BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>';
+
+function mount() {
+  $("#app").innerHTML = State.docs.length ? shellHtml() : startHtml();
+  if (State.docs.length) { wireShell(); renderAll(); } else { wireStart(); }
+}
+
+function startHtml() {
+  return `
+  <header class="bar"><span class="brand">${ICON_BOOK} Transkript-Editor</span>
+    <span class="spacer"></span>
+    <button class="btn" id="theme">Ansicht</button>
+  </header>
+  <div class="start"><div class="start-card">
+    <h1>Transkript prüfen</h1>
+    <p>Markdown-Dateien mit markierten Stellen öffnen, die unsicheren Wörter entscheiden, sauberen Text herausschreiben.</p>
+    <div class="dropzone" id="dz">
+      <strong>Ordner oder Dateien hierher ziehen</strong>
+      <p>Am besten den ganzen Ordner mit den <code>.md</code>-Dateien <em>und</em> den Fotos &mdash; dann steht neben jeder Stelle die Originalseite.</p>
+      <span class="actions">
+        <button class="btn primary" id="pick-dir">Ordner öffnen</button>
+        <button class="btn" id="pick-files">Einzelne Dateien</button>
+        <button class="btn" id="demo">Beispiel ansehen</button>
+      </span>
+    </div>
+    <p class="hint">
+      <b>Markierungen im Markdown:</b><br>
+      <code>{?Hverir}</code> unsichere Stelle &nbsp; &middot; &nbsp;
+      <code>{?Hverir|Hveri&eth;|Hverar}</code> mit Vorschlägen<br>
+      <code>{?Hverir // Klecks ueber dem H}</code> mit Hinweis &nbsp; &middot; &nbsp;
+      <code>{?}</code> unleserlich<br>
+      <code>&lt;!-- seite: 12 | bilder/tag03.jpg --&gt;</code> ordnet den folgenden Text einem Foto zu<br><br>
+      Alles bleibt auf diesem Rechner &mdash; die Dateien werden nur im Browser geoeffnet, nichts wird hochgeladen.
+    </p>
+  </div></div>
+  <input type="file" id="fi-dir" webkitdirectory directory multiple hidden>
+  <input type="file" id="fi-files" accept=".md,.markdown,.txt,image/*" multiple hidden>`;
+}
+
+function shellHtml() {
+  return `
+  <header class="bar">
+    <span class="brand">${ICON_BOOK} Transkript-Editor</span>
+    <span class="progress-wrap">
+      <span class="progress-track"><span class="progress-fill" id="pfill"></span></span>
+      <span id="pnum"></span>
+    </span>
+    <button class="btn" id="prev" title="Vorherige Stelle">&larr;</button>
+    <button class="btn" id="next">Nächste offene Stelle</button>
+    <span class="spacer"></span>
+    <button class="btn" id="add">Weitere Dateien</button>
+    <button class="btn" id="theme">Ansicht</button>
+    <button class="btn primary" id="export">Fertigen Text sichern</button>
+  </header>
+  <main class="workspace" id="ws">
+    <aside class="files" id="files"></aside>
+    <section class="doc" id="doc"><div class="doc-inner" id="docinner"></div></section>
+    <aside class="imgpane" id="imgpane">
+      <div class="imgpane-bar">
+        <span class="name" id="imgname">Kein Bild</span>
+        <input type="range" id="zoom" min="50" max="400" value="100" title="Zoom">
+        <button class="btn icon" id="imgfull" title="Groß anzeigen">&#8599;</button>
+      </div>
+      <div class="imgview empty" id="imgview">Kein Foto zu dieser Stelle hinterlegt.</div>
+    </aside>
+  </main>
+  <input type="file" id="fi-dir" webkitdirectory directory multiple hidden>
+  <input type="file" id="fi-files" accept=".md,.markdown,.txt,image/*" multiple hidden>
+  <dialog id="dlg">
+    <div class="dlg-head"><h3>Fertigen Text sichern</h3><p>Die Markierungen werden durch deine Entscheidungen ersetzt.</p></div>
+    <div class="dlg-body">
+      <label class="opt"><input type="checkbox" id="o-strip" checked>
+        <span>Seitenkommentare entfernen<small>Die <code>&lt;!-- seite: ... --&gt;</code>-Zeilen fliegen aus dem fertigen Text.</small></span></label>
+      <label class="opt"><input type="checkbox" id="o-keep" checked>
+        <span>Offene Stellen markiert lassen<small>Noch nicht entschiedene Stellen behalten ihre <code>{?...}</code>-Klammern, damit du sie spaeter wiederfindest.</small></span></label>
+      <label class="opt"><input type="checkbox" id="o-log">
+        <span>Protokoll mitspeichern<small>Eine JSON-Datei mit allen Entscheidungen &mdash; zum Nachvollziehen, was du geändert hast.</small></span></label>
+      <label class="opt"><span style="flex:1">Platzhalter für Unleserliches
+        <input type="text" id="o-ill" value="[unleserlich]" style="width:100%;margin-top:5px;padding:6px 9px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg)"></span></label>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn" id="dlg-cancel">Abbrechen</button>
+      <button class="btn primary" id="dlg-ok">Speichern</button>
+    </div>
+  </dialog>`;
+}
+
+/* ------------------------------------------------------------- Zeichnen */
+function renderAll() {
+  const doc = State.docs[State.activeDoc];
+
+  $("#files").innerHTML =
+    '<h2>Dateien</h2>' +
+    State.docs.map((d, i) => {
+      const o = openCount(d);
+      return `<button class="file-item${i === State.activeDoc ? " active" : ""}" data-doc="${i}">
+        <span class="fname">${esc(d.title)}</span>
+        <span class="fmeta"><span class="dot${o ? "" : " clear"}"></span>${o ? o + " offen" : "fertig"} von ${d.markers.length}</span>
+      </button>`;
+    }).join("");
+
+  $("#docinner").innerHTML = renderDoc(doc, State.activeDoc);
+
+  if (State.activeMarker) {
+    const el = $(`[data-mk="${State.activeMarker}"]`);
+    const m = doc.markers.find((x) => x.id === State.activeMarker);
+    if (el && m) el.insertAdjacentHTML("afterend", editorHtml(doc, m));
+  }
+
+  const done = totalMarkers() - totalOpen();
+  const pct = totalMarkers() ? (done / totalMarkers()) * 100 : 100;
+  $("#pfill").style.width = pct + "%";
+  $("#pnum").textContent = done + " / " + totalMarkers() + " entschieden";
+
+  renderImage();
+  $("#ws").classList.toggle("no-files", State.docs.length < 2);
+}
+
+function renderImage() {
+  const doc = State.docs[State.activeDoc];
+  const m = State.activeMarker ? doc.markers.find((x) => x.id === State.activeMarker) : null;
+  const img = imageFor(doc, m || (doc.markers[0] || null));
+  const view = $("#imgview");
+  const has = !!(img && img.url);
+  $("#ws").classList.toggle("no-image", !State.images.size && !has);
+  $("#imgname").textContent = img ? (img.label ? "Seite " + img.label + " - " : "") + img.name : "Kein Bild";
+  view.classList.toggle("empty", !has);
+  if (!has) {
+    view.dataset.src = "";
+    view.innerHTML = img ? `Foto <b>${esc(img.name)}</b> nicht gefunden.<br>Liegt es im geöffneten Ordner?` : "Kein Foto zu dieser Stelle hinterlegt.";
+    return;
+  }
+  if (view.dataset.src !== img.url) {
+    view.innerHTML = `<img src="${img.url}" alt="Originalseite">`;
+    view.dataset.src = img.url;
+  }
+  const el = view.querySelector("img");
+  if (el) el.style.width = 100 * State.imgZoom + "%";
+}
+
+/* ------------------------------------------------------------ Navigation */
+function openMarker(id, docIndex) {
+  if (typeof docIndex === "number" && docIndex !== State.activeDoc) { State.activeDoc = docIndex; }
+  State.activeMarker = id;
+  renderAll();
+  const el = $(`[data-mk="${id}"]`);
+  if (el) {
+    el.scrollIntoView({ block: "center", behavior: "smooth" });
+    const ed = $(`[data-editor="${id}"]`);
+    if (ed) { ed.setAttribute("tabindex", "-1"); ed.focus({ preventScroll: true }); }
+  }
+  State.imgZoom = 1;
+  const z = $("#zoom"); if (z) z.value = 100;
+  renderImage();
+}
+
+function step(dir, onlyOpen) {
+  const doc = State.docs[State.activeDoc];
+  const list = doc.markers;
+  let i = list.findIndex((m) => m.id === State.activeMarker);
+  if (i < 0) i = dir > 0 ? -1 : list.length;
+  for (let k = i + dir; k >= 0 && k < list.length; k += dir) {
+    if (!onlyOpen || list[k].status === "open") { openMarker(list[k].id); return true; }
+  }
+  // in der nächsten/vorherigen Datei weitersuchen
+  for (let d = State.activeDoc + dir; d >= 0 && d < State.docs.length; d += dir) {
+    const cand = dir > 0
+      ? State.docs[d].markers.find((m) => !onlyOpen || m.status === "open")
+      : [...State.docs[d].markers].reverse().find((m) => !onlyOpen || m.status === "open");
+    if (cand) { State.activeDoc = d; openMarker(cand.id); return true; }
+  }
+  if (onlyOpen) { State.activeMarker = null; renderAll(); toast(totalOpen() ? "Keine offene Stelle mehr in dieser Richtung" : "Alle Stellen entschieden."); }
+  return false;
+}
+
+function decide(status, value) {
+  const doc = State.docs[State.activeDoc];
+  const m = doc.markers.find((x) => x.id === State.activeMarker);
+  if (!m) return;
+  m.status = status;
+  m.value = status === "skip" ? "" : value;
+  save(doc);
+  if (status === "open") { renderAll(); return; }
+  if (!step(1, true)) renderAll();
+}
+
+/* ========================================================================
+   Ereignisse
+   ======================================================================== */
+
+function wireStart() {
+  const dz = $("#dz");
+  $("#pick-dir").onclick = () => $("#fi-dir").click();
+  $("#pick-files").onclick = () => $("#fi-files").click();
+  $("#demo").onclick = loadDemo;
+  $("#fi-dir").onchange = (e) => ingest([...e.target.files]);
+  $("#fi-files").onchange = (e) => ingest([...e.target.files]);
+  $("#theme").onclick = toggleTheme;
+  ["dragenter", "dragover"].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add("over"); }));
+  ["dragleave", "drop"].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.remove("over"); }));
+  dz.addEventListener("drop", onDrop);
+  document.body.addEventListener("dragover", (e) => e.preventDefault());
+  document.body.addEventListener("drop", (e) => e.preventDefault());
+}
+
+function wireShell() {
+  $("#next").onclick = () => step(1, true);
+  $("#prev").onclick = () => step(-1, false);
+  $("#add").onclick = () => $("#fi-files").click();
+  $("#theme").onclick = toggleTheme;
+  $("#export").onclick = openExport;
+  $("#fi-dir").onchange = (e) => ingest([...e.target.files]);
+  $("#fi-files").onchange = (e) => ingest([...e.target.files]);
+  $("#zoom").oninput = (e) => { State.imgZoom = e.target.value / 100; renderImage(); };
+  $("#imgfull").onclick = fullscreenImage;
+
+  $("#files").onclick = (e) => {
+    const b = e.target.closest("[data-doc]");
+    if (!b) return;
+    State.activeDoc = +b.dataset.doc; State.activeMarker = null; renderAll();
+    $("#doc").scrollTop = 0;
+  };
+
+  $("#doc").addEventListener("click", (e) => {
+    const page = e.target.closest("[data-page]");
+    if (page) { showPage(+page.dataset.page); return; }
+    const mk = e.target.closest(".mk");
+    if (mk) { openMarker(mk.dataset.mk, +mk.dataset.doc); return; }
+    const act = e.target.closest("[data-act], [data-val]");
+    if (!act) return;
+    if (act.dataset.val !== undefined) return decide("done", act.dataset.val);
+    switch (act.dataset.act) {
+      case "apply":  return decide("done", $("#mk-input").value.trim());
+      case "skip":   return decide("skip", "");
+      case "reset":  return decide("open", "");
+      case "next":   return step(1, true);
+    }
+  });
+
+  $("#doc").addEventListener("keydown", (e) => {
+    if (e.target.id === "mk-input") {
+      if (e.key === "Enter") { e.preventDefault(); decide("done", e.target.value.trim()); }
+      if (e.key === "Escape") { e.preventDefault(); State.activeMarker = null; renderAll(); }
+      return;
+    }
+    const mk = e.target.closest(".mk");
+    if (mk && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openMarker(mk.dataset.mk, +mk.dataset.doc); }
+  });
+
+  document.removeEventListener("keydown", onKey);
+  document.addEventListener("keydown", onKey);
+}
+
+function onKey(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); openExport(); return; }
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || $("#dlg")?.open) return;
+  const doc = State.docs[State.activeDoc];
+  const m = State.activeMarker && doc ? doc.markers.find((x) => x.id === State.activeMarker) : null;
+
+  if (e.key === "Escape") { State.activeMarker = null; renderAll(); return; }
+  if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); step(1, false); return; }
+  if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); step(-1, false); return; }
+  if (!m) { if (e.key === "Enter") { e.preventDefault(); step(1, true); } return; }
+
+  if (e.key === "Enter") { e.preventDefault(); decide("done", m.reading || State.settings.illegible); return; }
+  if (/^[1-9]$/.test(e.key)) {
+    const opt = m.options[+e.key - 1];
+    if (opt !== undefined) { e.preventDefault(); decide("done", opt); }
+    return;
+  }
+  // Losschreiben landet im Eingabefeld
+  if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    const inp = $("#mk-input");
+    if (inp) { inp.focus(); inp.select(); }
+  }
+}
+
+function showPage(i) {
+  const doc = State.docs[State.activeDoc];
+  const first = doc.markers.find((m) => m.page === i);
+  if (first) { openMarker(first.id); return; }
+  const img = imageFor(doc, { page: i });
+  if (img && img.url) { State.activeMarker = null; renderAll(); }
+}
+
+function fullscreenImage() {
+  const el = $("#imgview img");
+  if (!el) return toast("Kein Bild geladen");
+  const w = window.open("", "_blank");
+  if (!w) return toast("Popup wurde blockiert");
+  w.document.write(`<title>Originalseite</title><body style="margin:0;background:#111"><img src="${el.src}" style="max-width:100%;display:block;margin:0 auto">`);
+  w.document.close();
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : cur === "light" ? "" : "dark";
+  next ? document.documentElement.setAttribute("data-theme", next)
+       : document.documentElement.removeAttribute("data-theme");
+  try { localStorage.setItem("tx:theme", next); } catch (e) {}
+}
+
+/* ========================================================================
+   Dateien einlesen
+   ======================================================================== */
+
+function onDrop(e) {
+  const items = e.dataTransfer.items;
+  if (items && items.length && items[0].webkitGetAsEntry) {
+    const roots = [...items].map((i) => i.webkitGetAsEntry()).filter(Boolean);
+    Promise.all(roots.map((r) => walkEntry(r, ""))).then((lists) => ingest(lists.flat()));
+  } else {
+    ingest([...e.dataTransfer.files]);
+  }
+}
+
+function walkEntry(entry, prefix) {
+  return new Promise((resolve) => {
+    if (entry.isFile) {
+      entry.file((f) => { f._path = prefix + entry.name; resolve([f]); }, () => resolve([]));
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const all = [];
+      const readBatch = () => reader.readEntries((entries) => {
+        if (!entries.length) {
+          Promise.all(all.map((c) => walkEntry(c, prefix + entry.name + "/"))).then((r) => resolve(r.flat()));
+          return;
+        }
+        all.push(...entries); readBatch();
+      }, () => resolve([]));
+      readBatch();
+    } else resolve([]);
+  });
+}
+
+async function ingest(files) {
+  if (!files.length) return;
+  const mdFiles = [], imgFiles = [];
+  for (const f of files) {
+    const path = f._path || f.webkitRelativePath || f.name;
+    if (/\.(md|markdown|txt)$/i.test(f.name)) mdFiles.push([f, path]);
+    else if (IMG_EXT.test(f.name) || (f.type || "").startsWith("image/")) imgFiles.push([f, path]);
+  }
+
+  for (const [f, path] of imgFiles) {
+    const url = URL.createObjectURL(f);
+    State.images.set(norm(path), { url, name: f.name });
+    if (!State.images.has(base(path))) State.images.set(base(path), { url, name: f.name });
+  }
+
+  let restored = 0;
+  for (const [f, path] of mdFiles) {
+    const text = await f.text();
+    if (State.docs.some((d) => d.path === path)) continue;
+    const doc = parseDoc(f.name, path, text);
+    restored += restore(doc);
+    State.docs.push(doc);
+  }
+  State.docs.sort((a, b) => (a.fm.date || a.path).localeCompare(b.fm.date || b.path, "de"));
+
+  if (!State.docs.length) { toast("Keine Markdown-Datei gefunden"); if (imgFiles.length) mount(); return; }
+  State.activeDoc = Math.min(State.activeDoc, State.docs.length - 1);
+  mount();
+  const msg = [];
+  if (mdFiles.length) msg.push(mdFiles.length + " Textdatei" + (mdFiles.length > 1 ? "en" : ""));
+  if (imgFiles.length) msg.push(imgFiles.length + " Bild" + (imgFiles.length > 1 ? "er" : ""));
+  toast(msg.join(", ") + " geladen" + (restored ? " - " + restored + " früheren Entscheidungen wiederhergestellt" : ""));
+  if (!State.activeMarker) step(1, true);
+}
+
+/* ========================================================================
+   Ausgabe
+   Gebaut wird immer aus dem Originaltext: nur die markierten Stellen und
+   (auf Wunsch) die Seitenkommentare werden ersetzt. Alles andere bleibt
+   Zeichen für Zeichen so, wie es transkribiert wurde.
+   ======================================================================== */
+
+function buildOutput(doc) {
+  const specials = [
+    ...doc.markers.map((m) => ({ at: m.at, len: m.len, m })),
+    ...doc.pages.map((p) => ({ at: p.at, len: p.len, p })),
+  ].sort((a, b) => a.at - b.at);
+
+  let out = "", cur = 0;
+  for (const s of specials) {
+    out += doc.body.slice(cur, s.at);
+    if (s.m) {
+      const m = s.m;
+      if (m.status === "done") out += m.value;
+      else if (m.status === "skip") out += State.settings.illegible;
+      else out += State.settings.keepOpen ? m.raw : (m.reading || State.settings.illegible);
+    } else if (!State.settings.stripPages) {
+      out += doc.body.slice(s.at, s.at + s.len);
+    }
+    cur = s.at + s.len;
+  }
+  out += doc.body.slice(cur);
+  if (State.settings.stripPages) out = out.replace(/\n{3,}/g, "\n\n").replace(/^\n+/, "\n");
+  return doc.text.slice(0, doc.text.length - doc.body.length) + out;
+}
+
+function buildLog() {
+  return JSON.stringify({
+    erstellt: new Date().toISOString(),
+    dateien: State.docs.map((d) => ({
+      datei: d.path,
+      offen: openCount(d),
+      stellen: d.markers.map((m) => ({
+        nr: d.markers.indexOf(m) + 1,
+        seite: m.page >= 0 ? (d.pages[m.page].label || m.page + 1) : null,
+        bild: m.page >= 0 ? d.pages[m.page].image : null,
+        transkribiert: m.reading,
+        vorschlaege: m.options,
+        notiz: m.note || undefined,
+        status: m.status,
+        entschieden: m.status === "done" ? m.value : m.status === "skip" ? State.settings.illegible : null,
+        geändert: m.status === "done" && m.value !== m.reading,
+      })),
+    })),
+  }, null, 2);
+}
+
+function openExport() {
+  const dlg = $("#dlg");
+  $("#o-strip").checked = State.settings.stripPages;
+  $("#o-keep").checked = State.settings.keepOpen;
+  $("#o-ill").value = State.settings.illegible;
+  $("#dlg-cancel").onclick = () => dlg.close();
+  $("#dlg-ok").onclick = () => {
+    State.settings.stripPages = $("#o-strip").checked;
+    State.settings.keepOpen = $("#o-keep").checked;
+    State.settings.illegible = $("#o-ill").value || "[unleserlich]";
+    dlg.close();
+    doExport($("#o-log").checked);
+  };
+  dlg.showModal();
+}
+
+function doExport(withLog) {
+  const files = State.docs.map((d) => ({
+    name: d.name.replace(/\.(md|markdown|txt)$/i, "") + ".md",
+    data: new TextEncoder().encode(buildOutput(d)),
+  }));
+  if (withLog) files.push({ name: "korrekturen.json", data: new TextEncoder().encode(buildLog()) });
+
+  if (files.length === 1) {
+    download(new Blob([files[0].data], { type: "text/markdown;charset=utf-8" }), files[0].name);
+  } else {
+    download(new Blob([makeZip(files)], { type: "application/zip" }), "transkript-fertig.zip");
+  }
+  const off = totalOpen();
+  toast(off ? "Gespeichert - " + off + " Stellen sind noch offen" : "Gespeichert - alles entschieden");
+}
+
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+/* Minimales ZIP (ohne Kompression) - spart eine externe Bibliothek */
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function crc32(u8) {
+  let c = 0xffffffff;
+  for (let i = 0; i < u8.length; i++) c = CRC_TABLE[(c ^ u8[i]) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+function makeZip(files) {
+  const chunks = [], central = [];
+  let offset = 0;
+  const enc = new TextEncoder();
+  const u16 = (v) => [v & 255, (v >> 8) & 255];
+  const u32 = (v) => [v & 255, (v >> 8) & 255, (v >> 16) & 255, (v >>> 24) & 255];
+
+  for (const f of files) {
+    const name = enc.encode(f.name);
+    const crc = crc32(f.data);
+    const local = new Uint8Array([
+      ...u32(0x04034b50), ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0),
+      ...u32(crc), ...u32(f.data.length), ...u32(f.data.length), ...u16(name.length), ...u16(0),
+    ]);
+    chunks.push(local, name, f.data);
+    central.push(new Uint8Array([
+      ...u32(0x02014b50), ...u16(20), ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0),
+      ...u32(crc), ...u32(f.data.length), ...u32(f.data.length), ...u16(name.length),
+      ...u16(0), ...u16(0), ...u16(0), ...u16(0), ...u32(0), ...u32(offset),
+    ]), name);
+    offset += local.length + name.length + f.data.length;
+  }
+  const cdSize = central.reduce((n, c) => n + c.length, 0);
+  const end = new Uint8Array([
+    ...u32(0x06054b50), ...u16(0), ...u16(0), ...u16(files.length), ...u16(files.length),
+    ...u32(cdSize), ...u32(offset), ...u16(0),
+  ]);
+  const all = [...chunks, ...central, end];
+  const total = all.reduce((n, c) => n + c.length, 0);
+  const buf = new Uint8Array(total);
+  let p = 0;
+  for (const c of all) { buf.set(c, p); p += c.length; }
+  return buf;
+}
+
+/* ========================================================================
+   Beispiel zum Ausprobieren
+   ======================================================================== */
+const DEMO = `---
+title: Tag 3 - Mývatn
+date: 2024-08-14
+---
+
+<!-- seite: 5 | bilder/tag03_a.jpg -->
+
+Morgens um halb sieben aufgewacht, der {?Wind|Wald} hat die ganze Nacht am
+Zelt gezerrt. Kaffee auf dem Kocher, die Finger klamm. Über dem See lag
+Dampf, oder Nebel, das war nicht zu {?unterscheiden|entscheiden}.
+
+Dann los Richtung {?Hverir|Hveri&#240;|Hverarönd // Ortsname, erster Buchstabe verwischt}.
+Der Geruch schon von weitem. {?} - der Rest der Zeile ist mir mit Regen
+weggelaufen.
+
+<!-- seite: 6 | bilder/tag03_b.jpg -->
+
+Nachmittags {?Krafla}, oben am Krater. Es war {?kalt|hell} und die
+Aussicht {?ging bis zum Horizont|war endlos}. Ich habe lange da gesessen
+und nichts gedacht.
+
+Abends Suppe. {?Mudi|Mude} eingeschlafen.
+`;
+
+function loadDemo() {
+  const doc = parseDoc("beispiel-tag03.md", "beispiel/beispiel-tag03.md", DEMO.replace(/&#240;/g, "ð"));
+  restore(doc);
+  State.docs = [doc];
+  State.activeDoc = 0;
+  mount();
+  step(1, true);
+  toast("Beispiel geladen - die Fotos fehlen hier natürlich");
+}
+
+/* ---------------------------------------------------------------- Start */
+try {
+  const t = localStorage.getItem("tx:theme");
+  if (t) document.documentElement.setAttribute("data-theme", t);
+} catch (e) {}
+mount();
+</script>
+</body>
+</html>
