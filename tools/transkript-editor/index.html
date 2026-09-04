@@ -529,6 +529,7 @@ function renderDoc(doc, di) {
   let html = "";
   const head = [];
   if (doc.fm.date) head.push(esc(doc.fm.date));
+  if (doc.fm.time) head.push(esc(doc.fm.time) + " Uhr");
   head.push(doc.markers.length + (doc.markers.length === 1 ? " markierte Stelle" : " markierte Stellen"));
   if (doc.pages.length) head.push(doc.pages.length + (doc.pages.length === 1 ? " Seite" : " Seiten"));
   html += `<h1>${esc(doc.title)}</h1><p class="doc-meta">${head.join("  &middot;  ")}</p>`;
