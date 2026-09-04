@@ -7,15 +7,15 @@
 <style>
 :root {
   color-scheme: light dark;
-  --bg: #f4f1ea;
-  --bg-panel: #fffdf8;
-  --bg-sunken: #ebe6db;
-  --bg-hover: #e4ddcd;
-  --text: #2b2721;
-  --text-dim: #6d6558;
-  --text-faint: #9a9284;
-  --border: #ded6c6;
-  --border-strong: #c7bda8;
+  --bg: #eef0ec;
+  --bg-panel: #fbfcfa;
+  --bg-sunken: #e3e7e2;
+  --bg-hover: #dde2dc;
+  --text: #1f2622;
+  --text-dim: #5c665f;
+  --text-faint: #8b948d;
+  --border: #d3d9d3;
+  --border-strong: #b8c1b9;
   --accent: #1f6f66;
   --accent-soft: #d9ebe7;
   --open: #a8611a;
@@ -254,6 +254,31 @@ dialog::backdrop { background: rgba(20,18,14,.45); }
 .opt span small { display: block; color: var(--text-dim); font-size: 12px; margin-top: 1px; }
 .dlg-foot { padding: 12px 18px 16px; display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid var(--border); }
 
+.lightbox { position: fixed; inset: 0; z-index: 100; background: #0d100e; display: none; overflow: auto; -webkit-overflow-scrolling: touch; }
+.lightbox.open { display: block; }
+.lightbox img { display: block; width: 100%; margin: 0 auto; touch-action: pinch-zoom; }
+.lightbox img.zoomed { width: 250%; max-width: none; }
+.lightbox-close {
+  position: fixed; top: calc(10px + env(safe-area-inset-top)); right: 12px; z-index: 2;
+  width: 40px; height: 40px; border-radius: 99px; border: 0;
+  background: rgba(255,255,255,.15); color: #fff; font-size: 20px; line-height: 1;
+  backdrop-filter: blur(6px);
+}
+.lightbox-hint {
+  position: fixed; bottom: calc(14px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,.75); font-size: 12px; background: rgba(0,0,0,.5);
+  padding: 5px 12px; border-radius: 99px; pointer-events: none;
+}
+
+/* Foto im Editor - traegt auf schmalen Bildschirmen das Bildpanel */
+.editor-photo {
+  display: none; width: 100%; padding: 0; margin-bottom: 9px; overflow: hidden;
+  border: 1px solid var(--border-strong); border-radius: 6px; background: var(--bg-sunken);
+  flex-direction: column; align-items: stretch; text-align: left;
+}
+.editor-photo img { display: block; width: 100%; height: 108px; object-fit: cover; object-position: top center; }
+.editor-photo span { padding: 6px 9px; font-size: 12px; color: var(--text-dim); }
+
 .toast {
   position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(12px);
   background: var(--text); color: var(--bg); padding: 9px 16px; border-radius: 99px;
@@ -263,10 +288,41 @@ dialog::backdrop { background: rgba(20,18,14,.45); }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 1100px) {
-  main.workspace, main.workspace.no-image, main.workspace.no-files { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 1fr; }
-  aside.files { grid-row: 1; max-height: 130px; border-right: 0; border-bottom: 1px solid var(--border); }
-  aside.imgpane { display: none; }
-  section.doc { padding: 20px 16px 50vh; }
+  main.workspace, main.workspace.no-image, main.workspace.no-files,
+  main.workspace.no-files.no-image { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 1fr; }
+  main.workspace > aside.imgpane { display: none; }
+  main.workspace.no-files > aside.files { display: none; }
+  section.doc { padding: 18px 15px 55vh; }
+  .doc-inner { font-size: 17px; }
+  .editor-photo { display: flex; }
+
+  /* Dateien als waagerechte Leiste statt Spalte */
+  aside.files { grid-row: 1; border-right: 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden; padding: 8px 10px; }
+  .files h2 { display: none; }
+  .file-item { width: auto; flex: 0 0 auto; border: 1px solid var(--border); border-radius: 99px;
+    padding: 6px 12px; margin: 0; white-space: nowrap; }
+  .file-item .fmeta { display: inline; margin-left: 6px; }
+
+  /* Kopfzeile: nur das Noetige, Rest wandert ins Menue der Breite */
+  header.bar { padding: 7px 10px calc(7px) ; gap: 7px; }
+  header.bar { padding-top: calc(7px + env(safe-area-inset-top)); }
+  .progress-track { width: 62px; }
+  .btn { padding: 8px 11px; }
+  .long { display: none; }
+
+  /* Tippziele und iOS-Zoom beim Fokus vermeiden */
+  .choice { padding: 9px 13px; }
+  .editor-row input[type=text] { font-size: 16px; padding: 10px 11px; }
+  .editor-foot .keys { display: none; }
+  .start { padding: 18px 15px; }
+  .dropzone { padding: 22px 16px; }
+}
+@media (hover: none) {
+  .desktop-only { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 </style>
 </head>
@@ -535,6 +591,11 @@ function editorHtml(doc, m) {
   }).join("");
 
   const note = m.note ? `<span class="editor-note">${esc(m.note)}</span>` : "";
+  const img = imageFor(doc, m);
+  const photo = img && img.url
+    ? `<button class="editor-photo" data-act="photo"><img src="${img.url}" alt="Foto der Originalseite">
+         <span>${img.label ? "Seite " + esc(img.label) : esc(img.name)} &mdash; antippen zum Vergrößern</span></button>`
+    : "";
   const undo = m.status !== "open" ? `<button class="undo" data-act="reset">zurücksetzen</button>` : "";
 
   return `<span class="editor" data-editor="${m.id}">
@@ -542,7 +603,7 @@ function editorHtml(doc, m) {
       <span class="lbl">${m.reading ? "Unsichere Stelle" : "Unleserliche Stelle"}</span>
       <span class="count">Stelle ${nth} von ${doc.markers.length}</span>
     </span>
-    ${note}
+    ${photo}${note}
     <span class="choices">${choices}
       <button class="choice is-illegible" data-act="skip">unleserlich lassen</button>
     </span>
@@ -552,7 +613,7 @@ function editorHtml(doc, m) {
       <button class="btn primary" data-act="apply">Übernehmen</button>
     </span>
     <span class="editor-foot">
-      <span>Enter = übernehmen und weiter &middot; Esc = schließen &middot; Ziffern wählen Vorschläge</span>
+      <span class="keys">Enter = übernehmen und weiter &middot; Esc = schließen &middot; Ziffern wählen Vorschläge</span>
       ${undo}
       <button data-act="next">überspringen</button>
     </span>
@@ -580,11 +641,11 @@ function startHtml() {
     <h1>Transkript prüfen</h1>
     <p>Markdown-Dateien mit markierten Stellen öffnen, die unsicheren Wörter entscheiden, sauberen Text herausschreiben.</p>
     <div class="dropzone" id="dz">
-      <strong>Ordner oder Dateien hierher ziehen</strong>
-      <p>Am besten den ganzen Ordner mit den <code>.md</code>-Dateien <em>und</em> den Fotos &mdash; dann steht neben jeder Stelle die Originalseite.</p>
+      <strong id="dz-title">Ordner oder Dateien hierher ziehen</strong>
+      <p id="dz-text">Am besten den ganzen Ordner mit den <code>.md</code>-Dateien <em>und</em> den Fotos &mdash; dann steht neben jeder Stelle die Originalseite.</p>
       <span class="actions">
-        <button class="btn primary" id="pick-dir">Ordner öffnen</button>
-        <button class="btn" id="pick-files">Einzelne Dateien</button>
+        <button class="btn primary desktop-only" id="pick-dir">Ordner öffnen</button>
+        <button class="btn" id="pick-files">Dateien wählen</button>
         <button class="btn" id="demo">Beispiel ansehen</button>
       </span>
     </div>
@@ -605,17 +666,17 @@ function startHtml() {
 function shellHtml() {
   return `
   <header class="bar">
-    <span class="brand">${ICON_BOOK} Transkript-Editor</span>
+    <span class="brand">${ICON_BOOK}<span class="long">Transkript-Editor</span></span>
     <span class="progress-wrap">
       <span class="progress-track"><span class="progress-fill" id="pfill"></span></span>
       <span id="pnum"></span>
     </span>
     <button class="btn" id="prev" title="Vorherige Stelle">&larr;</button>
-    <button class="btn" id="next">Nächste offene Stelle</button>
+    <button class="btn" id="next">Weiter <span class="long">zur offenen Stelle</span>&nbsp;&rarr;</button>
     <span class="spacer"></span>
-    <button class="btn" id="add">Weitere Dateien</button>
+    <button class="btn desktop-only" id="add">Weitere Dateien</button>
     <button class="btn" id="theme">Ansicht</button>
-    <button class="btn primary" id="export">Fertigen Text sichern</button>
+    <button class="btn primary" id="export">Sichern</button>
   </header>
   <main class="workspace" id="ws">
     <aside class="files" id="files"></aside>
@@ -631,6 +692,11 @@ function shellHtml() {
   </main>
   <input type="file" id="fi-dir" webkitdirectory directory multiple hidden>
   <input type="file" id="fi-files" accept=".md,.markdown,.txt,image/*" multiple hidden>
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lb-close" aria-label="Schliessen">&times;</button>
+    <img id="lb-img" alt="Originalseite">
+    <span class="lightbox-hint">Tippen zum Vergroessern</span>
+  </div>
   <dialog id="dlg">
     <div class="dlg-head"><h3>Fertigen Text sichern</h3><p>Die Markierungen werden durch deine Entscheidungen ersetzt.</p></div>
     <div class="dlg-body">
@@ -755,6 +821,12 @@ function decide(status, value) {
 
 function wireStart() {
   const dz = $("#dz");
+  if (matchMedia("(pointer: coarse)").matches) {
+    $("#dz-title").textContent = "Dateien öffnen";
+    $("#dz-text").innerHTML = "Wähle die <code>.md</code>-Dateien <em>und</em> die dazugehörigen Fotos aus " +
+      "&mdash; dann steht neben jeder Stelle die Originalseite. Auf dem Handy geht das nur dateiweise, " +
+      "nicht als ganzer Ordner.";
+  }
   $("#pick-dir").onclick = () => $("#fi-dir").click();
   $("#pick-files").onclick = () => $("#fi-files").click();
   $("#demo").onclick = loadDemo;
@@ -777,7 +849,12 @@ function wireShell() {
   $("#fi-dir").onchange = (e) => ingest([...e.target.files]);
   $("#fi-files").onchange = (e) => ingest([...e.target.files]);
   $("#zoom").oninput = (e) => { State.imgZoom = e.target.value / 100; renderImage(); };
-  $("#imgfull").onclick = fullscreenImage;
+  $("#imgfull").onclick = openLightbox;
+  $("#lb-close").onclick = closeLightbox;
+  $("#lightbox").onclick = (e) => {
+    if (e.target.id === "lb-img") { e.target.classList.toggle("zoomed"); return; }
+    if (e.target.id !== "lb-close") closeLightbox();
+  };
 
   $("#files").onclick = (e) => {
     const b = e.target.closest("[data-doc]");
@@ -798,6 +875,7 @@ function wireShell() {
       case "apply":  return decide("done", $("#mk-input").value.trim());
       case "skip":   return decide("skip", "");
       case "reset":  return decide("open", "");
+      case "photo":  return openLightbox();
       case "next":   return step(1, true);
     }
   });
@@ -818,6 +896,10 @@ function wireShell() {
 
 function onKey(e) {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); openExport(); return; }
+  if ($("#lightbox")?.classList.contains("open")) {
+    if (e.key === "Escape") { e.preventDefault(); closeLightbox(); }
+    return;
+  }
   if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || $("#dlg")?.open) return;
   const doc = State.docs[State.activeDoc];
   const m = State.activeMarker && doc ? doc.markers.find((x) => x.id === State.activeMarker) : null;
@@ -848,14 +930,18 @@ function showPage(i) {
   if (img && img.url) { State.activeMarker = null; renderAll(); }
 }
 
-function fullscreenImage() {
-  const el = $("#imgview img");
-  if (!el) return toast("Kein Bild geladen");
-  const w = window.open("", "_blank");
-  if (!w) return toast("Popup wurde blockiert");
-  w.document.write(`<title>Originalseite</title><body style="margin:0;background:#111"><img src="${el.src}" style="max-width:100%;display:block;margin:0 auto">`);
-  w.document.close();
+function openLightbox() {
+  const doc = State.docs[State.activeDoc];
+  const m = State.activeMarker ? doc.markers.find((x) => x.id === State.activeMarker) : null;
+  const img = imageFor(doc, m || doc.markers[0] || null);
+  if (!img || !img.url) return toast("Zu dieser Stelle ist kein Foto hinterlegt");
+  const box = $("#lightbox"), el = $("#lb-img");
+  el.src = img.url;
+  el.classList.remove("zoomed");
+  box.classList.add("open");
+  box.scrollTop = 0;
 }
+function closeLightbox() { $("#lightbox").classList.remove("open"); }
 
 function toggleTheme() {
   const cur = document.documentElement.getAttribute("data-theme");
