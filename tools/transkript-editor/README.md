@@ -20,6 +20,21 @@ Alles bleibt auf dem eigenen Rechner. Die Dateien werden nur im Browser
 geöffnet, nichts wird hochgeladen; der Zwischenstand liegt im
 `localStorage` des Browsers.
 
+## Fotos vorbereiten
+
+Handyfotos tragen ihre Drehung im EXIF statt in den Pixeln — ungedreht
+liegen die Seiten im Editor quer. `seiten-aufbereiten.py` richtet sie auf
+und legt zusätzlich Lesestreifen an, in denen Handschrift deutlich besser
+zu entziffern ist als in der ganzen Seite:
+
+```
+pip install Pillow
+python3 seiten-aufbereiten.py FOTOS_ORDNER AUSGABE_ORDNER [--ab 6]
+```
+
+Heraus kommen `bilder/seite-NN.jpg` für den Editor und `lesen/sNN_1..3.png`
+zum Abtippen.
+
 ## Markierungen im Markdown
 
 | Schreibweise | Bedeutung |
