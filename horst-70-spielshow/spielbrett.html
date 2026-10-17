@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wer weiß denn sowas, Horst? – Spieltafel zum 70.</title>
+<!--
+  ============================================================================
+  WER WEISS DENN SOWAS, HORST? – interaktive Spieltafel
+  ============================================================================
+  Spielmodus: ALLE Gäste spielen einzeln mit A/B/C-Karten. Horst spielt nicht
+  mit – er verkündet nach dem "Karten hoch!" die richtige Antwort.
+
+  Bedienung:
+    • Datei einfach im Browser öffnen (Doppelklick), F11 für Vollbild.
+    • Kategorie anklicken -> Frage und Antworten vorlesen ->
+      "Countdown starten": Jingle ertönt, 10 Sekunden laufen groß im Bild,
+      am Ende Fanfare und "KARTEN HOCH!" – alle Gäste halten gleichzeitig
+      ihre Karte hoch -> Horst verkündet seine Antwort -> "Auflösen" zeigt
+      die richtige Antwort (grün) und die Erklärung -> "Zurück zur Tafel".
+    • Tastatur: [Leertaste] = Countdown, [Enter] = Auflösen,
+      [Esc] = Countdown abbrechen bzw. zurück zur Tafel.
+
+  PERSÖNLICHE FRAGEN EINTRAGEN:
+    Weiter unten im <script>-Teil nach  [AUSFÜLLEN]  suchen und die
+    Horst-Fragen mit euren echten Antworten ersetzen. Die Reihenfolge
+    A/B/C wird beim Anzeigen automatisch gemischt – "correct" gibt an,
+    welche der drei Antworten die richtige ist (0 = die erste).
+  ============================================================================
+-->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: radial-gradient(circle at 50% 20%, #143a7a 0%, #0a1f4d 55%, #050f2b 100%);
+    color: #fff;
+    display: flex; flex-direction: column;
+    min-height: 100vh;
+    user-select: none;
+  }
+  header {
+    text-align: center;
+    padding: 18px 16px 8px;
+  }
+  header h1 {
+    font-size: clamp(26px, 4.5vw, 52px);
+    letter-spacing: 1px;
+    text-shadow: 0 3px 14px rgba(0,0,0,.6);
+  }
+  header h1 .name { color: #ffd23f; }
+  header .subtitle {
+    margin-top: 4px;
+    font-size: clamp(14px, 1.6vw, 20px);
+    color: #a8c3f0;
+  }
+
+  main { flex: 1; display: flex; align-items: stretch; justify-content: center; padding: 14px 3vw 26px; }
+
+  /* Kategorien-Matrix */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: min(1200px, 100%);
+    align-content: stretch;
+  }
+  .tile {
+    border: none; cursor: pointer;
+    border-radius: 18px;
+    padding: 4vh 12px;
+    font-family: inherit;
+    font-size: clamp(17px, 2.2vw, 30px);
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(160deg, #1f5fc4, #123a80);
+    box-shadow: 0 6px 18px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
+    transition: transform .12s, filter .12s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  }
+  .tile .emoji { font-size: clamp(26px, 3.5vw, 46px); }
+  .tile .count { font-size: clamp(12px, 1.3vw, 16px); font-weight: 400; color: #bcd2f5; }
+  .tile:hover:not(.done) { transform: scale(1.04); filter: brightness(1.15); }
+  .tile.done {
+    background: #17233f; color: #4a5b7d; cursor: default;
+    box-shadow: none;
+  }
+  .tile.done .count { color: #4a5b7d; }
+  .tile.finale {
+    background: linear-gradient(160deg, #c9a227, #8a6a0d);
+  }
+  .tile.finale:hover:not(.done) { filter: brightness(1.2); }
+
+  /* Fragen-Ansicht */
+  .qview { width: min(1100px, 100%); display: none; flex-direction: column; gap: 18px; }
+  .qview.active { display: flex; }
+  .grid.hidden { display: none; }
+  .qcat {
+    align-self: center;
+    background: #ffd23f; color: #123a80;
+    font-weight: 800; font-size: clamp(14px, 1.6vw, 20px);
+    padding: 6px 22px; border-radius: 999px;
+    letter-spacing: .5px;
+  }
+  .qtext {
+    text-align: center;
+    font-size: clamp(22px, 3.2vw, 42px);
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 0 2px 10px rgba(0,0,0,.5);
+    min-height: 2.6em;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .answers { display: flex; flex-direction: column; gap: 14px; }
+  .answer {
+    display: flex; align-items: center; gap: 18px;
+    border: 2px solid rgba(255,255,255,.3);
+    background: rgba(255,255,255,.07);
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-size: clamp(18px, 2.3vw, 30px);
+    cursor: pointer;
+    font-family: inherit; color: #fff; text-align: left;
+    transition: background .15s, border-color .15s;
+  }
+  .answer:hover { background: rgba(255,255,255,.14); }
+  .answer .letter {
+    flex: 0 0 auto;
+    width: 1.8em; height: 1.8em; border-radius: 50%;
+    background: #1d54b0; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .answer.correct {
+    background: #1f8a3d; border-color: #6fe08f;
+    box-shadow: 0 0 22px rgba(80, 220, 120, .5);
+  }
+  .answer.correct .letter { background: #146328; }
+  .answer.wrong { opacity: .35; }
+  .explain {
+    display: none;
+    background: rgba(255, 210, 63, .12);
+    border-left: 5px solid #ffd23f;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: clamp(15px, 1.8vw, 22px);
+    line-height: 1.45;
+    color: #ffebb0;
+  }
+  .explain.show { display: block; }
+  .qbuttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .qbuttons button {
+    font-family: inherit; font-size: clamp(15px, 1.7vw, 21px); font-weight: 600;
+    padding: 12px 26px; border-radius: 999px; border: none; cursor: pointer;
+  }
+  .btn-reveal { background: #ffd23f; color: #123a80; }
+  .btn-reveal:hover { background: #ffdf70; }
+  .btn-timer { background: #e2711d; color: #fff; }
+  .btn-timer:hover { background: #ff8c33; }
+
+  /* Countdown-Overlay – transparent, Frage & Antworten bleiben lesbar */
+  .timer-overlay {
+    position: fixed; inset: 0; z-index: 50;
+    display: none;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .timer-overlay.show { display: flex; }
+  .timer-num {
+    font-size: min(55vh, 55vw);
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(255, 210, 63, .38);
+    text-shadow: 0 0 40px rgba(255, 210, 63, .25);
+    animation: tick .95s ease-out infinite;
+  }
+  .timer-num.hurry { color: rgba(255, 92, 77, .48); text-shadow: 0 0 50px rgba(255, 92, 77, .35); }
+  .timer-num.timeup {
+    font-size: min(18vh, 14vw);
+    color: #ff5c4d;
+    text-shadow: 0 4px 18px rgba(0,0,0,.8), 0 0 50px rgba(255, 92, 77, .5);
+    animation: boom .4s ease-out;
+  }
+  .timer-sub {
+    position: absolute; bottom: 7vh; left: 50%; transform: translateX(-50%);
+    font-size: clamp(15px, 2vw, 24px); color: #ffebb0; font-weight: 600;
+    background: rgba(10, 25, 60, .75);
+    padding: 8px 22px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  @keyframes tick { 0% { transform: scale(1.25); opacity: .3; } 25% { opacity: 1; } 100% { transform: scale(1); } }
+  @keyframes boom { 0% { transform: scale(.3); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+  .btn-back { background: rgba(255,255,255,.15); color: #fff; }
+  .btn-back:hover { background: rgba(255,255,255,.28); }
+
+  footer {
+    text-align: center; padding: 8px; color: #7e97c4;
+    font-size: 13px;
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .team { min-width: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Wer weiß denn sowas, <span class="name">HORST</span>?</h1>
+  <div class="subtitle">Horsts Sonder-Edition · zum 70. Geburtstag 🎉</div>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+
+  <div class="qview" id="qview">
+    <div class="qcat" id="qcat"></div>
+    <div class="qtext" id="qtext"></div>
+    <div class="answers" id="answers"></div>
+    <div class="explain" id="explain"></div>
+    <div class="qbuttons">
+      <button class="btn-timer" id="btnTimer" onclick="startTimer()">⏱️&nbsp;Countdown starten</button>
+      <button class="btn-reveal" id="btnReveal" onclick="reveal()">Auflösen&nbsp;✨</button>
+      <button class="btn-back" onclick="backToGrid()">Zurück zur Tafel</button>
+    </div>
+  </div>
+</main>
+
+<div class="timer-overlay" id="timerOverlay" onclick="stopTimer()" title="Klick = Countdown abbrechen">
+  <div class="timer-num" id="timerNum">10</div>
+  <div class="timer-sub" id="timerSub">Antworten überlegen …</div>
+</div>
+
+<footer>Tastatur: [Leertaste] = Countdown · [Enter] = Auflösen · [Esc] = zurück zur Tafel · F11 = Vollbild</footer>
+
+<script>
+/* ============================================================================
+   FRAGEN-DATEN – hier dürft ihr nach Herzenslust ändern!
+   Pro Frage: q = Fragetext, a = [Antwort1, Antwort2, Antwort3],
+   correct = Index der richtigen Antwort (0 = die erste), info = Erklärung.
+   Die Anzeige-Reihenfolge A/B/C wird automatisch gemischt.
+   ==========================================================================*/
+const CATEGORIES = [
+  {
+    name: "0 · Aufwärmrunde", emoji: "🎬",
+    questions: [
+      { q: "Es ist Horsts 70. Geburtstag – aber ganz ehrlich: Das glaubt ihm doch keiner. Deshalb vorab die wichtigste Frage des Abends: Wie alt sieht unser Horst WIRKLICH aus?",
+        a: ["Ein junger Hüpfer – mitten in der Blüte seiner Dreißiger",
+            "Der Mann hat schon was erlebt, doch der Sport hält ihn jung – hat der überhaupt die Fünfzig schon erreicht?",
+            "Der gute Wein und die Odenwälder Luft haben diesen männlichen Körper zwar reifen lassen – aber wie einen großen Jahrgang: mit jedem Jahr nur wertvoller"],
+        correct: 0,
+        allCorrect: true,
+        info: "Aufwärmrunde geschafft – und ausnahmsweise sind heute ALLE Antworten richtig! Ein Chip für alle, die eine Karte oben hatten. Und Horst: Glückwunsch, du siehst wirklich keinen Tag älter aus als … sagen wir: genau richtig." }
+    ]
+  },
+  {
+    name: "1 · Der erste Porsche", emoji: "🚗",
+    questions: [
+      { q: "Welche Farbe hatte der erste Porsche von Horst?",
+        a: ["Rot",
+            "Weiß",
+            "Gelb"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Rot, 1 = Weiß, 2 = Gelb – richtige Antwort einstellen!] */
+        info: "[AUSFÜLLEN: kleine Anekdote zum ersten Porsche – Baujahr, wie er dazu kam, was aus ihm wurde]" }
+    ]
+  },
+  {
+    name: "2 · Die Konzertkarten", emoji: "🎸",
+    questions: [
+      { q: "Horst wollte einst für Simon und sich Konzertkarten für die Red Hot Chili Peppers bestellen. Karten für wen lagen am Ende im Briefkasten?",
+        a: ["Red Hot Chili Pipers – die schottische Dudelsack-Rockband",
+            "Red Not Chili Peppers – die offizielle Tribute-Band",
+            "Red Hot Chili Papas – das Grill- und Schlagertrio aus dem Sauerland"],
+        correct: 0,
+        info: "Simon war damals elf, riesiger Red-Hot-Chili-Peppers-Fan – und Horst verkündete eines Morgens stolz am Frühstückstisch, er habe Konzertkarten für sie beide bestellt! Der Jubel war groß … bis die Karten ankamen: Red Hot Chili PIPERS – Dudelsack statt Funk-Rock, Kilt statt Kalifornien. Kleiner Schönheitsfehler am Rande: Die echten Peppers waren zu der Zeit überhaupt nicht auf Tour. Aber es ist bekanntlich der Gedanke, der zählt – und eine Familienlegende war geboren." }
+    ]
+  },
+  {
+    name: "3 · Lago Mergozzo", emoji: "🏕️",
+    questions: [
+      { q: "Sommer 2004: Camping-Urlaub am Lago Mergozzo – mit Doris, Horst, Martina, Reinhold, Lena und Simon. Wie war damals das Verhältnis zwischen Horst und Lena?",
+        a: ["Sagen wir so: Am liebsten wäre Lena ohne Horst in den Urlaub gefahren",
+            "Ein Herz und eine Seele – Lena hat ihm jeden Morgen den Liegestuhl reserviert",
+            "Rein geschäftlich: Gegen ein Eis pro Tag wurde Waffenstillstand gehalten"],
+        correct: 0,
+        info: "[AUSFÜLLEN: kurze Auflösung der Geschichte – z. B. wie sich die Stimmung am Lago Mergozzo entwickelt hat und wie die beiden heute darüber lachen können.]" }
+    ]
+  },
+  {
+    name: "4 · Das Frühstücksbrötchen", emoji: "🥐",
+    questions: [
+      { q: "Was isst Horst auf seinem Frühstücksbrötchen am liebsten?",
+        a: ["Nutella mit Banane",
+            "Leberwurst mit Ketchup",
+            "Quark mit Marmelade"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Nutella/Banane, 1 = Leberwurst/Ketchup, 2 = Quark/Marmelade] */
+        info: "[AUSFÜLLEN: kleine Anekdote zum Frühstücksritual]" }
+    ]
+  },
+  {
+    name: "5 · Aus dem Garten", emoji: "🥧",
+    questions: [
+      { q: "Achtung, Fangfrage: Wie heißt das saure Stangengemüse, aus dem man im Frühling Kompott und Kuchen macht?",
+        a: ["Rhabarberer",
+            "Rhabarber",
+            "Rhabarbara"],
+        correct: 0,
+        info: "Der Duden besteht ja hartnäckig auf „Rhabarber“ – aber der Duden war auch noch nie bei Horst zum Kaffee. In diesem Haus hieß das Zeug noch nie anders als „Rhabarberer“, und deshalb ist das hier die einzig gültige Antwort. Wer „Rhabarber“ gewählt hat: botanisch korrekt, null Punkte." }
+    ]
+  },
+  {
+    name: "6 · Die Alpenüberquerung", emoji: "🚵",
+    questions: [
+      { q: "Was hat Horst bei seiner Fahrrad-Alpenüberquerung verloren?",
+        a: ["Handy",
+            "Schlüssel",
+            "Sonnenbrille"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Handy, 1 = Schlüssel, 2 = Sonnenbrille] */
+        info: "[AUSFÜLLEN: kleine Anekdote – wo und wie es verloren ging, ob es wieder aufgetaucht ist]" }
+    ]
+  },
+  {
+    name: "7 · Lebensgefahr!", emoji: "😱",
+    questions: [
+      { q: "Bei was hätte Horst fast sein Leben verloren?",
+        a: ["Fahrrad fahren",
+            "Trampolin springen",
+            "Schlitten fahren"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Fahrrad, 1 = Trampolin, 2 = Schlitten] */
+        info: "[AUSFÜLLEN: die Geschichte dazu – kurz und mit gutem Ausgang, er sitzt ja hier ;-)]" }
+    ]
+  },
+  {
+    name: "8 · Sohn Daniel", emoji: "🥋",
+    questions: [
+      { q: "Welchen Sport macht Sohn Daniel?",
+        a: ["Jiu-Jitsu",
+            "Muay Thai",
+            "Wing Tsun"],
+        correct: 0,   /* [AUSFÜLLEN: 0 = Jiu-Jitsu, 1 = Muay Thai, 2 = Wing Tsun] */
+        info: "[AUSFÜLLEN: kurzer Satz dazu – seit wann, welcher Gürtel/Level, lustiges Detail]" }
+    ]
+  }
+];
+
+const FINALE = {
+  name: "9 · Abschlussfrage", emoji: "🏆",
+  q: "Wie viele Gäste haben im Juli Geburtstag?",
+  /* [AUSFÜLLEN]: richtige Zahl anhand der Gästeliste eintragen! */
+  answer: "[AUSFÜLLEN: richtige Anzahl]",
+  info: "Diese Frage bekommt nur HORST gestellt – ohne A/B/C-Karten. Danach geht es direkt zur Geschenkübergabe. 🎁"
+};
+
+/* ========================= Spiellogik ==================================== */
+const grid = document.getElementById("grid");
+const qview = document.getElementById("qview");
+let current = null;   // { cat, tile } oder { finale: true }
+let revealed = false;
+
+function buildGrid() {
+  CATEGORIES.forEach(cat => {
+    shuffle(cat.questions);   // Fragen je Rubrik in zufälliger Reihenfolge
+    cat.used = 0;
+    const t = document.createElement("button");
+    t.className = "tile";
+    t.innerHTML = `<span class="emoji">${cat.emoji}</span>${cat.name}<span class="count"></span>`;
+    t.onclick = () => openQuestion(cat, t);
+    cat.tile = t;
+    updateTile(cat);
+    grid.appendChild(t);
+  });
+  const f = document.createElement("button");
+  f.className = "tile finale";
+  f.innerHTML = `<span class="emoji">${FINALE.emoji}</span>${FINALE.name}<span class="count">nur für Horst – ohne A/B/C</span>`;
+  f.onclick = () => openFinale(f);
+  grid.appendChild(f);
+}
+
+function updateTile(cat) {
+  const left = cat.questions.length - cat.used;
+  cat.tile.querySelector(".count").textContent =
+    left === 0 ? "gespielt ✓"
+    : cat.questions.length === 1 ? ""
+    : `${left} Frage${left > 1 ? "n" : ""} übrig`;
+  cat.tile.classList.toggle("done", left === 0);
+  cat.tile.disabled = left === 0;
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function openQuestion(cat, tile) {
+  const q = cat.questions[cat.used];
+  if (!q) return;
+  current = { cat, q };
+  revealed = false;
+
+  document.getElementById("qcat").textContent = `${cat.emoji} ${cat.name}`;
+  document.getElementById("qtext").textContent = q.q;
+
+  const order = shuffle(q.a.map((_, i) => i));
+  const box = document.getElementById("answers");
+  box.innerHTML = "";
+  order.forEach((origIdx, pos) => {
+    const el = document.createElement("button");
+    el.className = "answer";
+    el.dataset.correct = (origIdx === q.correct) ? "1" : "0";
+    el.innerHTML = `<span class="letter">${"ABCD"[pos]}</span><span>${q.a[origIdx]}</span>`;
+    el.onclick = () => { if (revealed) return; el.style.borderColor = "#ffd23f"; };
+    box.appendChild(el);
+  });
+
+  const ex = document.getElementById("explain");
+  ex.textContent = "💡 " + q.info;
+  ex.classList.remove("show");
+
+  document.getElementById("btnTimer").style.display = "";
+  document.getElementById("btnReveal").style.display = "";
+  showQView(true);
+}
+
+function openFinale(tile) {
+  current = { finale: true, tile };
+  revealed = false;
+  document.getElementById("qcat").textContent = `${FINALE.emoji} ABSCHLUSSFRAGE – nur für Horst!`;
+  document.getElementById("qtext").textContent = FINALE.q;
+  document.getElementById("answers").innerHTML = "";
+  const ex = document.getElementById("explain");
+  ex.textContent = "💡 " + FINALE.info;
+  ex.classList.add("show");
+  document.getElementById("btnTimer").style.display = "";
+  document.getElementById("btnReveal").style.display = "";
+  showQView(true);
+}
+
+function reveal() {
+  if (!current || revealed) return;
+  revealed = true;
+  stopTimer();
+  if (current.finale) {
+    document.getElementById("qtext").textContent = FINALE.q + "  →  " + FINALE.answer;
+    current.tile.classList.add("done");
+    current.tile.disabled = true;
+  } else {
+    document.querySelectorAll("#answers .answer").forEach(el => {
+      const richtig = current.q.allCorrect || el.dataset.correct === "1";
+      el.classList.add(richtig ? "correct" : "wrong");
+    });
+    document.getElementById("explain").classList.add("show");
+    current.cat.used++;
+    updateTile(current.cat);
+  }
+  document.getElementById("btnTimer").style.display = "none";
+  document.getElementById("btnReveal").style.display = "none";
+}
+
+function backToGrid() {
+  stopTimer();
+  current = null;
+  showQView(false);
+}
+
+function showQView(on) {
+  qview.classList.toggle("active", on);
+  grid.classList.toggle("hidden", on);
+}
+
+/* ========================= Countdown ===================================== */
+const COUNTDOWN_SECONDS = 10;
+const overlay = document.getElementById("timerOverlay");
+const timerNum = document.getElementById("timerNum");
+const timerSub = document.getElementById("timerSub");
+let timerId = null;
+let audioCtx = null;
+
+function ensureAudio() {
+  try { audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); }
+  catch (e) { /* kein Ton möglich – Countdown läuft trotzdem */ }
+  return audioCtx;
+}
+
+/* Ein einzelner Ton: Frequenz (Hz), Startverzögerung (s), Dauer (s) */
+function tone(freq, delay, dur, type, vol) {
+  if (!ensureAudio()) return;
+  const t0 = audioCtx.currentTime + delay;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type || "triangle";
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, t0);
+  gain.gain.exponentialRampToValueAtTime(vol || 0.25, t0 + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t0);
+  osc.stop(t0 + dur + 0.05);
+}
+
+/* Show-Jingle zum Countdown-Start: aufsteigende Quizshow-Fanfare */
+function playJingle() {
+  [392.0, 523.25, 659.25].forEach((f, i) => tone(f, i * 0.13, 0.22, "square", 0.16));
+  tone(783.99, 0.39, 0.5, "square", 0.18);
+  tone(1567.98, 0.39, 0.5, "triangle", 0.07);
+}
+
+/* Schlussfanfare bei "KARTEN HOCH!": Dreiklang mit großem Finale */
+function playFanfare() {
+  [523.25, 659.25, 783.99].forEach((f, i) => {
+    tone(f, i * 0.16, 0.28, "square", 0.18);
+    tone(f * 2, i * 0.16, 0.28, "triangle", 0.07);
+  });
+  tone(1046.5, 0.48, 1.1, "square", 0.2);
+  tone(1318.51, 0.48, 1.1, "square", 0.1);
+  tone(2093.0, 0.48, 1.1, "triangle", 0.08);
+}
+
+const JINGLE_MS = 900;   // Vorlauf, bis nach dem Jingle das Ticken beginnt
+
+function startTimer() {
+  if (!current || revealed || timerId) return;
+  let t = COUNTDOWN_SECONDS;
+  overlay.classList.add("show");
+  timerSub.textContent = "Alle überlegen … gleich heißt es: Karten hoch!";
+  timerNum.textContent = t;
+  timerNum.className = "timer-num";
+  playJingle();
+  const show = () => {
+    timerNum.textContent = t;
+    timerNum.className = "timer-num" + (t <= 3 ? " hurry" : "");
+    tone(t <= 3 ? 880 : 660, 0, 0.12, "triangle", 0.22);
+  };
+  timerId = setTimeout(() => {
+    timerId = setInterval(() => {
+      t--;
+      if (t > 0) { show(); return; }
+      clearInterval(timerId);
+      timerNum.textContent = "🙌 KARTEN HOCH!";
+      timerNum.className = "timer-num timeup";
+      timerSub.textContent = "Und Horst verkündet jetzt die richtige Antwort … (Klick zum Schließen)";
+      playFanfare();
+      timerId = setTimeout(() => stopTimer(), 4000);
+    }, 1000);
+  }, JINGLE_MS);
+}
+
+function stopTimer() {
+  clearInterval(timerId);
+  clearTimeout(timerId);
+  timerId = null;
+  overlay.classList.remove("show");
+}
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") return;
+  if (e.key === " " && current && !revealed) { e.preventDefault(); startTimer(); }
+  if (e.key === "Enter" && current && !revealed) reveal();
+  if (e.key === "Escape" && current) { if (timerId) stopTimer(); else backToGrid(); }
+});
+
+buildGrid();
+</script>
+</body>
+</html>

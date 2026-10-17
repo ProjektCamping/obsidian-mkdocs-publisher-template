@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Horst-Show · Jingle-Button</title>
+<!--
+  Minimalistischer Ein-Knopf-Player für den Countdown-Schnipsel.
+  1. Einmalig: unten "Song wählen" -> MP3/M4A vom Handy auswählen
+     (wird im Browser gespeichert, bleibt beim nächsten Öffnen erhalten).
+  2. Start (Sekunden im Song) und Dauer des Schnipsels einstellen.
+  3. Großer Knopf: Tippen = abspielen. Nochmal tippen = sofort wieder von vorn.
+  Ohne gewählten Song spielt der Knopf den eingebauten Show-Jingle.
+  Auf dem iPhone: Seite in Safari öffnen -> Teilen -> "Zum Home-Bildschirm".
+-->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at 50% 30%, #1d4a9e 0%, #14306e 55%, #0a1c46 100%);
+    color: #fff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 5vh;
+    -webkit-user-select: none; user-select: none;
+    touch-action: manipulation;
+    overflow: hidden;
+  }
+  h1 {
+    font-size: clamp(16px, 4vw, 24px);
+    font-weight: 700; letter-spacing: 2px;
+    color: #ffd23f; text-transform: uppercase;
+  }
+  #big {
+    width: min(62vmin, 340px); height: min(62vmin, 340px);
+    border-radius: 50%;
+    border: none; cursor: pointer;
+    background: radial-gradient(circle at 38% 32%, #ffe27a, #ffd23f 45%, #c9a227 100%);
+    color: #14306e;
+    font-size: min(26vmin, 150px);
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,.5), inset 0 -6px 18px rgba(0,0,0,.25), inset 0 6px 18px rgba(255,255,255,.45);
+    transition: transform .08s;
+    font-family: inherit;
+  }
+  #big:active { transform: scale(.96); }
+  #big.playing { animation: puls 1s ease-in-out infinite; }
+  @keyframes puls {
+    0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 0 0 rgba(255,210,63,.55); }
+    50% { box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 0 6vmin rgba(255,210,63,0); }
+  }
+  #status { font-size: clamp(13px, 3vw, 17px); color: #a8c3f0; min-height: 1.4em; text-align: center; padding: 0 16px; }
+
+  .settings {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex-wrap: wrap;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(5, 14, 38, .75);
+    font-size: 13px; color: #a8c3f0;
+  }
+  .settings label.datei {
+    background: rgba(255,255,255,.14); border-radius: 999px;
+    padding: 7px 14px; cursor: pointer; color: #fff; font-weight: 600;
+  }
+  .settings input[type=file] { display: none; }
+  .settings input[type=number] {
+    width: 58px; padding: 6px; border-radius: 8px; border: none;
+    background: rgba(255,255,255,.14); color: #fff; font-size: 14px;
+    text-align: center; font-family: inherit;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎬 Horst-Show · Countdown</h1>
+<button id="big" aria-label="Jingle abspielen">▶</button>
+<div id="status">Lade …</div>
+
+<div class="settings">
+  <label class="datei">🎵 Song wählen<input type="file" id="datei" accept="audio/*"></label>
+  <span>Start <input type="number" id="startSek" min="0" step="1" value="0"> s</span>
+  <span>Dauer <input type="number" id="dauerSek" min="1" step="1" value="12"> s</span>
+</div>
+
+<script>
+const big = document.getElementById("big");
+const status = document.getElementById("status");
+const dateiInput = document.getElementById("datei");
+const startInput = document.getElementById("startSek");
+const dauerInput = document.getElementById("dauerSek");
+
+let audio = null;        // HTMLAudio mit dem gewählten Song
+let stopTimer = null, anzeigeTimer = null;
+let songName = null;
+let audioCtx = null;
+
+/* ---------- Einstellungen merken ---------- */
+startInput.value = localStorage.getItem("startSek") || "0";
+dauerInput.value = localStorage.getItem("dauerSek") || "12";
+startInput.onchange = () => localStorage.setItem("startSek", startInput.value);
+dauerInput.onchange = () => localStorage.setItem("dauerSek", dauerInput.value);
+
+/* ---------- Song in IndexedDB speichern/laden ---------- */
+function db() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open("jingle-db", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("files");
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+}
+async function speichereSong(file) {
+  const d = await db();
+  await new Promise((res, rej) => {
+    const tx = d.transaction("files", "readwrite");
+    tx.objectStore("files").put(file, "song");
+    tx.oncomplete = res; tx.onerror = () => rej(tx.error);
+  });
+}
+async function ladeSong() {
+  try {
+    const d = await db();
+    return await new Promise((res) => {
+      const rq = d.transaction("files").objectStore("files").get("song");
+      rq.onsuccess = () => res(rq.result || null);
+      rq.onerror = () => res(null);
+    });
+  } catch (e) { return null; }
+}
+
+function setzeSong(file) {
+  if (audio) { audio.pause(); URL.revokeObjectURL(audio.src); }
+  audio = new Audio(URL.createObjectURL(file));
+  audio.preload = "auto";
+  songName = file.name;
+  status.textContent = "🎵 " + songName + " – tippen zum Abspielen";
+}
+
+dateiInput.onchange = async () => {
+  const f = dateiInput.files[0];
+  if (!f) return;
+  setzeSong(f);
+  try { await speichereSong(f); }
+  catch (e) { status.textContent = "🎵 " + f.name + " (konnte nicht dauerhaft gespeichert werden)"; }
+};
+
+ladeSong().then(f => {
+  if (f) setzeSong(f);
+  else status.textContent = "Kein Song gewählt – Knopf spielt den Show-Jingle. Unten kannst du eine MP3 wählen.";
+});
+
+/* ---------- Abspielen: Tippen = (neu) starten ---------- */
+function stoppeAnzeige() {
+  clearTimeout(stopTimer); clearInterval(anzeigeTimer);
+  stopTimer = anzeigeTimer = null;
+  big.classList.remove("playing");
+  big.textContent = "▶";
+}
+
+function spieleSong() {
+  const start = Math.max(0, parseFloat(startInput.value) || 0);
+  const dauer = Math.max(1, parseFloat(dauerInput.value) || 12);
+  stoppeAnzeige();
+  audio.pause();
+  audio.currentTime = start;
+  audio.play();
+  big.classList.add("playing");
+  const ende = Date.now() + dauer * 1000;
+  const zeige = () => {
+    const rest = Math.ceil((ende - Date.now()) / 1000);
+    big.textContent = rest > 0 ? rest : "▶";
+  };
+  zeige();
+  anzeigeTimer = setInterval(zeige, 250);
+  stopTimer = setTimeout(() => { audio.pause(); stoppeAnzeige(); }, dauer * 1000);
+}
+
+/* Eingebauter Show-Jingle als Fallback (wie auf der Spieltafel) */
+function ton(freq, delay, dur, type, vol) {
+  const t0 = audioCtx.currentTime + delay;
+  const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+  o.type = type || "triangle"; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(vol || 0.25, t0 + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  o.connect(g).connect(audioCtx.destination);
+  o.start(t0); o.stop(t0 + dur + 0.05);
+}
+function spieleJingle() {
+  audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+  stoppeAnzeige();
+  [392, 523.25, 659.25].forEach((f, i) => ton(f, i * .13, .22, "square", .16));
+  ton(783.99, .39, .5, "square", .18);
+  for (let s = 0; s < 10; s++) ton(s >= 7 ? 880 : 660, 1 + s, .12, "triangle", .22);
+  [523.25, 659.25, 783.99].forEach((f, i) => { ton(f, 11 + i * .16, .28, "square", .18); });
+  ton(1046.5, 11.48, 1.1, "square", .2);
+  big.classList.add("playing");
+  const ende = Date.now() + 12600;
+  anzeigeTimer = setInterval(() => {
+    const rest = Math.ceil((ende - Date.now()) / 1000);
+    big.textContent = rest > 0 ? rest : "▶";
+  }, 250);
+  stopTimer = setTimeout(stoppeAnzeige, 12600);
+}
+
+big.onclick = () => { if (audio) spieleSong(); else spieleJingle(); };
+</script>
+</body>
+</html>
